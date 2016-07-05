@@ -1,0 +1,28 @@
+.logo-login {
+    height: 35vh;
+    background-image: url('../img/ems-long-logo-white.png');
+    background-position: 50% 50%;
+    background-size: 250px;
+    background-repeat: no-repeat;
+}
+
+.login-bg {
+    background-color: #0CACEB !important;
+    color: #FFFFFF;
+}
+
+.dowells-btn {
+    background-color: #0569A3;
+    color: #FFFFFF;
+}
+
+
+/** Styling for the username field **/
+.has-errors {
+    border-left: 3px solid #cc2511;
+    border-right: 3px solid #cc2511;
+}
+.no-errors {
+    border-left: 3px solid #3d8b3d;
+    border-right: 3px solid #3d8b3d;
+}

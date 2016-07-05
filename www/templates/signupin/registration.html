@@ -1,0 +1,90 @@
+<ion-view view-title="Create your Profile" name="registration-view">
+    <ion-nav-buttons side="left">
+        <button class="button back-button buttons button-clear header-item">
+            <i class="icon ion-android-arrow-back"> Back</i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="padding-bottom">
+        <form name="regForm" novalidate ng-submit="validateReg(regForm.fname.$valid)">
+            <div class="list">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Title
+                    </div>
+                    <select>
+                        <option selected>Mr</option>
+                        <option>Mrs</option>
+                        <option>Miss</option>
+                        <option>Ms</option>
+                    </select>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.fname.$invalid && !regForm.fname.$pristine, 'no-errors' : regForm.fname.$valid}">
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="First Name" name="fname" ng-model="nu.fname" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Middle Name</span>
+                    <input type="text" name="mname" placeholder="Middle Name" ng-model="nu.mname">
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.lname.$invalid && !regForm.lname.$pristine, 'no-errors' : regForm.lname.$valid}">
+                    <span class="input-label">Last Name</span>
+                    <input type="text" name="lname" placeholder="Last Name" ng-model="nu.lname" required>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.dob.$invalid && !regForm.dob.$pristine, 'no-errors' : regForm.dob.$valid}">
+                    <span class="input-label">DOB</span>
+                    <input type="date" name="dob" placeholder="DOB" ng-model="nu.dob" required>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Gender
+                    </div>
+                    <select>
+                        <option selected>Please Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.email.$invalid && !regForm.email.$pristine, 'no-errors' : regForm.email.$valid}">
+                    <span class="input-label">Email</span>
+                    <input type="email" name="email" placeholder="Email" ng-model="nu.email" required ng-change="checkEmail()" ng-model-options="{ updateOn: 'blur' }">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Search Address</span>
+                    <input type="text" placeholder="Search Address">
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.city.$invalid && !regForm.city.$pristine, 'no-errors' : regForm.city.$valid}">
+                    <span class="input-label">City/Suburb/Town</span>
+                    <input type="text" name="city" placeholder="City/Suburb/Town" ng-model="nu.city" required>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.state.$invalid && !regForm.state.$pristine, 'no-errors' : regForm.state.$valid}">
+                    <span class="input-label">State</span>
+                    <input type="text" name="state" placeholder="State" ng-model="nu.state" required>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.postcode.$invalid && !regForm.postcode.$pristine, 'no-errors' : regForm.postcode.$valid}">
+                    <span class="input-label">Postcode</span>
+                    <input type="text" name="postcode" placeholder="Postcode" ng-model="nu.postcode" required>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{'has-errors' : regForm.primarycontact.$invalid && !regForm.primarycontact.$pristine, 'no-errors' : regForm.primarycontact.$valid}">
+                    <span class="input-label">Primary Contact No</span>
+                    <input type="number" name="primarycontact " placeholder="Primary Contact No" ng-model="nu.primarycontact " required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Secondary Contact No</span>
+                    <input type="number" name="secondarycontact" placeholder="Secondary Contact No" ng-model="nu.secondarycontact">
+                </label>
+                <ion-checkbox class="item-text-wrap">WOULD YOU LIKE PAYSLIPS SENT TO YOUR EMAIL?</ion-checkbox>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.pinno.$invalid && !regForm.pinno.$pristine, 'no-errors' : regForm.pinno.$valid}">
+                    <span class="input-label">Pin No</span>
+                    <input type="text" name="pinno" placeholder="Pin No" ng-model="nu.pinno" required>
+                </label>
+                <label class="item item-input item-stacked-label " ng-class="{ 'has-errors' : regForm.confirmpinno.$invalid && !regForm.confirmpinno.$pristine, 'no-errors' : regForm.confirmpinno.$valid}">
+                    <span class="input-label">Confirm Pin No</span>
+                    <input name="confirmpinno" type="text" placeholder="Confirm Pin No" ng-model="nu.confirmpinno" required>
+                </label>
+            </div>
+            <center>
+                <button type="submit" class="button dowells-btn" ng-disabled="regForm.$invalid">Continue</button>
+            </center>
+        </form>
+    </ion-content>
+</ion-view>
