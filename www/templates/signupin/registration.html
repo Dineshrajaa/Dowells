@@ -46,7 +46,7 @@
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.email.$invalid && !regForm.email.$pristine, 'no-errors' : regForm.email.$valid}">
                     <span class="input-label">Email</span>
-                    <input type="email" name="email" placeholder="Email" ng-model="nu.email" required ng-change="checkEmail()" ng-model-options="{ updateOn: 'blur' }">
+                    <input type="email" name="email" placeholder="Email" ng-model="nu.email" required ng-change="checkEmail(regForm)" ng-model-options="{ updateOn: 'blur' }">
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Search Address</span>

@@ -12,11 +12,12 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             }
 
         };
-        $scope.checkEmail = function() {
+        $scope.checkEmail = function(regForm) {
 
-            var userEmail = $scope.nu.email;
+            
             if (regForm.email.$valid) {
-                RegSvc.checkMailExistance(userEmail).then(function(response) {
+            	var userEmail = regForm.email;
+                RegSvc.checkMailExistance(userEmail.$modelValue).then(function(response) {
                     var res = response.data;
                     if (res.IsSuccessful) {
                         GenericSvc.toast('Email already registered');
