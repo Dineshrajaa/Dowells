@@ -1,11 +1,6 @@
-<ion-view view-title="Create your Profile" name="registration-view">
-    <ion-nav-buttons side="left">
-        <button class="button back-button buttons button-clear header-item">
-            <i class="icon ion-android-arrow-back"> Back</i>
-        </button>
-    </ion-nav-buttons>
+<ion-view view-title="Create your Profile" name="registration-view">    
     <ion-content class="padding-bottom">
-        <form name="regForm" novalidate ng-submit="validateReg(regForm.fname.$valid)">
+        <form name="regForm" novalidate>
             <div class="list">
                 <label class="item item-input item-select">
                     <div class="input-label">
@@ -83,8 +78,9 @@
                 </label>
             </div>
             <center>
-                <button type="submit" class="button dowells-btn" ng-disabled="regForm.$invalid">Continue</button>
+                <button type="submit" class="button dowells-btn" ng-disabled="regForm.$valid" ng-click="changeToSubpage()">Continue</button>
             </center>
         </form>
     </ion-content>
 </ion-view>
+

@@ -38,6 +38,12 @@ angular.module('dowells', ['ionic','dowells.Services','dowells.Controllers'])
       controller: 'RegCtrl'
   })
 
+  .state('regliclist',{
+    url:'regliclist',
+    templateUrl:'templates/signupin/reglicencelist.html',
+    controller:'RegCtrl'
+  })
+
   $urlRouterProvider.otherwise('/login');
 })
 

@@ -1,0 +1,36 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-calm">
+        <h1 class="title">Licences & Tickets</h1>
+        <button class="button button-clear button-primary" ng-click="redAddLicModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <p id="addLicencePara">Add any licences or tickets you have.</p>
+        <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Licence/Ticket
+                </div>
+                <select>
+                    <option selected>Please Select</option>
+                </select>
+            </label>
+            <ion-radio ng-model="choice" ng-value="'A'">Experienced</ion-radio>
+            <ion-radio ng-model="choice" ng-value="'B'">Qualified</ion-radio>
+            <label class="item">
+                Licence Type:Experienced
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Licence No.</span>
+                <input type="text" name="" placeholder="Licence Number">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Licence Expiry</span>
+                <input type="date" name="" placeholder="Licence Expiry">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">How much experience do you have?</span>
+                <input type="date" name="" placeholder="Licence Expiry">
+            </label>
+        </div>
+    </ion-content>
+</ion-modal-view>

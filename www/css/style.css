@@ -16,6 +16,12 @@
     color: #FFFFFF;
 }
 
+.continue-btn-div{
+    position: fixed;
+    top:90%;
+    left:36%;
+}
+
 
 /** Styling for the username field **/
 .has-errors {
