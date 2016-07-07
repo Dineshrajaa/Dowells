@@ -1,34 +1,81 @@
-.logo-login {
-    height: 35vh;
-    background-image: url('../img/ems-long-logo-white.png');
-    background-position: 50% 50%;
-    background-size: 250px;
-    background-repeat: no-repeat;
-}
+    .logo-login {
+        height: 35vh;
+        background-image: url('../img/ems-long-logo-white.png');
+        background-position: 50% 50%;
+        background-size: 250px;
+        background-repeat: no-repeat;
+    }
+    
+    .login-bg {
+        background-color: #0CACEB !important;
+        color: #FFFFFF;
+    }
+    
+    .dowells-btn {
+        background-color: #0569A3;
+        color: #FFFFFF;
+    }
+    
+    .continue-btn-div {
+        position: fixed;
+        top: 90%;
+        left: 36%;
+    }
 
-.login-bg {
-    background-color: #0CACEB !important;
-    color: #FFFFFF;
-}
-
-.dowells-btn {
-    background-color: #0569A3;
-    color: #FFFFFF;
-}
-
-.continue-btn-div{
-    position: fixed;
-    top:90%;
-    left:36%;
-}
-
-
-/** Styling for the username field **/
-.has-errors {
-    border-left: 3px solid #cc2511;
-    border-right: 3px solid #cc2511;
-}
-.no-errors {
-    border-left: 3px solid #3d8b3d;
-    border-right: 3px solid #3d8b3d;
-}
+    .mandatory:after{
+        content: '*';
+        color: red;
+    }
+    /*Styling for radio buttons*/
+    
+    .platform-android .radio-icon {
+        visibility: visible !important;
+    }
+    
+    .platform-android .radio-icon:before {
+        content: "" !important;
+        border: 2px solid black !important;
+        width: 24px !important;
+        height: 24px !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
+    }
+    
+    .platform-android .radio-icon:after {
+        content: "" !important;
+        position: absolute !important;
+        right: 20px !important;
+        top: 22px !important;
+        background: black !important;
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
+        transition: -webkit-transform .28s cubic-bezier(0.420, 0.000, 0.000, 1.650);
+        transition: transform .28s cubic-bezier(0.420, 0.000, 0.000, 1.650);
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    /*.item-radio input:checked ~ .item-content {
+background: #F7F7F7;
+}*/
+    
+    .item-radio input:checked + .radio-content .radio-icon:after {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    
+    .radio-positive .radio-icon:after {
+        background: #387EF5 !important;
+    }
+    
+    .radio-positive .radio-icon:before {
+        border-color:/** Styling for the username field **/
+        .has-errors {
+            border-left: 3px solid #cc2511;
+            border-right: 3px solid #cc2511;
+        }
+        .no-errors {
+            border-left: 3px solid #3d8b3d;
+            border-right: 3px solid #3d8b3d;
+        }

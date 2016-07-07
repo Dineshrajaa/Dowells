@@ -1,53 +1,91 @@
 angular.module('dowells.Controllers', ['dowells.Services'])
-    .controller('RegCtrl', function($scope, $state, $ionicHistory, $ionicModal, RegSvc, GenericSvc) {
+    .controller('RegCtrl', function($scope, $state, $ionicHistory, $ionicModal,
+        RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs) {
         console.log("RegCtrl");
-        $scope.nu = {};
+        $scope.nu = RegDataSvc.regFormData;
         // Load Ionic Modal
-        $ionicModal.fromTemplateUrl('templates/signupin/regaddlic-modal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.redAddLicModal = modal;
-        });
-
-        $scope.openModal=function(){
-            // Method to open modals based on the current state
-            var currentState = $ionicHistory.currentStateName();
-                if(currentState=='regliclist')
-                    $scope.redAddLicModal.show(); 
-        };
-        $scope.validateReg = function(isValid) {
-
-            // check to make sure the form is completely valid
-            if (isValid) {
-                alert('our form is amazing');
-            } else {
-                alert('invalid form');
-            }
-
-        };
         $scope.checkEmail = function(regForm) {
             // Method to check the mail existance
 
-            if (regForm.email.$valid) {
-                var userEmail = regForm.email;
-                RegSvc.checkMailExistance(userEmail.$modelValue).then(function(response) {
-                    var res = response.data;
-                    if (res.IsSuccessful) {
-                        GenericSvc.toast('Email already registered');
-                    } else {
-                        // Todo: Move to ticket list page
-                        GenericSvc.toast('Email not registered');
-                    }
-                }, function(err) {});
-            }
+            if (GenericSvc.checkInternet()) {
+                if (regForm.email.$valid) {
+                    var userEmail = regForm.email;
+                    GenericSvc.showLoader('Checking email availability');
+                    RegSvc.checkMailExistance(userEmail.$modelValue).then(function(response) {
+                        var res = response.data;
+                        if (res.IsSuccessful) {
+                            if (res.Result)
+                                GenericSvc.toast(infoMsgs.emailDuplication);
+                            else {
+                                // Todo: Move to ticket list page
+                                GenericSvc.toast('Email not registered');
+                            }
+                        }
+                        GenericSvc.hideLoader();
+                    }, function(err) {
+                        GenericSvc.hideLoader();
+                    });
+                }
+            } else
+                GenericSvc.toast(errorMsgs.noInternet);
+
         };
 
-        $scope.changeToSubpage = function() {
+
+
+        $scope.changeToLicpage = function() {
             // Method to change subpages 
-            console.warn("Current state:" + $ionicHistory.currentStateName());
-            var currentState = $ionicHistory.currentStateName();
-            if (currentState == 'registration')
-                $state.go('regliclist');
+            $state.go('regliclist');
+            RegDataSvc.storeRegFormData($scope.nu);
         };
+
+
+
     })
+
+.controller('RegLicCtrl', function($scope, $state, $ionicModal,
+    RegSvc, RegDataSvc, GenericSvc) {
+    $ionicModal.fromTemplateUrl('templates/signupin/regaddlic-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.redAddLicModal = modal;
+    });
+
+    $scope.fetchActiveLicences = function() {
+        // Method to fetch active licences
+
+        if (GenericSvc.checkInternet()) {
+            GenericSvc.showLoader();
+            RegSvc.getActiveLicence().then(function(response) {
+                var res = response.data;
+                $scope.activeLicences = res.Result;
+                $scope.regselectedlic = "0";
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else
+            GenericSvc.toast(errorMsgs.noInternet);
+    };
+
+    $scope.fetchSelectedLicenceDetail = function() {
+        // Method to fetch the details of selected licence
+        if (GenericSvc.checkInternet()) {
+            GenericSvc.showLoader();
+            RegSvc.getLicenceDetail($scope.regselectedlic).then(function(response) {
+                if(response.data.IsSuccessful){
+                    var licenceInfo=response.data.Result;
+                    $scope.qualifiedAllowedOrNot=licenceInfo.IsQualifiedAllowed;
+                }
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else
+            GenericSvc.toast(errorMsgs.noInternet);
+    };
+    /*Function calls*/
+    $scope.fetchActiveLicences(); // Fetch active licences
+    $scope.qualifiedAllowedOrNot=false; // Hide the Radio buttons initially
+})

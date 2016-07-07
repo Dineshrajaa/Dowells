@@ -10,27 +10,34 @@
                 <div class="input-label">
                     Licence/Ticket
                 </div>
-                <select>
-                    <option selected>Please Select</option>
+                <select ng-model="regselectedlic" ng-change="fetchSelectedLicenceDetail()">
+                    <option value="0">Please Select</option>
+                    <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option>
                 </select>
             </label>
-            <ion-radio ng-model="choice" ng-value="'A'">Experienced</ion-radio>
-            <ion-radio ng-model="choice" ng-value="'B'">Qualified</ion-radio>
+            <div class="card" ng-show="qualifiedAllowedOrNot">
+                <label>
+                    Certification Type
+                </label>
+                <ion-radio ng-model="reglicexporqua" ng-value="'2'" class="radio-positive">Experienced</ion-radio>
+                <ion-radio ng-model="reglicexporqua" ng-value="'1'" class="radio-positive">Qualified</ion-radio>
+            </div>
             <label class="item">
                 Licence Type:Experienced
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Licence No.</span>
-                <input type="text" name="" placeholder="Licence Number">
+                <input type="text" placeholder="Licence Number">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Licence Expiry</span>
-                <input type="date" name="" placeholder="Licence Expiry">
+                <input type="date" placeholder="Licence Expiry">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">How much experience do you have?</span>
-                <input type="date" name="" placeholder="Licence Expiry">
+                <input type="text" placeholder="Licence Expiry">
             </label>
         </div>
+        <button class="button button-block dowells-btn">Save</button>
     </ion-content>
 </ion-modal-view>

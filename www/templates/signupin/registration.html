@@ -14,7 +14,7 @@
                     </select>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.fname.$invalid && !regForm.fname.$pristine, 'no-errors' : regForm.fname.$valid}">
-                    <span class="input-label">First Name</span>
+                    <span class="input-label mandatory">First Name</span>
                     <input type="text" placeholder="First Name" name="fname" ng-model="nu.fname" required>
                 </label>
                 <label class="item item-input item-stacked-label">
@@ -22,17 +22,17 @@
                     <input type="text" name="mname" placeholder="Middle Name" ng-model="nu.mname">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.lname.$invalid && !regForm.lname.$pristine, 'no-errors' : regForm.lname.$valid}">
-                    <span class="input-label">Last Name</span>
+                    <span class="input-label mandatory">Last Name</span>
                     <input type="text" name="lname" placeholder="Last Name" ng-model="nu.lname" required>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.dob.$invalid && !regForm.dob.$pristine, 'no-errors' : regForm.dob.$valid}">
-                    <span class="input-label">DOB</span>
+                    <span class="input-label mandatory">DOB</span>
                     <input type="date" name="dob" placeholder="DOB" ng-model="nu.dob" required>
                 </label>
                 <label class="item item-input item-select">
-                    <div class="input-label">
+                    <span class="input-label mandatory">
                         Gender
-                    </div>
+                    </span>
                     <select>
                         <option selected>Please Select</option>
                         <option>Male</option>
@@ -40,7 +40,7 @@
                     </select>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.email.$invalid && !regForm.email.$pristine, 'no-errors' : regForm.email.$valid}">
-                    <span class="input-label">Email</span>
+                    <span class="input-label mandatory">Email</span>
                     <input type="email" name="email" placeholder="Email" ng-model="nu.email" required ng-change="checkEmail(regForm)" ng-model-options="{ updateOn: 'blur' }">
                 </label>
                 <label class="item item-input item-stacked-label">
@@ -48,19 +48,19 @@
                     <input type="text" placeholder="Search Address">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.city.$invalid && !regForm.city.$pristine, 'no-errors' : regForm.city.$valid}">
-                    <span class="input-label">City/Suburb/Town</span>
+                    <span class="input-label mandatory">City/Suburb/Town</span>
                     <input type="text" name="city" placeholder="City/Suburb/Town" ng-model="nu.city" required>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.state.$invalid && !regForm.state.$pristine, 'no-errors' : regForm.state.$valid}">
-                    <span class="input-label">State</span>
+                    <span class="input-label mandatory">State</span>
                     <input type="text" name="state" placeholder="State" ng-model="nu.state" required>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.postcode.$invalid && !regForm.postcode.$pristine, 'no-errors' : regForm.postcode.$valid}">
-                    <span class="input-label">Postcode</span>
+                    <span class="input-label mandatory">Postcode</span>
                     <input type="text" name="postcode" placeholder="Postcode" ng-model="nu.postcode" required>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{'has-errors' : regForm.primarycontact.$invalid && !regForm.primarycontact.$pristine, 'no-errors' : regForm.primarycontact.$valid}">
-                    <span class="input-label">Primary Contact No</span>
+                    <span class="input-label mandatory">Primary Contact No</span>
                     <input type="number" name="primarycontact " placeholder="Primary Contact No" ng-model="nu.primarycontact " required>
                 </label>
                 <label class="item item-input item-stacked-label">
@@ -69,16 +69,16 @@
                 </label>
                 <ion-checkbox class="item-text-wrap">WOULD YOU LIKE PAYSLIPS SENT TO YOUR EMAIL?</ion-checkbox>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.pinno.$invalid && !regForm.pinno.$pristine, 'no-errors' : regForm.pinno.$valid}">
-                    <span class="input-label">Pin No</span>
+                    <span class="input-label mandatory">Pin No</span>
                     <input type="text" name="pinno" placeholder="Pin No" ng-model="nu.pinno" required>
                 </label>
                 <label class="item item-input item-stacked-label " ng-class="{ 'has-errors' : regForm.confirmpinno.$invalid && !regForm.confirmpinno.$pristine, 'no-errors' : regForm.confirmpinno.$valid}">
-                    <span class="input-label">Confirm Pin No</span>
+                    <span class="input-label mandatory">Confirm Pin No</span>
                     <input name="confirmpinno" type="text" placeholder="Confirm Pin No" ng-model="nu.confirmpinno" required>
                 </label>
             </div>
             <center>
-                <button type="submit" class="button dowells-btn" ng-disabled="regForm.$valid" ng-click="changeToSubpage()">Continue</button>
+                <button type="submit" class="button button-block dowells-btn" ng-disabled="regForm.$valid" ng-click="changeToLicpage()">Continue</button>
             </center>
         </form>
     </ion-content>

@@ -5,7 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 var WSUrl;
 angular.module('dowells', ['ionic','dowells.Services','dowells.Controllers'])
-
+.constant('errorMsgs',{
+  noInternet:'Please Check your Internet Connection'
+})
+.constant('infoMsgs',{
+  emailDuplication:'Email already used'
+})
 .run(function($ionicPlatform) {
   WSUrl='http://202.60.69.12/emsapi/api/'; // webservice url
   $ionicPlatform.ready(function() {
@@ -41,7 +46,7 @@ angular.module('dowells', ['ionic','dowells.Services','dowells.Controllers'])
   .state('regliclist',{
     url:'regliclist',
     templateUrl:'templates/signupin/reglicencelist.html',
-    controller:'RegCtrl'
+    controller:'RegLicCtrl'
   })
 
   $urlRouterProvider.otherwise('/login');
