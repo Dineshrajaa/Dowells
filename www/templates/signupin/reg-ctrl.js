@@ -3,7 +3,6 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs) {
         console.log("RegCtrl");
         $scope.nu = RegDataSvc.regFormData;
-        // Load Ionic Modal
         $scope.checkEmail = function(regForm) {
             // Method to check the mail existance
 
@@ -45,6 +44,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 .controller('RegLicCtrl', function($scope, $state, $ionicModal,
     RegSvc, RegDataSvc, GenericSvc) {
+        // Load Ionic Modal    
     $ionicModal.fromTemplateUrl('templates/signupin/regaddlic-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -85,7 +85,23 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         } else
             GenericSvc.toast(errorMsgs.noInternet);
     };
+    $scope.toggleExpFields=function(){
+        // Method to show or hide Experienced fields
+        $scope.onlyforexp=$scope.reglicexporqua=="2"?true:false;
+        console.warn($scope.reglicexporqua);
+    };
     /*Function calls*/
     $scope.fetchActiveLicences(); // Fetch active licences
     $scope.qualifiedAllowedOrNot=false; // Hide the Radio buttons initially
+    $scope.onlyforexp=false; // Initially hide the Experienced details
+    // $scope.reglicexporqua="2";
+})
+
+
+.controller('LoginCtrl',function($scope){
+    $scope.toggleExpFields=function(){
+        // Method to show or hide Experienced fields
+        // $scope.onlyforexp=$scope.reglicexporqua=="2"?true:false;
+        console.warn($scope.reglicexporqua);
+    };
 })

@@ -34,8 +34,8 @@ angular.module('dowells', ['ionic','dowells.Services','dowells.Controllers'])
   $stateProvider
   .state('login', {
       url: '/login',
-      templateUrl: 'templates/signupin/login.html'/*,
-      controller: 'LoginCtrl'*/
+      templateUrl: 'templates/signupin/login.html',
+      controller: 'LoginCtrl'
   })
   .state('registration', {
       url: '/registration',

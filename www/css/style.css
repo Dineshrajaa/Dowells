@@ -21,12 +21,20 @@
         top: 90%;
         left: 36%;
     }
-
-    .mandatory:after{
+    
+    .mandatory:after {
         content: '*';
         color: red;
     }
     /*Styling for radio buttons*/
+    
+    body {
+        cursor: url('http://ionicframework.com/img/finger.png'), auto;
+    }
+    
+    body {
+        cursor: url('http://ionicframework.com/img/finger.png'), auto;
+    }
     
     .platform-android .radio-icon {
         visibility: visible !important;
@@ -70,12 +78,16 @@ background: #F7F7F7;
     }
     
     .radio-positive .radio-icon:before {
-        border-color:/** Styling for the username field **/
-        .has-errors {
-            border-left: 3px solid #cc2511;
-            border-right: 3px solid #cc2511;
-        }
-        .no-errors {
-            border-left: 3px solid #3d8b3d;
-            border-right: 3px solid #3d8b3d;
-        }
+        border-color: #0C63EE !important;
+    }
+    /** Styling for the username field **/
+    
+    .has-errors {
+        border-left: 3px solid #cc2511;
+        border-right: 3px solid #cc2511;
+    }
+    
+    .no-errors {
+        border-left: 3px solid #3d8b3d;
+        border-right: 3px solid #3d8b3d;
+    }

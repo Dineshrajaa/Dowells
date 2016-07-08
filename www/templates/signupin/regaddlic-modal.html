@@ -15,21 +15,21 @@
                     <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option>
                 </select>
             </label>
-            <div class="card" ng-show="qualifiedAllowedOrNot">
+            <div class="card" ng-show="!qualifiedAllowedOrNot">
                 <label>
                     Certification Type
                 </label>
-                <ion-radio ng-model="reglicexporqua" ng-value="'2'" class="radio-positive">Experienced</ion-radio>
-                <ion-radio ng-model="reglicexporqua" ng-value="'1'" class="radio-positive">Qualified</ion-radio>
+                <ion-radio ng-model="reglicexporqua" ng-value="'2'" class="radio-positive" value="2" ng-change="toggleExpFields()" name="exporqualified">Experienced</ion-radio>
+                <ion-radio ng-model="reglicexporqua" ng-value="'1'" class="radio-positive" value="1" ng-change="toggleExpFields()" name="exporqualified">Qualified</ion-radio>
             </div>
-            <label class="item">
+            <label class="item" ng-show="onlyforexp">
                 Licence Type:Experienced
             </label>
-            <label class="item item-input item-stacked-label">
+            <label class="item item-input item-stacked-label" ng-show="onlyforexp">
                 <span class="input-label">Licence No.</span>
                 <input type="text" placeholder="Licence Number">
             </label>
-            <label class="item item-input item-stacked-label">
+            <label class="item item-input item-stacked-label" ng-show="onlyforexp">
                 <span class="input-label">Licence Expiry</span>
                 <input type="date" placeholder="Licence Expiry">
             </label>
