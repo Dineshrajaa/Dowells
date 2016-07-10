@@ -20,9 +20,14 @@ angular.module('dowells.Services')
 .service('RegDataSvc', function() {
     /*Service for sharing data among different controllers*/
     this.regFormData = {};
+    this.licenceList=[];
     this.storeRegFormData = function(formInfo) {
         // Method to save the registration form data
         this.regFormData = formInfo;
         console.warn(this.regFormData);
+    };
+    this.storeLicenceList=function(formLicenceList){
+        // Method to save the licence list
+        this.licenceList=formLicenceList;
     };
 })

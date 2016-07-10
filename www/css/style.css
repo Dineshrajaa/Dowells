@@ -21,6 +21,16 @@
         top: 90%;
         left: 36%;
     }
+    .licenceImage{
+        float: left;
+    }
+    .licenceImage.no-picture:before {
+        content: "\f147";
+        font-family: "Ionicons";
+        font-size: 10rem;
+        line-height: 9.5rem;
+        text-align: center;
+    }
     
     .mandatory:after {
         content: '*';

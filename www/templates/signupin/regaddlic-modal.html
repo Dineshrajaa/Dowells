@@ -4,40 +4,51 @@
         <button class="button button-clear button-primary" ng-click="redAddLicModal.hide()">Cancel</button>
     </ion-header-bar>
     <ion-content>
-        <p id="addLicencePara">Add any licences or tickets you have.</p>
-        <div class="list">
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Licence/Ticket
-                </div>
-                <select ng-model="regselectedlic" ng-change="fetchSelectedLicenceDetail()">
-                    <option value="0">Please Select</option>
-                    <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option>
-                </select>
-            </label>
-            <div class="card" ng-show="!qualifiedAllowedOrNot">
-                <label>
-                    Certification Type
+        <form name="regaddlicform" novalidate>
+            <center>
+                <p id="addLicencePara">Add any licences or tickets you have.</p>
+            </center>
+            <div class="list">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Licence/Ticket
+                    </div>
+                    <select ng-model="regAddProps.regselectedlic" ng-change="fetchSelectedLicenceDetail()">
+                        <option value="0">Please Select</option>
+                        <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option>
+                    </select>
                 </label>
-                <ion-radio ng-model="reglicexporqua" ng-value="'2'" class="radio-positive" value="2" ng-change="toggleExpFields()" name="exporqualified">Experienced</ion-radio>
-                <ion-radio ng-model="reglicexporqua" ng-value="'1'" class="radio-positive" value="1" ng-change="toggleExpFields()" name="exporqualified">Qualified</ion-radio>
+                <div class="card" ng-show="!regAddProps.qualifiedAllowedOrNot">
+                    <label class="item item-divider">
+                        Certification Type
+                    </label>
+                    <ion-radio ng-model="regAddProps.reglicexporqua" ng-value="'2'" class="radio-positive" value="2" ng-change="toggleExpFields()" name="exporqualified">Experienced</ion-radio>
+                    <ion-radio ng-model="regAddProps.reglicexporqua" ng-value="'1'" class="radio-positive" value="1" ng-change="toggleExpFields()" name="exporqualified">Qualified</ion-radio>
+                </div>
+                <label class="item" ng-show="regAddProps.onlyforexp">
+                    Licence Type:{{regAddProps.licType}}
+                </label>
+                <label class="item item-input item-stacked-label" ng-show="regAddProps.onlyforexp" ng-class="{ 'has-errors' : regaddlicform.regaddlicno.$invalid && !regaddlicform.regaddlicno.$pristine, 'no-errors' : regaddlicform.regaddlicno.$valid}">
+                    <span class="input-label">Licence No.</span>
+                    <input type="text" placeholder="Licence Number" name="regaddlicno" ng-model="regAddProps.regaddlicno" ng-required="regAddProps.onlyforexp">
+                </label>
+                <label class="item item-input item-stacked-label" ng-show="regAddProps.onlyforexp" ng-show="regAddProps.onlyforexp" ng-class="{ 'has-errors' : regaddlicform.regaddlicexpiry.$invalid && !regaddlicform.regaddlicexpiry.$pristine, 'no-errors' : regaddlicform.regaddlicexpiry.$valid}">
+                    <span class="input-label">Licence Expiry</span>
+                    <input type="date" placeholder="Licence Expiry" name="regaddlicexpiry" ng-model="regAddProps.regaddlicexpiry" ng-required="regAddProps.onlyforexp">
+                </label>
+                <label class="item item-input item-stacked-label" ng-show="regAddProps.showorhideexp" ng-class="{ 'has-errors' : regaddlicform.regaddexp.$invalid && !regaddlicform.regaddexp.$pristine, 'no-errors' : regaddlicform.regaddexp.$valid}">
+                    <span class="input-label">How much experience do you have?</span>
+                    <input type="text" placeholder="Licence Expiry" name="regaddexp" ng-model="regAddProps.regaddexp" required>
+                </label>
+                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="regAddProps.onlyforexp">Add Picture</ion-toggle>
+                <center>
+                    <div ng-show="addlicencepic">
+                        <div class="licenceImage no-picture calm"></div>
+                        <div class="licenceImage no-picture calm"></div>
+                    </div>
+                </center>
             </div>
-            <label class="item" ng-show="onlyforexp">
-                Licence Type:Experienced
-            </label>
-            <label class="item item-input item-stacked-label" ng-show="onlyforexp">
-                <span class="input-label">Licence No.</span>
-                <input type="text" placeholder="Licence Number">
-            </label>
-            <label class="item item-input item-stacked-label" ng-show="onlyforexp">
-                <span class="input-label">Licence Expiry</span>
-                <input type="date" placeholder="Licence Expiry">
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">How much experience do you have?</span>
-                <input type="text" placeholder="Licence Expiry">
-            </label>
-        </div>
-        <button class="button button-block dowells-btn">Save</button>
+        </form>
+        <button class="button button-block button-positive" ng-hide="regAddProps.hidesavebtn" ng-disabled="regaddlicform.$invalid" ng-click="saveLicence()">Save</button>
     </ion-content>
 </ion-modal-view>
