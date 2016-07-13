@@ -1,6 +1,6 @@
 angular.module('dowells.Controllers', ['dowells.Services'])
     .controller('RegCtrl', function($scope, $state, $ionicHistory, $ionicModal,
-        RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs, $http) {
+        RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs) {
         console.log("RegCtrl");
         $scope.nu = RegDataSvc.regFormData;
         $scope.checkEmail = function(regForm) {
@@ -139,6 +139,4 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 })
 
 
-.controller('LoginCtrl', function($scope) {
 
-})

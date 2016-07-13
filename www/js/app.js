@@ -4,16 +4,21 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var WSUrl;
-angular.module('dowells', ['ionic', 'ion-profile-picture',  'dowells.Services', 'dowells.Controllers'])
+angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', 'dowells.Controllers'])
     .constant('errorMsgs', {
-        noInternet: 'Please Check your Internet Connection'
+        noInternet: 'Please Check your Internet Connection',
+        10: '(Applicant login pending)',
+        5: '(Applicant login declined)'
+
     })
     .constant('infoMsgs', {
+        loginCheck: 'Verifying user',
+        loginWin: 'Login Successful',
         emailDuplication: 'Email already used',
         licenceDuplication: 'You have already added this Licence/Ticket',
-        ticketAdded:'Licence/Ticket added successfully'
+        ticketAdded: 'Licence/Ticket added successfully'
     })
-    .run(function($ionicPlatform) {
+    .run(function($ionicPlatform, GenericSvc) {
         WSUrl = 'http://202.60.69.12/emsapi/api/'; // webservice url
         $ionicPlatform.ready(function() {
             if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -29,27 +34,69 @@ angular.module('dowells', ['ionic', 'ion-profile-picture',  'dowells.Services', 
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            GenericSvc.getDeviceIdForPush(); // Register pushnotification device id
+            GenericSvc.checkLoginStatus(); // Check whether user has already logged in
         });
     })
 
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state('login', {
-            url: '/login',
-            templateUrl: 'templates/signupin/login.html',
-            controller: 'LoginCtrl'
+        .state('home', {
+            url: '/home',
+            abstract: true,
+            templateUrl: 'templates/menu.html',
+            controller:'HomeCtrl'
         })
-        .state('registration', {
+        .state('master', {
+            url: '/master',
+            abstract: true,
+            templateUrl: 'templates/master.html'
+        })
+        .state('master.login', {
+            url: '/login',
+            views: {
+                'masterPage': {
+                    templateUrl: 'templates/signupin/login.html',
+                    controller: 'LoginCtrl'
+                }
+            }
+        })
+        .state('master.registration', {
             url: '/registration',
-            templateUrl: 'templates/signupin/registration.html',
-            controller: 'RegCtrl'
+            views: {
+                'masterPage': {
+                    templateUrl: 'templates/signupin/registration.html',
+                    controller: 'RegCtrl'
+                }
+            }
         })
 
-    .state('regliclist', {
+    .state('master.regliclist', {
         url: 'regliclist',
-        templateUrl: 'templates/signupin/reglicencelist.html',
-        controller: 'RegLicCtrl'
+        views: {
+            'masterPage': {
+                templateUrl: 'templates/signupin/reglicencelist.html',
+                controller: 'RegLicCtrl'
+            }
+        }
     })
 
-    $urlRouterProvider.otherwise('/login');
+    .state('home.status', {
+        url: '/status',
+        views: {
+            'menuPage': {
+                templateUrl: 'templates/home/status.html'
+            }
+        }
+    })
+    .state('home.settings', {
+        url: '/settings',
+        views: {
+            'menuPage': {
+                templateUrl: 'templates/home/settings.html'
+            }
+        }
+    })
+
+    $urlRouterProvider.otherwise('/master/login');
 })

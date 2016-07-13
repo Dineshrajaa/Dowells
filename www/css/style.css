@@ -11,6 +11,10 @@
         color: #FFFFFF;
     }
     
+    .password-field {
+        -webkit-text-security: disc;
+    }
+    
     .dowells-btn {
         background-color: #0569A3;
         color: #FFFFFF;
@@ -21,9 +25,11 @@
         top: 90%;
         left: 36%;
     }
-    .licenceImage{
+    
+    .licenceImage {
         float: left;
     }
+    
     .licenceImage.no-picture:before {
         content: "\f147";
         font-family: "Ionicons";
@@ -36,6 +42,8 @@
         content: '*';
         color: red;
     }
+    
+    
     /*Styling for radio buttons*/
     
     body {

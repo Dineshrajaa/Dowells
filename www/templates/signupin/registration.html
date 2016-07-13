@@ -70,11 +70,11 @@
                 <ion-checkbox class="item-text-wrap">WOULD YOU LIKE PAYSLIPS SENT TO YOUR EMAIL?</ion-checkbox>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.pinno.$invalid && !regForm.pinno.$pristine, 'no-errors' : regForm.pinno.$valid}">
                     <span class="input-label mandatory">Pin No</span>
-                    <input type="text" name="pinno" placeholder="Pin No" ng-model="nu.pinno" required>
+                    <input type="text" name="pinno" placeholder="Pin No" ng-model="nu.pinno" required class="password-field">
                 </label>
                 <label class="item item-input item-stacked-label " ng-class="{ 'has-errors' : regForm.confirmpinno.$invalid && !regForm.confirmpinno.$pristine, 'no-errors' : regForm.confirmpinno.$valid}">
                     <span class="input-label mandatory">Confirm Pin No</span>
-                    <input name="confirmpinno" type="text" placeholder="Confirm Pin No" ng-model="nu.confirmpinno" required>
+                    <input name="confirmpinno" type="text" placeholder="Confirm Pin No" ng-model="nu.confirmpinno" required class="password-field">
                 </label>
             </div>
                 <button type="submit" class="button button-block button-positive" ng-disabled="regForm.$valid" ng-click="changeToLicpage()">Continue</button>

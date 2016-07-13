@@ -2,15 +2,19 @@
     <ion-content class="padding login-bg" scroll="false">
         <div class="logo-login">
         </div>
-        <div class="list list-inset">
-            <label class="item item-input">
-                <input type="text" placeholder="Email Address" ng-model="data.username">
-            </label>
-            <label class="item item-input">
-                <input type="tel" placeholder="PIN" ng-model="data.password">
-            </label>
-        </div>
-        <button class="button button-block button-positive" ng-click="login()">SIGN IN</button>
-        <center><a href="#/registration" class="button button-block button-positive">New Employee Registration</a></center>
-    </ion-content>    
+        <form name="loginForm" novalidate>
+            <div class="list list-inset">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Email Address</span>
+                    <input type="email" placeholder="Email Address" ng-model="loginData.username" name="username" required>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">PIN</span>
+                    <input type="tel" placeholder="PIN" ng-model="loginData.password" name="password" required class="password-field">
+                </label>
+            </div>
+            <button class="button button-block button-positive icon-right ion-log-in" ng-click="login()" type="submit" ng-disabled="loginForm.$invalid">SIGN IN</button>
+        </form>
+        <a href="#/registration" class="button button-block button-positive ion-arrow-right-a icon-right">New Employee Registration</a>
+    </ion-content>
 </ion-view>
