@@ -22,7 +22,18 @@ angular.module('dowells.Controllers')
         $scope.fillUserInfo();
     })
 
-    .controller('SettingsCtrl',function($scope){
+    .controller('SettingsCtrl',function($scope,GenericSvc,SettingSvc,errorMsgs){
     	$scope.settingsData={};
-    	
+    	$scope.saveLNPref=function(){
+            // Method to save the Local notification preference
+            if(settingsData.alertTime==''){
+                GenericSvc.toast(errorMsgs.noNotiTime);
+                return;
+            }else if(settingsData.frequency==''){
+                GenericSvc.toast(errorMsgs.noNotiFrequency);
+                return;
+            }
+            localStorage.savedLNPref =angular.toJson($scope.settingsData);
+            SettingSvc.configureLocalNotification($scope.settingsData);
+        };
     })

@@ -8,15 +8,20 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
     .constant('errorMsgs', {
         noInternet: 'Please Check your Internet Connection',
         10: '(Applicant login pending)',
-        5: '(Applicant login declined)'
+        5: '(Applicant login declined)',
+        noNotiTime:'Please pick notification time',
+        noNotiFrequency:'Please pick notification frequency'
 
     })
     .constant('infoMsgs', {
+        appName:'Dowells',
         loginCheck: 'Verifying user',
         loginWin: 'Login Successful',
         emailDuplication: 'Email already used',
         licenceDuplication: 'You have already added this Licence/Ticket',
-        ticketAdded: 'Licence/Ticket added successfully'
+        ticketAdded: 'Licence/Ticket added successfully',        
+        localNotiText:'Please check that your work availability status is correct',
+        settingsSaved:'Settings Saved successfully'
     })
     .run(function($ionicPlatform, GenericSvc) {
         WSUrl = 'http://202.60.69.12/emsapi/api/'; // webservice url
