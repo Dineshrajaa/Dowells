@@ -9,7 +9,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             if (GenericSvc.checkInternet()) {
                 if (regForm.email.$valid) {
                     var userEmail = regForm.email;
-                    GenericSvc.showLoader('Checking email availability');
+                    GenericSvc.showLoader(infoMsgs.emailCheck);
                     RegSvc.checkMailExistance(userEmail.$modelValue).then(function(response) {
                         var res = response.data;
                         if (res.IsSuccessful) {

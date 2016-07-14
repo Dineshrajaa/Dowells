@@ -3,10 +3,43 @@
         Status
     </ion-nav-title>
     <ion-content>
-        <div class="logo-login">
+        <div class="logo-login login-bg" style="height:10vh;">
         </div>
         <center>
-        	<h4>Current Status:{{}}</h4>
+            <h4>Current Status:{{statusData.curWorkStatus}}</h4>
         </center>
+        <div class="list">
+            <center>
+                <label class="item">Pending Jobs</label>
+            </center>
+            <div class="card">
+                <div class="item item-text-wrap">
+                    <label class="thickText">Client:</label>
+                    <p>First Client</p>
+                    <label class="thickText">Project:</label>
+                    <p>Dowells</p>
+                    <label class="thickText">Project Address:</label>
+                    <p>Dowells,NewDelhi</p>
+                    <label class="thickText">Start date & Time:</label>
+                    <p>01-07-2016 05:02:10</p>
+                    <label class="thickText">Message:</label>
+                    <p>Port Dowells from JQM to Ionic</p>
+                    <center>
+                        <div class="row">
+                            <div class="col col-50">
+                                <button class="button button-assertive">
+                                    Decline
+                                </button>
+                            </div>
+                            <div class="col col-50">
+                                <button class="button button-balanced">
+                                    Accept
+                                </button>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

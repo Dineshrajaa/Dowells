@@ -51,3 +51,23 @@ angular.module('dowells.Controllers')
         }
     })
 })
+
+.controller('StatusCtrl', function($scope, StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
+    $scope.fetchUserStatus = function() {
+        // Method to fetch logged in user work status
+        $scope.statusData = {};
+        var currentUserData = angular.fromJson(localStorage.userData);
+        var userDataParam = {};
+        userDataParam.id = currentUserData.ID;
+        GenericSvc.showLoader(infoMsgs.statusCheck);
+        StatusSvc.getUserStatus(userDataParam).then(function(response) {
+            var res = response.data;
+            $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
+            GenericSvc.hideLoader();
+        }, function(err) {
+            GenericSvc.hideLoader();
+        });
+
+    };
+    $scope.fetchUserStatus();
+})

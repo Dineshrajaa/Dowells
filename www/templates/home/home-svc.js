@@ -38,3 +38,20 @@ angular.module('dowells.Services')
             localStorage.removeItem('savedLNPref');
         };
     })
+
+.service('StatusSvc', function($http) {
+    this.getUserStatus = function(userData) {
+        // Method to get the user status
+        return $http.get(WSUrl + 'Account/GetUserStatus', { params: userData });
+    };
+
+    this.getStatusType = function(statusId) {
+        // Method to get the user status type
+        if (statusId == 1)
+            return 'Working';
+        else if (statusId == 2)
+            return 'Available';
+        else if (statusId == 3)
+            return 'Not Available';
+    };
+})

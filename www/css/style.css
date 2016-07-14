@@ -42,6 +42,10 @@
         content: '*';
         color: red;
     }
+
+    .thickText{
+        font-weight: bold;
+    }
     
     
     /*Styling for radio buttons*/

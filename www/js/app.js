@@ -15,11 +15,13 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
     })
     .constant('infoMsgs', {
         appName:'Dowells',
+        emailCheck:'Checking email availability',
         loginCheck: 'Verifying user',
         loginWin: 'Login Successful',
         emailDuplication: 'Email already used',
         licenceDuplication: 'You have already added this Licence/Ticket',
         ticketAdded: 'Licence/Ticket added successfully',        
+        statusCheck:'Checking your Work availability',
         localNotiText:'Please check that your work availability status is correct',
         settingsSaved:'Settings Saved successfully'
     })
@@ -90,7 +92,8 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         url: '/status',
         views: {
             'menuPage': {
-                templateUrl: 'templates/home/status.html'
+                templateUrl: 'templates/home/status.html',
+                controller:'StatusCtrl'
             }
         }
     })
@@ -100,6 +103,14 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
             'menuPage': {
                 templateUrl: 'templates/home/settings.html',
                 controller:'SettingsCtrl'
+            }
+        }
+    })
+    .state('home.leaves', {
+        url: '/leaves',
+        views: {
+            'menuPage': {
+                templateUrl: 'templates/home/leave.html'
             }
         }
     })
