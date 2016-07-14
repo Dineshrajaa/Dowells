@@ -98,7 +98,8 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         url: '/settings',
         views: {
             'menuPage': {
-                templateUrl: 'templates/home/settings.html'
+                templateUrl: 'templates/home/settings.html',
+                controller:'SettingsCtrl'
             }
         }
     })

@@ -1,5 +1,5 @@
 angular.module('dowells.Services')
-    .service('SettingSvc', function(GenericSvc,infoMsgs) {
+    .service('SettingSvc', function(GenericSvc, infoMsgs) {
         this.formatTime = function(choosedTime) {
             // Method to format time for saving local notification preference
             var now = new Date();
@@ -11,16 +11,30 @@ angular.module('dowells.Services')
             return formattedTime;
         };
 
-        this.configureLocalNotification = function(notificationOptions) {
+        this.setLNPref = function(notificationOptions) {
             // Method to configure Local Notification
             cordova.plugins.notification.local.schedule({
-                title: infoMsgs.appName,
+                // title: infoMsgs.appName,
                 text: infoMsgs.localNotiText,
                 every: notificationOptions.frequency,
-                at: new Date(this.formatTime(notificationOptions.alertTime));
+                at: new Date(notificationOptions.alertTime)
 
             }, function() {
-            	GenericSvc.toast(infoMsgs.settingsSaved);
-             });
+                GenericSvc.toast(infoMsgs.settingsSaved);
+            });
+        };
+
+        this.getLNPref = function() {
+            // Method to get the saved Local notification preference
+            if (localStorage.savedLNPref != undefined) {
+                var savedLNData = angular.fromJson(localStorage.savedLNPref);
+                savedLNData.alertTime = new Date(savedLNData.alertTime);
+                return savedLNData;
+            } else return {};
+        };
+
+        this.removeLNPref = function() {
+            // Method to remove the local notification preference
+            localStorage.removeItem('savedLNPref');
         };
     })
