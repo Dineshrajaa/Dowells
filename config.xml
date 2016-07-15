@@ -78,7 +78,7 @@
     <plugin name="cordova-plugin-camera" spec="~2.2.0" />
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
     <plugin name="phonegap-plugin-push" spec="~1.6.3">
-        <variable name="SENDER_ID" value="739681536553" />
+        <param name="SENDER_ID" value="739681536553" />
     </plugin>
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
     <plugin name="cordova-plugin-background-mode" spec="https://github.com/katzer/cordova-plugin-background-mode.git" />
