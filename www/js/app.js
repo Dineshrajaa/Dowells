@@ -92,7 +92,7 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         url: '/status',
         views: {
             'menuPage': {
-                templateUrl: 'templates/home/status.html',
+                templateUrl: 'templates/home/dashboard/status.html',
                 controller:'StatusCtrl'
             }
         }
@@ -101,7 +101,7 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         url: '/settings',
         views: {
             'menuPage': {
-                templateUrl: 'templates/home/settings.html',
+                templateUrl: 'templates/home/settings/settings.html',
                 controller:'SettingsCtrl'
             }
         }
@@ -110,7 +110,24 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         url: '/leaves',
         views: {
             'menuPage': {
-                templateUrl: 'templates/home/leave.html'
+                templateUrl: 'templates/home/leave/leave.html'
+            }
+        }
+    })
+    .state('home.profileoptions',{
+        url:'/profileoptions',
+        views:{
+            'menuPage':{
+                templateUrl:'templates/home/profile/profileoptions.html'
+            }
+        }
+    })
+
+    .state('home.personaldetails',{
+        url:'/personaldetails',
+        views:{
+            'menuPage':{
+                templateUrl:'templates/home/profile/personaldetails.html'
             }
         }
     })
