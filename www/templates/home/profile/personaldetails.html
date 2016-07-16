@@ -7,7 +7,44 @@
     <ion-content>
         <div class="list list-inset">
             <div class="item">
-                <div class="ion-profile-picture"></div>
+                <div class="ion-profile-picture" id="userProfilePi"></div>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">Employee Number</label>
+                <p>{{fetchedUserInfo.EmployeeNumber}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">Full name</label>
+                <p>{{fetchedUserInfo.Title}} {{fetchedUserInfo.DisplayName}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">DOB</label>
+                <p>{{fetchedUserInfo.DateOfBirth}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">Gender</label>
+                <p>{{fetchedUserInfo.GenderId}}</p>
+            </div>
+            <!-- ToDo: Add Gender based salutaion to name -->
+            <div class="item item-text-wrap">
+                <label class="thickText">Primary Contact</label>
+                <p>{{fetchedUserInfo.ContactNumber}}</p>
+            </div>
+             <div class="item item-text-wrap">
+                <label class="thickText">Secondary Contact</label>
+                <p>{{fetchedUserInfo.SecondaryContact}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">Address</label>
+                <p>{{fetchedUserInfo.StreetAddress}},{{fetchedUserInfo.State}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">Email Address</label>
+                <p>{{fetchedUserInfo.Email}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                <label class="thickText">Electronic Payslips</label>
+                <p>{{fetchedUserInfo.IsPaySlipSent}}</p>
             </div>
         </div>
     </ion-content>

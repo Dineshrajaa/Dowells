@@ -23,7 +23,8 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         ticketAdded: 'Licence/Ticket added successfully',        
         statusCheck:'Checking your Work availability',
         localNotiText:'Please check that your work availability status is correct',
-        settingsSaved:'Settings Saved successfully'
+        settingsSaved:'Settings Saved successfully',
+        gettingUserInfo:'Fetching your info'
     })
     .run(function($ionicPlatform, GenericSvc) {
         WSUrl = 'http://202.60.69.12/emsapi/api/'; // webservice url
@@ -127,7 +128,8 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         url:'/personaldetails',
         views:{
             'menuPage':{
-                templateUrl:'templates/home/profile/personaldetails.html'
+                templateUrl:'templates/home/profile/personaldetails.html',
+                controller:'ProfileCtrl'
             }
         }
     })

@@ -1,15 +1,16 @@
 angular.module('dowells.Controllers')
-    .controller('HomeCtrl', function($scope, $state) {
+    .controller('HomeCtrl', function($scope, $state,GenericSvc) {
         $scope.currentUser = {};
         $scope.fillUserInfo = function() {
             var userData = angular.fromJson(localStorage.userData);
             $scope.currentUser.disName = userData.DisplayName; // Show Display name of the current user
             var profilePic = userData.ProfilePicture;
-            if (!profilePic.match(/^data:.*?;base64,/i))
+            /*if (!profilePic.match(/^data:.*?;base64,/i))
                 profilePic = 'data:image/jpg;base64,' + profilePic;
             var profilePicHolder = document.querySelector('#userProfilePic');
             angular.element(profilePicHolder).css('background-image', 'url(' + profilePic + ')')
-                .removeClass('no-picture');
+                .removeClass('no-picture');*/
+                GenericSvc.fillProfilePic(profilePic,'userProfilePic');
         };
 
         $scope.logout = function() {
@@ -57,17 +58,19 @@ angular.module('dowells.Controllers')
         // Method to fetch logged in user work status
         $scope.statusData = {};
         var currentUserData = angular.fromJson(localStorage.userData);
-        var userDataParam = {};
-        userDataParam.id = currentUserData.ID;
-        GenericSvc.showLoader(infoMsgs.statusCheck);
-        StatusSvc.getUserStatus(userDataParam).then(function(response) {
-            var res = response.data;
-            $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
-            GenericSvc.hideLoader();
-        }, function(err) {
-            GenericSvc.hideLoader();
-        });
 
+        if (GenericSvc.checkInternet()) {
+            var userDataParam = {};
+            userDataParam.id = currentUserData.ID;
+            GenericSvc.showLoader(infoMsgs.statusCheck);
+            StatusSvc.getUserStatus(userDataParam).then(function(response) {
+                var res = response.data;
+                $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else GenericSvc.toast(errorMsgs.noInternet);
     };
     $scope.fetchUserStatus();
 })

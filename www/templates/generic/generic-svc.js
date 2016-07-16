@@ -1,5 +1,5 @@
 angular.module('dowells.Services', [])
-    .service('GenericSvc', function($ionicLoading,$state) {
+    .service('GenericSvc', function($ionicLoading, $state) {
         this.toast = function(msg) {
             window.plugins.toast.showShortBottom(msg, function(a) { console.log('toast success: ' + a) },
                 function(b) { alert('toast error: ' + b) });
@@ -21,9 +21,9 @@ angular.module('dowells.Services', [])
             $ionicLoading.hide();
         };
 
-        this.checkLoginStatus=function(){
+        this.checkLoginStatus = function() {
             // Method to check whether user has already logged in or not
-            if(localStorage.userData!=undefined)
+            if (localStorage.userData != undefined)
                 $state.go('home.status');
             else
                 $state.go('master.login');
@@ -45,5 +45,14 @@ angular.module('dowells.Services', [])
                 // I can get registration id here        
                 localStorage.pushRegID = data.registrationId;
             });
+        };
+
+        this.fillProfilePic = function(profilePic,elementId) {
+            // Method to fill profile picture
+            if (!profilePic.match(/^data:.*?;base64,/i))
+                profilePic = 'data:image/jpg;base64,' + profilePic;
+            var profilePicHolder = document.querySelector('#'+elementId);
+            angular.element(profilePicHolder).css('background-image', 'url(' + profilePic + ')')
+                .removeClass('no-picture');
         };
     })
