@@ -55,4 +55,8 @@ angular.module('dowells.Services', [])
             angular.element(profilePicHolder).css('background-image', 'url(' + profilePic + ')')
                 .removeClass('no-picture');
         };
+
+        this.configureActionSheet=function(){
+            // Method to configure action sheet which is to be used in Create and edit profile picture
+        };
     })
