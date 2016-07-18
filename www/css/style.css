@@ -6,6 +6,28 @@
         background-repeat: no-repeat;
     }
     
+    .logo-status {
+        height: 10vh;
+        background-image: url('../img/ems-long-logo-blue.png');
+        background-position: 50% 50%;
+        background-size: 250px;
+        background-repeat: no-repeat;
+    }
+    .pendingJobs-listTitle{
+        background-color:#8AD3F4;
+        font-weight: bold;
+    }
+    .semiWidth-btn {
+        width: 80%;
+    }
+
+    .decline-btn{
+        background-color:#FF7B7C;
+    }
+    .accept-btn{
+        background-color:#A6E8AA;
+    }
+    
     .login-bg {
         background-color: #0CACEB !important;
         color: #FFFFFF;
@@ -27,7 +49,7 @@
     }
     
     .licenceImage {
-        float: left;
+        /*float: left;*/
     }
     
     .licenceImage.no-picture:before {
@@ -42,12 +64,10 @@
         content: '*';
         color: red;
     }
-
-    .thickText{
+    
+    .thickText {
         font-weight: bold;
     }
-    
-    
     /*Styling for radio buttons*/
     
     body {

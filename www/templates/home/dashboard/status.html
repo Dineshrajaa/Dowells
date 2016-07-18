@@ -3,14 +3,14 @@
         Status
     </ion-nav-title>
     <ion-content>
-        <div class="logo-login login-bg" style="height:10vh;">
+        <div class="logo-status">
         </div>
         <center>
             <h4>Current Status:{{statusData.curWorkStatus}}</h4>
         </center>
         <div class="list">
             <center>
-                <label class="item">Pending Jobs</label>
+                <label class="item pendingJobs-listTitle">Pending Jobs</label>
             </center>
             <div class="card">
                 <div class="item item-text-wrap">
@@ -27,12 +27,12 @@
                     <center>
                         <div class="row">
                             <div class="col col-50">
-                                <button class="button button-assertive">
+                                <button class="button semiWidth-btn decline-btn">
                                     Decline
                                 </button>
                             </div>
                             <div class="col col-50">
-                                <button class="button button-balanced">
+                                <button class="button semiWidth-btn accept-btn">
                                     Accept
                                 </button>
                             </div>

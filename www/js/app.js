@@ -89,6 +89,16 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         }
     })
 
+    .state('master.regtralist',{
+        url:'regtralist',
+        views:{
+            'masterPage':{
+                templateUrl:'templates/signupin/regtradelist.html',
+                controller:'RegTraCtrl'
+            }
+        }
+    })
+
     .state('home.status', {
         url: '/status',
         views: {

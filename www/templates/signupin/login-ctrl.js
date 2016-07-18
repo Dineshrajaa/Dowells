@@ -20,7 +20,7 @@ angular.module('dowells.Controllers')
                         GenericSvc.toast(infoMsgs.loginWin);
                         $state.go('home.status');
                     }else // Login failed
-                        GenericSvc.toast(res.MessageType);                    
+                        GenericSvc.toast(LoginSvc.loginErrorFinder(res.MessageType));                    
                     GenericSvc.hideLoader();
                 }, function(err) {
                     GenericSvc.hideLoader();

@@ -1,7 +1,7 @@
 <ion-modal-view>
     <ion-header-bar class="bar-calm">
         <h1 class="title">Licences & Tickets</h1>
-        <button class="button button-clear button-primary" ng-click="redAddLicModal.hide()">Cancel</button>
+        <button class="button button-clear button-primary" ng-click="closeAddLicModal()">Cancel</button>
     </ion-header-bar>
     <ion-content>
         <form name="regaddlicform" novalidate>
@@ -22,8 +22,8 @@
                     <label class="item item-divider">
                         Certification Type
                     </label>
-                    <ion-radio ng-model="regAddProps.reglicexporqua" ng-value="'2'" class="radio-positive" value="2" ng-change="toggleExpFields()" name="exporqualified">Experienced</ion-radio>
-                    <ion-radio ng-model="regAddProps.reglicexporqua" ng-value="'1'" class="radio-positive" value="1" ng-change="toggleExpFields()" name="exporqualified">Qualified</ion-radio>
+                    <ion-radio ng-model="regAddProps.reglicexporqua" ng-value="'2'" class="radio-positive" value="2"  name="exporqualified">Experienced</ion-radio>
+                    <ion-radio ng-model="regAddProps.reglicexporqua" ng-value="'1'" class="radio-positive" value="1"  name="exporqualified">Qualified</ion-radio>
                 </div>
                 <label class="item" ng-show="regAddProps.onlyforexp">
                     Licence Type:{{regAddProps.licType}}
@@ -49,6 +49,6 @@
                 </center>
             </div>
         </form>
-        <button class="button button-block button-positive" ng-hide="regAddProps.hidesavebtn" ng-disabled="regaddlicform.$invalid" ng-click="saveLicence()">Save</button>
+        <button class="button semiWidth-btn button-positive" ng-hide="regAddProps.hidesavebtn" ng-disabled="regaddlicform.$invalid" ng-click="saveLicence()">{{regAddProps.regLicAddBtnTxt}}</button>
     </ion-content>
 </ion-modal-view>

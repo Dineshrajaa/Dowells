@@ -10,11 +10,11 @@
                 </label>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">PIN</span>
-                    <input type="tel" placeholder="PIN" ng-model="loginData.password" name="password" required class="password-field">
+                    <input type="tel" placeholder="PIN" ng-model="loginData.password" name="password" required class="password-field" maxlength="4">
                 </label>
             </div>
             <button class="button button-block button-positive icon-right ion-log-in" ng-click="login()" type="submit" ng-disabled="loginForm.$invalid">SIGN IN</button>
         </form>
-        <a href="#/registration" class="button button-block button-positive ion-arrow-right-a icon-right">New Employee Registration</a>
+        <a href="#/master/registration" class="button button-block button-positive ion-arrow-right-a icon-right">New Employee Registration</a>
     </ion-content>
 </ion-view>

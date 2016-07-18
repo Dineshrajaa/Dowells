@@ -1,91 +1,43 @@
 <ion-view view-title="Licences & Tickets">
     <ion-nav-buttons side="right">
-        <button class="button button-light button-icon header-item" style="color:#ffffff" ng-click="redAddLicModal.show()">
+        <button class="button button-light button-icon header-item" style="color:#ffffff" ng-click="regAddLicModal.show()">
             <i class="icon ion-plus"></i>
         </button>
     </ion-nav-buttons>
     <ion-content>
-        <!-- <div class="card">
-            <div class="item item-text-wrap">
-                I love kittens!
-                
-            </div>
-        </div> -->
+        <center ng-if="licenceTicketList.length==0">
+            <p class="thickText">Add Licence/Ticket</p>
+        </center>
         <ion-list show-delete="false" can-swipe="true">
-            <ion-item class="item-text-wrap">
+            <ion-item class="item-text-wrap" ng-repeat="ticket in licenceTicketList">
                 <div class="row">
-                    <div class="col">Name</div>
+                    <div class="col">{{ticket.Name}}</div>
                 </div>
-                <div class="row">
+                <div class="row" ng-show="ticket.isLicenced">
                     <div class="col">Licence Type</div>
-                    <div class="col">Single</div>
+                    <div class="col">{{ticket.LicenceType}}</div>
                 </div>
-                <div class="row">
+                <div class="row" ng-show="ticket.isLicenced">
                     <div class="col">Licence No.</div>
-                    <div class="col">12345</div>
+                    <div class="col">{{ticket.LicenceNumber}}</div>
                 </div>
-                <div class="row">
+                <div class="row" ng-show="ticket.isLicenced">
                     <div class="col">Expiry</div>
-                    <div class="col">03-01-2017</div>
+                    <div class="col">{{ticket.LicenceExpiry}}</div>
                 </div>
                 <div class="row">
                     <div class="col">Experience</div>
-                    <div class="col">1y6m</div>
+                    <div class="col">{{ticket.Experience}}</div>
                 </div>
-                <ion-option-button side="right" class="button-light icon ion-edit"></ion-option-button>
-                <ion-option-button side="left" class="button-assertive icon ion-trash-a"></ion-option-button>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <div class="row">
-                    <div class="col">Name</div>
-                </div>
-                <div class="row">
-                    <div class="col">Licence Type</div>
-                    <div class="col">Single</div>
-                </div>
-                <div class="row">
-                    <div class="col">Licence No.</div>
-                    <div class="col">12345</div>
-                </div>
-                <div class="row">
-                    <div class="col">Expiry</div>
-                    <div class="col">03-01-2017</div>
-                </div>
-                <div class="row">
-                    <div class="col">Experience</div>
-                    <div class="col">1y6m</div>
-                </div>
-                <ion-option-button side="right" class="button-light icon ion-edit"></ion-option-button>
-                <ion-option-button side="left" class="button-assertive icon ion-trash-a"></ion-option-button>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <div class="row">
-                    <div class="col">Name</div>
-                </div>
-                <div class="row">
-                    <div class="col">Licence Type</div>
-                    <div class="col">Single</div>
-                </div>
-                <div class="row">
-                    <div class="col">Licence No.</div>
-                    <div class="col">12345</div>
-                </div>
-                <div class="row">
-                    <div class="col">Expiry</div>
-                    <div class="col">03-01-2017</div>
-                </div>
-                <div class="row">
-                    <div class="col">Experience</div>
-                    <div class="col">1y6m</div>
-                </div>
-                <ion-option-button side="right" class="button-light icon ion-edit"></ion-option-button>
-                <ion-option-button side="left" class="button-assertive icon ion-trash-a"></ion-option-button>
+                <ion-option-button side="right" class="button-light icon ion-edit" ng-click="editLicence(ticket)"></ion-option-button>
+                <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="removeLicence(ticket)"></ion-option-button>
             </ion-item>
         </ion-list>
-        <center>
-            <button class="button button-block button-positive">Continue</button>
-        </center>
+        <!-- <center>
+            <button class="button semiWidth-btn button-positive">Continue</button>
+        </center> -->
     </ion-content>
-    <!-- <div class="continue-btn-div"> -->
-    <!-- </div> -->
+    <div class="bar bar-footer bar-calm">
+        <button class="button pull-right button-icon button-clear ion-arrow-right-c" ng-click="changeToTraPage()"></button>
+    </div>
 </ion-view>
