@@ -1,5 +1,5 @@
 angular.module('dowells.Controllers', ['dowells.Services'])
-    .controller('RegCtrl', function($scope, $state, $ionicHistory, $ionicModal,
+    .controller('RegCtrl', function($scope, $state,
         RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs) {
         console.log("RegCtrl");
         $scope.nu = RegDataSvc.regFormData;
@@ -66,7 +66,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             GenericSvc.toast(errorMsgs.noInternet);
     };
 
-    $scope.closeAddLicModal=function(){
+    $scope.closeAddLicModal = function() {
         // Method to close Add Licence modal window
         $scope.regAddLicModal.hide();
         $scope.resetAddLicForm();
@@ -140,7 +140,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $scope.regAddProps.reglicexporqua = "0";
         $scope.regAddProps.licType = "";
         $scope.regAddProps.licName = "";
-        $scope.regAddProps.regLicAddBtnTxt='Save';
+        $scope.regAddProps.regLicAddBtnTxt = 'Save';
     };
 
     $scope.removeLicence = function(licenceToRemove) {
@@ -161,14 +161,14 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $scope.regAddProps.reglicexporqua = licenceToEdit.UserCertificationTypeId;
         $scope.regAddProps.onlyforexp = licenceToEdit.isLicenced;
         $scope.regAddProps.qualifiedAllowedOrNot = $scope.regAddProps.onlyforexp = $scope.regAddProps.showorhideexp = licenceToEdit.qualifiedAllowedOrNot;
-        $scope.regAddProps.hidesavebtn=false;
-        $scope.regAddProps.regLicAddBtnTxt='Update';
+        $scope.regAddProps.hidesavebtn = false;
+        $scope.regAddProps.regLicAddBtnTxt = 'Update';
         console.warn("After update:" + angular.toJson($scope.regAddProps));
     };
 
-    $scope.changeToTraPage=function(){
+    $scope.changeToTraPage = function() {
         // Method to change to Trade list page
-        RegDataSvc.licenceList=$scope.licenceTicketList; // save ticket list 
+        RegDataSvc.licenceList = $scope.licenceTicketList; // save ticket list 
         $state.go('master.regtralist');
     };
     /*Function calls & Initialization*/
@@ -177,19 +177,19 @@ angular.module('dowells.Controllers', ['dowells.Services'])
     $scope.fetchActiveLicences(); // Fetch active licences
     $scope.resetAddLicForm(); // reset/initialize form fields
 
-    $scope.$watch('regAddProps.reglicexporqua',function(){
+    $scope.$watch('regAddProps.reglicexporqua', function() {
         $scope.toggleExpFields();
     });
 })
 
-.controller('RegTraCtrl',function($scope, $state, $ionicModal, $ionicActionSheet,
-    RegSvc, RegDataSvc, GenericSvc, infoMsgs){
+.controller('RegTraCtrl', function($scope, $state, $ionicModal, $ionicActionSheet,
+    RegSvc, RegDataSvc, GenericSvc, infoMsgs) {
     // Load Add Licence Modal    
     $ionicModal.fromTemplateUrl('templates/signupin/regaddtra-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {
-        $scope.regAddLicModal = modal;
+        $scope.regAddTraModal = modal;
     });
 
 })
