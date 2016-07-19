@@ -24,7 +24,9 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         statusCheck:'Checking your Work availability',
         localNotiText:'Please check that your work availability status is correct',
         settingsSaved:'Settings Saved successfully',
-        gettingUserInfo:'Fetching your info'
+        gettingUserInfo:'Fetching your info',
+        regSuc:'Registration Successful',
+        messageFetch:'Fetching your messages'
     })
     .run(function($ionicPlatform, GenericSvc) {
         WSUrl = 'http://202.60.69.12/emsapi/api/'; // webservice url
@@ -117,6 +119,14 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
             }
         }
     })
+    .state('master.regsuc',{
+        url:'regsuc',
+        views:{
+            'masterPage':{
+                templateUrl:'templates/signupin/regsuc.html'
+            }
+        }
+    })
 
     .state('home.status', {
         url: '/status',
@@ -159,6 +169,15 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
             'menuPage':{
                 templateUrl:'templates/home/profile/personaldetails.html',
                 controller:'ProfileCtrl'
+            }
+        }
+    })
+    .state('home.message',{
+        url:'/message',
+        views:{
+            'menuPage':{
+                templateUrl:'templates/home/message/message.html',
+                controller:'MessageCtrl'
             }
         }
     })

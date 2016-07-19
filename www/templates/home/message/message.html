@@ -1,0 +1,11 @@
+<ion-view view-title="Messages">
+	<ion-content>
+		<div class="list">
+			<div class="card" ng-repeat="message in userMessages">
+				<center><p>{{message.SendDateStr}}</p></center>
+				<p class="padding-left">{{message.Message}}</p>
+				<span class="messageAuthor">{{message.SendBy}}</span>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

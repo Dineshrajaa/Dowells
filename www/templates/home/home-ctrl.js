@@ -74,3 +74,26 @@ angular.module('dowells.Controllers')
     };
     $scope.fetchUserStatus();
 })
+
+.controller('MessageCtrl',function($scope,MessageSvc,GenericSvc,errorMsgs,infoMsgs){
+     $scope.fetchUserMessage = function() {
+        // Method to fetch logged in user work status
+        $scope.userMessages = [];
+        var currentUserData = angular.fromJson(localStorage.userData);
+
+        if (GenericSvc.checkInternet()) {
+            var userDataParam = {};
+            userDataParam.userId = currentUserData.ID;
+            GenericSvc.showLoader(infoMsgs.messageFetch);
+            MessageSvc.getUserMessages(userDataParam).then(function(response) {
+                var res = response.data;
+                if(res.IsSuccessful)
+                    $scope.userMessages=res.Result;
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else GenericSvc.toast(errorMsgs.noInternet);
+    };
+    $scope.fetchUserMessage();
+})

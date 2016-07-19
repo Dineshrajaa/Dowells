@@ -26,6 +26,30 @@ angular.module('dowells.Services')
             // Method to list the active position
             return $http.get(WSUrl + 'Account/GetActivePositionHelds');
         };
+
+        this.submitUserForm=function(regObj){
+            // Method to list the active position
+            return $http.post(WSUrl + 'Account/AddUser',regObj);
+        };
+        this.tellTitleName=function(titleId){
+            // Method to tell the title name from title id
+            var titleName='';
+            switch(titleId){
+                case '1':
+                titleName='Mr';
+                break;
+                case '2':
+                titleName='Mrs';
+                break;
+                case '3':
+                titleName='Miss';
+                break;
+                case '4':
+                titleName='Ms';
+                break;
+            }
+            return titleName;
+        };
     })
 
 
@@ -35,6 +59,7 @@ angular.module('dowells.Services')
     this.licenceList=[];
     this.tradeList=[];
     this.positionList=[];
+    this.regProfilePic="";
     this.storeRegFormData = function(formInfo) {
         // Method to save the registration form data
         this.regFormData = formInfo;

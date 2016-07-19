@@ -13,19 +13,22 @@
         background-size: 250px;
         background-repeat: no-repeat;
     }
-    .pendingJobs-listTitle{
-        background-color:#8AD3F4;
+    
+    .pendingJobs-listTitle {
+        background-color: #8AD3F4;
         font-weight: bold;
     }
+    
     .semiWidth-btn {
         width: 80%;
     }
-
-    .decline-btn{
-        background-color:#FF7B7C;
+    
+    .decline-btn {
+        background-color: #FF7B7C;
     }
-    .accept-btn{
-        background-color:#A6E8AA;
+    
+    .accept-btn {
+        background-color: #A6E8AA;
     }
     
     .login-bg {
@@ -132,4 +135,11 @@ background: #F7F7F7;
     .no-errors {
         border-left: 3px solid #3d8b3d;
         border-right: 3px solid #3d8b3d;
+    }
+    
+    .messageAuthor {
+        float: right;
+        margin-top: -10px;
+        font-size: 14px;
+        font-style: italic;
     }

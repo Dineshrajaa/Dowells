@@ -17,7 +17,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                                 GenericSvc.toast(infoMsgs.emailDuplication);
                             else {
                                 // Todo: Move to ticket list page
-                                GenericSvc.toast('Email not registered');
+                                GenericSvc.toast('Email Available');
                             }
                         }
                         GenericSvc.hideLoader();
@@ -37,6 +37,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             $state.go('master.regliclist');
             RegDataSvc.storeRegFormData($scope.nu);
         };
+        $scope.nu.title='1';
+        $scope.nu.gender='2'
 
     })
 
@@ -442,8 +444,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 })
 
-.controller('RegPhotoCtrl', function($scope, $ionicActionSheet,
-    GenericSvc,RegDataSvc) {
+.controller('RegPhotoCtrl', function($scope,$state,$ionicActionSheet,
+    GenericSvc, RegSvc,RegDataSvc,errorMsgs,infoMsgs) {
     $scope.showPicOptions = function() {
         // Method to open show picture options
         $scope.actionSheet = $ionicActionSheet.show({
@@ -458,15 +460,13 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                 // add cancel code..
             },
             buttonClicked: function(index) {
-                if (index == 0){
+                if (index == 0) {
                     $scope.openCameraOrGallery('Camera.PictureSourceType.CAMERA');
                     $scope.regPhotoProps.hideregbtn = false;
-                }
-                else if (index == 1){
+                } else if (index == 1) {
                     $scope.openCameraOrGallery('Camera.PictureSourceType.PHOTOLIBRARY');
                     $scope.regPhotoProps.hideregbtn = false;
-                }
-                else
+                } else
                     return true;
                 $scope.actionSheet();
             }
@@ -482,27 +482,52 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         var cameraOptions = GenericSvc.setCameraOptions(sourceType);
         //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
         navigator.camera.getPicture(function(dataUrl) {
-            
+            RegDataSvc.regProfilePic=dataUrl;
             GenericSvc.fillProfilePic(dataUrl, 'regpropic');
 
         }, function() {}, cameraOptions);
     };
-    $scope.configureForReg=function(){
+    $scope.configureForReg = function() {
         // Method to configure the object for registration
-        var tempFormObj=RegDataSvc.regFormData;
-        var regObj={};
-        regObj.titleId=tempFormObj.title;
-        // ToDo:Add Title name
-        regObj.FirstName=tempFormObj.fname;
-        regObj.MiddleName=tempFormObj.mname;
-        regObj.LastName=tempFormObj.lname;
-        regObj.DOB=tempFormObj.dob;
-        regObj.MiddleName=tempFormObj.mname;
-        regObj.MiddleName=tempFormObj.mname;
-        regObj.MiddleName=tempFormObj.mname;
-        regObj.MiddleName=tempFormObj.mname;
-        regObj.MiddleName=tempFormObj.mname;
+        var tempFormObj = RegDataSvc.regFormData;
+        var regObj = {};
+        regObj.titleId = tempFormObj.title;
+        regObj.Title=RegSvc.tellTitleName(tempFormObj.title)
+        regObj.FirstName = tempFormObj.fname;
+        regObj.MiddleName = tempFormObj.mname;
+        regObj.LastName = tempFormObj.lname;
+        regObj.DOB = tempFormObj.dob;
+        regObj.Email = tempFormObj.email;
+        regObj.StreetAddress = tempFormObj.streetaddress;
+        regObj.City = tempFormObj.city;
+        regObj.State = tempFormObj.state;
+        regObj.Postcode = tempFormObj.postcode;
+        regObj.ContactNumber = tempFormObj.primarycontact;
+        regObj.SecondaryContact = tempFormObj.secondarycontact;
+        regObj.IsPaySlipSent = tempFormObj.isemailsent;
+        regObj.Password=tempFormObj.pinno;
+        regObj.GenderId = tempFormObj.gender;
+        regObj.UserLicenceTicketTypes = RegDataSvc.licenceList;
+        regObj.UserTradeExperiences = RegDataSvc.tradeList;
+        regObj.UserPositionHelds = RegDataSvc.positionList;
+        regObj.ProfileImage = RegDataSvc.regProfilePic;
+        $scope.completerRegistration(regObj);
     };
-    $scope.regPhotoProps={};
+    $scope.completerRegistration = function(regObj) {
+        // Method to submit the user registration form
+        if (GenericSvc.checkInternet()) {
+            GenericSvc.showLoader();
+            RegSvc.submitUserForm(regObj).then(function(response) {
+                if(response.data.IsSuccessful){
+                    GenericSvc.toast(infoMsgs.regSuc);
+                    $state.go('master.regsuc');
+                }
+                GenericSvc.hideLoader();
+            }, function() {
+                GenericSvc.hideLoader();
+            });
+        } else GenericSvc.toast(errorMsgs.noInternet);
+    };
+    $scope.regPhotoProps = {};
     $scope.regPhotoProps.hideregbtn = true;
 })

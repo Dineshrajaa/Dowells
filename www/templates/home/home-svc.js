@@ -55,3 +55,11 @@ angular.module('dowells.Services')
             return 'Not Available';
     };
 })
+
+
+.service('MessageSvc',function($http){
+    this.getUserMessages=function(userData){
+        // Method to get messages
+        return $http.get(WSUrl + 'Account/GetUserMessages', { params: userData });
+    };
+})
