@@ -99,6 +99,25 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         }
     })
 
+    .state('master.regposlist',{
+        url:'regposlist',
+        views:{
+            'masterPage':{
+                templateUrl:'templates/signupin/regpositionlist.html',
+                controller:'RegPosCtrl'
+            }
+        }
+    })
+    .state('master.regphotopage',{
+        url:'regposlist',
+        views:{
+            'masterPage':{
+                templateUrl:'templates/signupin/regphoto.html',
+                controller:'RegPhotoCtrl'
+            }
+        }
+    })
+
     .state('home.status', {
         url: '/status',
         views: {

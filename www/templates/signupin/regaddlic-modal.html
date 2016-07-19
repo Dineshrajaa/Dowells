@@ -38,7 +38,7 @@
                 </label>
                 <label class="item item-input item-stacked-label" ng-show="regAddProps.showorhideexp" ng-class="{ 'has-errors' : regaddlicform.regaddexp.$invalid && !regaddlicform.regaddexp.$pristine, 'no-errors' : regaddlicform.regaddexp.$valid}">
                     <span class="input-label">How much experience do you have?</span>
-                    <input type="text" placeholder="Licence Expiry" name="regaddexp" ng-model="regAddProps.regaddexp" required>
+                    <input type="text" placeholder="Experience" name="regaddexp" ng-model="regAddProps.regaddexp" required>
                 </label>
                 <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="regAddProps.onlyforexp">Add Picture</ion-toggle>
                 <center>
@@ -49,6 +49,7 @@
                 </center>
             </div>
         </form>
-        <button class="button semiWidth-btn button-positive" ng-hide="regAddProps.hidesavebtn" ng-disabled="regaddlicform.$invalid" ng-click="saveLicence()">{{regAddProps.regLicAddBtnTxt}}</button>
+        <center>
+        <button class="button semiWidth-btn button-positive" ng-hide="regAddProps.hidesavebtn" ng-disabled="regaddlicform.$invalid" ng-click="saveLicence()">{{regAddProps.regLicAddBtnTxt}}</button></center>
     </ion-content>
 </ion-modal-view>

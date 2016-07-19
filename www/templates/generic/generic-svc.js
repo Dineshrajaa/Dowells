@@ -1,5 +1,5 @@
 angular.module('dowells.Services', [])
-    .service('GenericSvc', function($ionicLoading, $state) {
+    .service('GenericSvc', function($ionicLoading, $state, $ionicActionSheet) {
         this.toast = function(msg) {
             window.plugins.toast.showShortBottom(msg, function(a) { console.log('toast success: ' + a) },
                 function(b) { alert('toast error: ' + b) });
@@ -47,16 +47,55 @@ angular.module('dowells.Services', [])
             });
         };
 
-        this.fillProfilePic = function(profilePic,elementId) {
+        this.fillProfilePic = function(profilePic, elementId) {
             // Method to fill profile picture
             if (!profilePic.match(/^data:.*?;base64,/i))
                 profilePic = 'data:image/jpg;base64,' + profilePic;
-            var profilePicHolder = document.querySelector('#'+elementId);
+            var profilePicHolder = document.querySelector('#' + elementId);
             angular.element(profilePicHolder).css('background-image', 'url(' + profilePic + ')')
                 .removeClass('no-picture');
         };
 
-        this.configureActionSheet=function(){
+        this.openActionSheet = function() {
             // Method to configure action sheet which is to be used in Create and edit profile picture
+            var actionSheet = $ionicActionSheet.show({
+                buttons: [
+                    { text: '<b><i class="icon ion-camera calm"></i>Take Photo</b>' },
+                    { text: '<b><i class="icon ion-document-text calm"></i>Use Existing Photo</b>' }
+                ],
+                destructiveText: '<b><i class="icon ion-android-cancel assertive"></i>Cancel</b>',
+                titleText: 'Choose option',
+                cancelText: 'Cancel',
+                cancel: function() {
+                    // add cancel code..
+                },
+                buttonClicked: function(index) {
+                    alert(index);
+                    return true;
+                }
+            });
+
         };
+        this.setCameraOptions = function(sourceType) {
+            var options = {
+                // Some common settings are 20, 50, and 100
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                // In this app, dynamically set the picture source, Camera or photo gallery
+                sourceType: sourceType,
+                allowEdit: true,
+                correctOrientation: true //Corrects Android orientation quirks
+            }
+            return options;
+        };
+        /*this.openCameraOrGallery = function(sourceType) {
+            // Method to open device camera
+            if (sourceType == "Camera.PictureSourceType.CAMERA")
+                sourceType = Camera.PictureSourceType.CAMERA;
+            else if (sourceType == "Camera.PictureSourceType.PHOTOLIBRARY")
+                sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+            var cameraOptions = this.setCameraOptions(sourceType);
+            //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
+            navigator.camera.getPicture(function(){console.log('success')}, function(){}, cameraOptions);
+        };*/
     })

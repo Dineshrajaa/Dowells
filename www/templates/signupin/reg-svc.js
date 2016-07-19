@@ -14,6 +14,18 @@ angular.module('dowells.Services')
             // Method to get the detail of selected licence
             return $http.get(WSUrl + 'Account/GetLicenceTicketTypeById', { params: { id: licId } });
         };
+        this.getActiveTrade=function(){
+            // Method to list the active trade
+            return $http.get(WSUrl + 'Account/GetActiveTradeExperiences');
+        };
+        this.getTradeDetail = function(licId) {
+            // Method to get the detail of selected trade
+            return $http.get(WSUrl + 'Account/GetTradeExperienceById', { params: { id: licId } });
+        };
+        this.getActivePosition=function(){
+            // Method to list the active position
+            return $http.get(WSUrl + 'Account/GetActivePositionHelds');
+        };
     })
 
 
@@ -21,6 +33,8 @@ angular.module('dowells.Services')
     /*Service for sharing data among different controllers*/
     this.regFormData = {};
     this.licenceList=[];
+    this.tradeList=[];
+    this.positionList=[];
     this.storeRegFormData = function(formInfo) {
         // Method to save the registration form data
         this.regFormData = formInfo;

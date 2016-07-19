@@ -25,18 +25,21 @@
                     <ion-radio ng-model="regTraProps.regtraexporqua" ng-value="'2'" class="radio-positive" value="2" name="exporqualified">Experienced</ion-radio>
                     <ion-radio ng-model="regTraProps.regtraexporqua" ng-value="'1'" class="radio-positive" value="1" name="exporqualified">Qualified</ion-radio>
                 </div>
-                 <label class="item" ng-show="regTraProps.onlyforexp">
+                <!-- <label class="item" ng-show="regTraProps.onlyforexp">
                     Certification Type:{{regTraProps.traType}}
-                </label>
+                </label> -->
                 <label class="item item-input item-stacked-label" ng-show="regTraProps.onlyforexp" ng-class="{ 'has-errors' : regaddtraform.regaddtrano.$invalid && !regaddtraform.regaddtrano.$pristine, 'no-errors' : regaddtraform.regaddtrano.$valid}">
                     <span class="input-label">Qualification Number</span>
                     <input type="text" placeholder="Qualification Number" name="regaddtrano" ng-model="regTraProps.regaddtrano" ng-required="regTraProps.onlyforexp">
                 </label>
-                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regaddtraform.regaddtraexpiry.$invalid && !regaddtraform.regaddtraexpiry.$pristine, 'no-errors' : regaddtraform.regaddtraexpiry.$valid}">
+                <label class="item item-input item-stacked-label" ng-show="regTraProps.showorhideexp" ng-class="{ 'has-errors' : regaddtraform.regaddtraexperience.$invalid && !regaddtraform.regaddtraexperience.$pristine, 'no-errors' : regaddtraform.regaddtraexperience.$valid}">
                     <span class="input-label">How much experience do you have in this trade? (example:1y 6m)</span>
-                    <input type="date" placeholder="Qualification Expiry" name="regaddtraexpiry" ng-model="regTraProps.regaddtraexpiry" ng-required="regTraProps.onlyforexp">
+                    <input type="text" placeholder="Experience" name="regaddtraexperience" ng-model="regTraProps.regaddtraexperience" required>
                 </label>
             </div>
         </form>
+        <center>
+            <button class="button semiWidth-btn button-positive" ng-hide="regTraProps.hidesavebtn" ng-disabled="regaddtraform.$invalid" ng-click="saveTrade()">{{regTraProps.regTraAddBtnTxt}}</button>
+        </center>
     </ion-content>
 </ion-modal-view>
