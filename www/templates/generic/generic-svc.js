@@ -88,14 +88,24 @@ angular.module('dowells.Services', [])
             }
             return options;
         };
-        /*this.openCameraOrGallery = function(sourceType) {
-            // Method to open device camera
-            if (sourceType == "Camera.PictureSourceType.CAMERA")
-                sourceType = Camera.PictureSourceType.CAMERA;
-            else if (sourceType == "Camera.PictureSourceType.PHOTOLIBRARY")
-                sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-            var cameraOptions = this.setCameraOptions(sourceType);
-            //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
-            navigator.camera.getPicture(function(){console.log('success')}, function(){}, cameraOptions);
-        };*/
+        
+        this.tellTitleId=function(titleName){
+            // Method to return Title Id
+            var titleId;
+            switch(titleName){
+                case 'Mr':
+                titleId=1;
+                break;
+                case 'Mrs':
+                titleId=2;
+                break;
+                case 'Miss':
+                titleId=3;
+                break;
+                case 'Ms':
+                titleId=4;
+                break;
+            }
+            return titleId;
+        };
     })

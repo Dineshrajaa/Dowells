@@ -5,6 +5,11 @@ angular.module('dowells.Services')
             return $http.get(WSUrl + 'Account/GetUserById', { params: userInfo });
         };
 
+        this.setProfilePicture=function(userPicInfo){
+            // Method to set profile picture
+            return $http.post(WSUrl+'Account/UpdateProfilePicture',userPicInfo);
+        };
+
         this.tellGenderName = function(genderId) {
             // Method to tell gender name from gender id
             var genderName = "";

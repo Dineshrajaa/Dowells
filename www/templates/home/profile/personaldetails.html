@@ -1,13 +1,13 @@
 <ion-view view-title="Personal Details">
     <ion-nav-title>Personal Details</ion-nav-title>
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-edit calm" ng-click="">
+        <button class="button button-icon button-clear ion-edit calm" ng-click="changeToEditProPage()">
         </button>
     </ion-nav-buttons>
     <ion-content>
         <div class="list list-inset">
             <div class="item">
-                <div class="ion-profile-picture" id="userProfilePicture"></div>
+                <div class="ion-profile-picture" id="userProfilePicture" ng-click="showPicOptions()"></div>
             </div>
             <div class="item item-text-wrap">
                 <label class="thickText">Employee Number</label>
