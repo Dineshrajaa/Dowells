@@ -6,12 +6,11 @@
                     <div class="input-label">
                         Title
                     </div>
-                    <select ng-model="uu.titleId" name="titleId">
-                        <option value="">Please Select</option>
-                        <option ng-value=1>Mr</option>
+                    <select ng-model="uu.titleId" name="titleId" ng-change="changeSelectedItem(uu.titleId)" ng-options="title.text for title in titleList">
+                        <!-- <option ng-value=1>Mr</option>
                         <option ng-value=2>Mrs</option>
                         <option ng-value=3>Miss</option>
-                        <option ng-value=3>Ms</option>
+                        <option ng-value=3>Ms</option> -->
                     </select>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.FirstName.$invalid && !updateForm.FirstName.$pristine, 'no-errors' : updateForm.FirstName.$valid}">

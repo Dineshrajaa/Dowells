@@ -98,11 +98,13 @@ angular.module('dowells.Controllers')
 
 .controller('EditProfileCtrl', function($scope, $timeout,
     GenericSvc, RegDataSvc) {
+    $scope.uu={};
     $scope.uu = RegDataSvc.regFormData;
-    $timeout(function() {
-        $scope.uu.GenderId = RegDataSvc.regFormData.GenderId;
-        $scope.uu.titleId = GenericSvc.tellTitleId($scope.uu.Title);
-    }, 0);
+    $scope.uu.titleId = GenericSvc.tellTitleId($scope.uu.Title);
+    $scope.titleList=[{id:1,text:'Mr'},{id:2,text:'Mrs'},{id:3,text:'Miss'},{id:4,text:'Ms'}];
+    $scope.changeSelectedItem = function() {
+        console.log('wow' + $scope.uu.titleId);
+    }
 
     console.warn($scope.uu.titleId + 'GenderId' + $scope.uu.GenderId);
 })
