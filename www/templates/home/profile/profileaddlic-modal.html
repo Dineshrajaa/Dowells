@@ -1,0 +1,55 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-calm">
+        <h1 class="title">Licences & Tickets</h1>
+        <button class="button button-clear button-primary" ng-click="closeAddLicModal()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <form name="proaddlicform" novalidate>
+            <center>
+                <p id="addLicencePara">Add any licences or tickets you have.</p>
+            </center>
+            <div class="list">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Licence/Ticket
+                    </div>
+                    <select ng-model="proAddLicProps.proselectedlic" ng-options="licence.ID as licence.Name for licence in activeLicences" ng-change="fetchSelectedLicenceDetail()">
+                        <option value="0">Please Select</option>
+                        <!-- <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option> -->
+                    </select>
+                </label>
+                <div class="card" ng-show="!proAddLicProps.qualifiedAllowedOrNot">
+                    <label class="item item-divider">
+                        Certification Type
+                    </label>
+                    <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'2'" class="radio-positive" value="2"  name="exporqualified">Experienced</ion-radio>
+                    <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'1'" class="radio-positive" value="1"  name="exporqualified">Qualified</ion-radio>
+                </div>
+                <label class="item" ng-show="proAddLicProps.onlyforexp">
+                    Licence Type:{{proAddLicProps.licType}}
+                </label>
+                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexp" ng-class="{ 'has-errors' : proaddlicform.proaddlicno.$invalid && !proaddlicform.proaddlicno.$pristine, 'no-errors' : proaddlicform.proaddlicno.$valid}">
+                    <span class="input-label">Licence No.</span>
+                    <input type="text" placeholder="Licence Number" name="proaddlicno" ng-model="proAddLicProps.proaddlicno" ng-required="proAddLicProps.onlyforexp">
+                </label>
+                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexp" ng-show="proAddLicProps.onlyforexp" ng-class="{ 'has-errors' : proaddlicform.proaddlicexpiry.$invalid && !proaddlicform.proaddlicexpiry.$pristine, 'no-errors' : proaddlicform.proaddlicexpiry.$valid}">
+                    <span class="input-label">Licence Expiry</span>
+                    <input type="date" placeholder="Licence Expiry" name="proaddlicexpiry" ng-model="proAddLicProps.proaddlicexpiry" ng-required="proAddLicProps.onlyforexp">
+                </label>
+                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.showorhideexp" ng-class="{ 'has-errors' : proaddlicform.proaddexp.$invalid && !proaddlicform.proaddexp.$pristine, 'no-errors' : proaddlicform.proaddexp.$valid}">
+                    <span class="input-label">How much experience do you have?</span>
+                    <input type="text" placeholder="Experience" name="proaddexp" ng-model="proAddLicProps.proaddexp" required>
+                </label>
+                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="proAddLicProps.onlyforexp">Add Picture</ion-toggle>
+                <center>
+                    <div ng-show="addlicencepic">
+                        <div class="licenceImage no-picture calm"></div>
+                        <div class="licenceImage no-picture calm"></div>
+                    </div>
+                </center>
+            </div>
+        </form>
+        <center>
+        <button class="button semiWidth-btn button-positive" ng-hide="proAddLicProps.hidesavebtn" ng-disabled="proaddlicform.$invalid" ng-click="saveLicence()">{{proAddLicProps.regLicAddBtnTxt}}</button></center>
+    </ion-content>
+</ion-modal-view>

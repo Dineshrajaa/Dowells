@@ -1,0 +1,58 @@
+<ion-view view-title="Licences & Experience">
+    <ion-content>
+        <div class="card">
+            <ion-list class="list-inset">
+                <ion-item class="item-divider">Licences & Tickets</ion-item>
+                <ion-item class="item-text-wrap" ng-repeat="ticket in licenceList">
+                    <div class="row">
+                        <div class="col">{{ticket.Name}}</div>
+                    </div>
+                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==2}}">
+                        <div class="col">Licence Type</div>
+                        <div class="col">{{ticket.LicenceType}}</div>
+                    </div>
+                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==2}}">
+                        <div class="col">Licence No.</div>
+                        <div class="col">{{ticket.LicenceNumber}}</div>
+                    </div>
+                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==2}}">
+                        <div class="col">Expiry</div>
+                        <div class="col">{{ticket.LicenceExpiry|date:'dd-MM-yyyy'}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">Experience</div>
+                        <div class="col">{{ticket.Experience}}</div>
+                    </div>
+                    <ion-option-button side="right" class="button-light icon ion-edit" ng-click="editLicence(ticket)"></ion-option-button>
+                    <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="removeLicence(ticket)"></ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="card">
+            <ion-list class="list-inset">
+                <ion-item class="item-divider">Trade Experience</ion-item>
+                <ion-list show-delete="false" can-swipe="true">
+                    <ion-item class="item-text-wrap" ng-repeat="trade in tradeList">
+                        <div class="row">
+                            <div class="col">{{trade.Name}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Certification Type</div>
+                            <div class="col">{{trade.UserCertificationType}}</div>
+                        </div>
+                        <div class="row" ng-show="{{trade.UserCertificationTypeId==1}}">
+                            <div class="col">Qualification No.</div>
+                            <div class="col">{{trade.QualificationNumber}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Experience</div>
+                            <div class="col">{{trade.Experience}}</div>
+                        </div>
+                        <ion-option-button side="right" class="button-light icon ion-edit" ng-click="editTrade(trade)"></ion-option-button>
+                        <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="removeTrade(trade)"></ion-option-button>
+                    </ion-item>
+                </ion-list>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-view>

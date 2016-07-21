@@ -10,6 +10,17 @@ angular.module('dowells.Services')
             return $http.post(WSUrl+'Account/UpdateProfilePicture',userPicInfo);
         };
 
+        this.setUserProfile=function(userProfile){
+            // Method to update user profile
+            return $http.post(WSUrl+'Account/UpdateUser',userProfile);
+        };
+
+        this.getDocumentDetails = function(userInfo) {
+            // Method to get document details
+            return $http.get(WSUrl + 'Account/GetEmployeeDetails', { params: userInfo });
+        };
+
+
         this.tellGenderName = function(genderId) {
             // Method to tell gender name from gender id
             var genderName = "";

@@ -6,7 +6,7 @@
                     <div class="input-label">
                         Title
                     </div>
-                    <select ng-model="uu.titleId" name="titleId" ng-change="changeSelectedItem(uu.titleId)" ng-options="title.text for title in titleList">
+                    <select ng-model="uu.titleId" name="titleId" ng-change="changeSelectedItem(uu.titleId)" ng-options="title.id as title.text for title in titleList">
                         <!-- <option ng-value=1>Mr</option>
                         <option ng-value=2>Mrs</option>
                         <option ng-value=3>Miss</option>
@@ -25,18 +25,15 @@
                     <span class="input-label mandatory">Last Name</span>
                     <input type="text" name="LastName" placeholder="Last Name" ng-model="uu.LastName" required>
                 </label>
-                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.DOB.$invalid && !updateForm.DOB.$pristine, 'no-errors' : updateForm.DOB.$valid}">
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.DateOfBirth.$invalid && !updateForm.DateOfBirth.$pristine, 'no-errors' : updateForm.DateOfBirth.$valid}">
                     <span class="input-label mandatory">DOB</span>
-                    <input type="date" name="DOB" placeholder="DOB" ng-model="uu.DOB" required>
+                    <input type="date" name="DateOfBirth" placeholder="DOB" ng-model="uu.DateOfBirth" required>
                 </label>
                 <label class="item item-input item-select">
                     <span class="input-label mandatory">
                         Gender
                     </span>
-                    <select ng-model="uu.GenderId" name="GenderId">
-                        <option ng-value=1>Please Select</option>
-                        <option ng-value=2>Male</option>
-                        <option ng-value=3>Female</option>
+                    <select ng-model="uu.GenderId" name="GenderId" ng-options="gender.id as gender.text for gender in genderList">                        
                     </select>
                 </label>
                 <label class="item item-input item-stacked-label">
