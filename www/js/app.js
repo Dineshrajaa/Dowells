@@ -31,7 +31,10 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         updatePicSuc:'Profile Picture updated Successfully',
         updatingPro:'Updating your info',
         updatingProSuc:'Profile Update Sucessfully',
-        gettingDocInfo:'Fetching your documents'
+        gettingDocInfo:'Fetching your documents',
+        gettingTicInfo:'Fetching Ticket info',
+        savingLic:'Saving your Licence',
+        delLicSuc:'Deleted your Licence/Ticket Successfully'
     })
     .run(function($ionicPlatform, GenericSvc) {
         WSUrl = 'http://202.60.69.12/emsapi/api/'; // webservice url

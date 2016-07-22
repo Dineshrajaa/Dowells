@@ -13,21 +13,21 @@
                     <div class="input-label">
                         Licence/Ticket
                     </div>
-                    <select ng-model="proAddLicProps.proselectedlic" ng-options="licence.ID as licence.Name for licence in activeLicences" ng-change="fetchSelectedLicenceDetail()">
-                        <option value="0">Please Select</option>
-                        <!-- <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option> -->
+                    <select ng-model="proAddLicProps.proselectedlic" ng-options="licence.ID as licence.Name for licence in activeLicences">
+                        <!--<option value="0">Please Select</option>
+                         <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option> -->
                     </select>
                 </label>
                 <div class="card" ng-show="!proAddLicProps.qualifiedAllowedOrNot">
                     <label class="item item-divider">
                         Certification Type
                     </label>
-                    <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'2'" class="radio-positive" value="2"  name="exporqualified">Experienced</ion-radio>
-                    <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'1'" class="radio-positive" value="1"  name="exporqualified">Qualified</ion-radio>
+                    <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'2'" class="radio-positive" value="2" name="exporqualified">Experienced</ion-radio>
+                    <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'1'" class="radio-positive" value="1" name="exporqualified">Qualified</ion-radio>
                 </div>
-                <label class="item" ng-show="proAddLicProps.onlyforexp">
+                <!-- <label class="item" ng-show="proAddLicProps.onlyforexp">
                     Licence Type:{{proAddLicProps.licType}}
-                </label>
+                </label> -->
                 <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexp" ng-class="{ 'has-errors' : proaddlicform.proaddlicno.$invalid && !proaddlicform.proaddlicno.$pristine, 'no-errors' : proaddlicform.proaddlicno.$valid}">
                     <span class="input-label">Licence No.</span>
                     <input type="text" placeholder="Licence Number" name="proaddlicno" ng-model="proAddLicProps.proaddlicno" ng-required="proAddLicProps.onlyforexp">
@@ -50,6 +50,7 @@
             </div>
         </form>
         <center>
-        <button class="button semiWidth-btn button-positive" ng-hide="proAddLicProps.hidesavebtn" ng-disabled="proaddlicform.$invalid" ng-click="saveLicence()">{{proAddLicProps.regLicAddBtnTxt}}</button></center>
+            <button class="button semiWidth-btn button-positive" ng-hide="proAddLicProps.hidesavebtn" ng-disabled="proaddlicform.$invalid" ng-click="saveLicence()">{{proAddLicProps.regLicAddBtnTxt}}</button>
+        </center>
     </ion-content>
 </ion-modal-view>

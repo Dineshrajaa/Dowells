@@ -19,7 +19,17 @@ angular.module('dowells.Services')
             // Method to get document details
             return $http.get(WSUrl + 'Account/GetEmployeeDetails', { params: userInfo });
         };
-
+        this.getSelectedTicketInfo = function(ticketId) {
+            // Method to get document details
+            return $http.get(WSUrl + 'Account/GetUserLicenceTicketType/'+ticketId);
+        };
+        this.saveTicket=function(ticketObj){
+            // Method to save the licence
+            return $http.post(WSUrl+'Account/AddUserLicenceTicketType',ticketObj);
+        };
+        this.deleteTicket=function(ticketId){
+            return $http.post(WSUrl + 'Account/DeleteUserLicenceTicketType/'+ticketId);
+        };
 
         this.tellGenderName = function(genderId) {
             // Method to tell gender name from gender id

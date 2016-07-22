@@ -96,7 +96,7 @@ angular.module('dowells.Controllers')
         $scope.fetchProfileInfo();
     })
 
-.controller('EditProfileCtrl', function($scope, $timeout, $filter,
+.controller('EditProfileCtrl', function($scope, $timeout, $filter, 
     GenericSvc, RegDataSvc, ProfileSvc, errorMsgs, infoMsgs) {
     $scope.titleList = [{ id: 1, text: 'Mr' }, { id: 2, text: 'Mrs' }, { id: 3, text: 'Miss' }, { id: 4, text: 'Ms' }];
     $scope.genderList = [{ id: 1, text: 'Please Select' }, { id: 2, text: 'Male' }, { id: 3, text: 'Female' }];
@@ -127,9 +127,10 @@ angular.module('dowells.Controllers')
 
 })
 
-.controller('EditDocuCtrl', function($scope, $ionicModal, GenericSvc, RegSvc, ProfileSvc, errorMsgs, infoMsgs) {
+.controller('EditDocuCtrl', function($scope, $ionicModal,$ionicPopup,
+ GenericSvc, RegSvc, ProfileSvc, errorMsgs, infoMsgs) {
     $scope.licenceList = $scope.tradeList = $scope.positionList = [];
-    $scope.proAddLicProps={};
+    $scope.proAddLicProps = {};
     // Load Add Licence Modal    
     $ionicModal.fromTemplateUrl('templates/home/profile/profileaddlic-modal.html', {
         scope: $scope,
@@ -141,6 +142,7 @@ angular.module('dowells.Controllers')
         // Method to close Add Licence modal window
         $scope.proAddLicModal.hide();
         $scope.resetAddLicForm();
+
     };
     $scope.fetchDocumentDetails = function() {
         // Method to fetch the document details
@@ -155,6 +157,7 @@ angular.module('dowells.Controllers')
                     $scope.licenceList = res.Result.LicenceTicketTypeList;
                     $scope.tradeList = res.Result.TradeExpList;
                     $scope.positionList = res.Result.PositionHeldList;
+                    console.warn("Trade list:" + $scope.tradeList);
                 }
                 GenericSvc.hideLoader();
                 $scope.fetchActiveLicences();
@@ -171,6 +174,7 @@ angular.module('dowells.Controllers')
             RegSvc.getActiveLicence().then(function(response) {
                 var res = response.data;
                 $scope.activeLicences = res.Result;
+                console.warn("$scope.activeLicences:" + angular.toJson($scope.activeLicences));
                 GenericSvc.hideLoader();
             }, function(err) {
                 GenericSvc.hideLoader();
@@ -215,26 +219,100 @@ angular.module('dowells.Controllers')
     };
     $scope.editLicence = function(licenceToEdit) {
         // Method to edit licence from list
-        console.warn("Before update:" + $scope.proAddLicProps);
-        $scope.proAddLicModal.show();
-        $scope.proAddLicProps.proselectedlic = licenceToEdit.Id;
-        $scope.proAddLicProps.licName = licenceToEdit.Name;
-        $scope.proAddLicProps.proaddexp = licenceToEdit.Experience;
-        $scope.proAddLicProps.proaddlicno = licenceToEdit.LicenceNumber;
-        $scope.proAddLicProps.proaddlicexpiry = new Date(licenceToEdit.LicenceExpiry);
-        $scope.proAddLicProps.licType = licenceToEdit.LicenceType;
-        $scope.proAddLicProps.prolicexporqua = licenceToEdit.UserCertificationTypeId;
-        $scope.proAddLicProps.onlyforexp = licenceToEdit.isLicenced;
-        $scope.proAddLicProps.qualifiedAllowedOrNot = $scope.proAddLicProps.onlyforexp = $scope.proAddLicProps.showorhideexp = licenceToEdit.qualifiedAllowedOrNot;
-        $scope.proAddLicProps.hidesavebtn = false;
-        $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
-        console.warn("After update:" + angular.toJson($scope.proAddLicProps));
+        console.warn("licenceToEdit:" + angular.toJson(licenceToEdit));
+        if (GenericSvc.checkInternet()) {
+            GenericSvc.showLoader(infoMsgs.gettingTicInfo);
+            ProfileSvc.getSelectedTicketInfo(licenceToEdit.Id).then(function(response) {
+                console.log('Licence info:' + angular.toJson(response.data));
+                var res = response.data;
+                if (res.IsSuccessful) {
+                    var res = res.Result;
+                    $scope.proAddLicProps.selectedTicketId = res.Id;
+                    $scope.proAddLicProps.proselectedlic = res.LicenceTicketTypeId;
+                    $scope.proAddLicProps.proaddexp = res.Experience;
+                    $scope.proAddLicProps.prolicexporqua = res.UserCertificationTypeId;
+                    $scope.proAddLicProps.proaddlicno = res.LicenceNumber;
+                    $scope.proAddLicProps.proaddlicexpiry = new Date(res.LicenceExpiry);
+                    $scope.proAddLicProps.hidesavebtn = false;
+
+                    $scope.proAddLicProps.onlyforexp = res.UserCertificationTypeId == 2 ? true : false;
+                    console.warn(angular.toJson($scope.proAddLicProps));
+                    $scope.proAddLicProps.qualifiedAllowedOrNot = $scope.proAddLicProps.onlyforexp;
+                    $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
+                    $scope.proAddLicModal.show();
+                    GenericSvc.hideLoader();
+                }
+                /*$scope.proAddLicProps.licName = licenceToEdit.Name;
+                $scope.proAddLicProps.licType = licenceToEdit.LicenceType;
+                $scope.proAddLicProps.qualifiedAllowedOrNot = $scope.proAddLicProps.onlyforexp = $scope.proAddLicProps.showorhideexp = licenceToEdit.qualifiedAllowedOrNot;*/
+            }, function(err) {
+                GenericSvc.hideLoader();
+            })
+        } else
+            GenericSvc.toast(errorMsgs.noInternet);
+    };
+
+    $scope.saveLicence = function() {
+        // Method to configure licence for saving
+        var licObj = {};
+        var currentUserData = angular.fromJson(localStorage.userData);
+        licObj.Id = $scope.proAddLicProps.selectedTicketId;
+        licObj.LicenceTicketTypeId = $scope.proAddLicProps.proselectedlic;
+        licObj.UserId = currentUserData.ID;
+        licObj.Name = $scope.proAddLicProps.licName;
+        licObj.Experience = $scope.proAddLicProps.proaddexp;
+        licObj.LicenceNumber = $scope.proAddLicProps.proaddlicno;
+        licObj.LicenceExpiry = $scope.proAddLicProps.proaddlicexpiry;
+        licObj.LicenceType = $scope.proAddLicProps.licType;
+        licObj.UserCertificationTypeId = $scope.proAddLicProps.prolicexporqua;
+        licObj.UserCertificationTypeName = licObj.UserCertificationTypeId == 1 ? 'Experienced' : 'Qualified';
+        if (GenericSvc.checkInternet()) {
+            GenericSvc.showLoader(infoMsgs.savingLic);
+            ProfileSvc.saveTicket(licObj).then(function(response) {
+                var res = response.data;
+                if (res.IsSuccessful) {
+                    GenericSvc.hideLoader();
+                    GenericSvc.toast(infoMsgs.ticketAdded);
+                    $scope.closeAddLicModal();
+                    $scope.fetchDocumentDetails();
+                }
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else
+            GenericSvc.toast(errorMsgs.noInternet);
+
+    };
+
+    $scope.deleteLicence = function(selectedLicence) {
+        // Method to delete licence
+        var delLicConfirm = $ionicPopup.confirm({
+            title: 'Delete Licence/Ticket',
+            template: 'Are you sure you want to delete this Licence/Ticket?'
+        });
+
+        delLicConfirm.then(function(res) {
+            if (res) {
+                if(GenericSvc.checkInternet()){
+                    ProfileSvc.deleteTicket(selectedLicence.Id).then(function(response){
+                      var res=response.data;
+                      if(res.IsSuccessful){
+                        GenericSvc.toast(infoMsgs.delLicSuc);
+                        $scope.fetchDocumentDetails();
+                      }
+                    })
+                    
+                }else GenericSvc.toast(errorMsgs.noInternet);
+            } else {
+                console.log('You are not sure');
+            }
+        });
     };
 
     $scope.toggleExpFields = function() {
         // Method to show or hide Experienced fields
         console.warn('toggleExpFields invoked');
-        $scope.proAddLicProps.onlyforexp = $scope.proAddLicProps.prolicexporqua == "1" ? true : false;
+        $scope.proAddLicProps.onlyforexp = $scope.proAddLicProps.prolicexporqua == "2" ? true : false;
         $scope.proAddLicProps.showorhideexp = $scope.proAddLicProps.prolicexporqua != "0" ? true : false;
     };
 
@@ -242,5 +320,8 @@ angular.module('dowells.Controllers')
     $scope.resetAddLicForm();
     $scope.$watch('proAddLicProps.prolicexporqua', function() {
         $scope.toggleExpFields();
+    });
+    $scope.$watch('proAddLicProps.proselectedlic', function() {
+        $scope.fetchSelectedLicenceDetail();
     });
 })
