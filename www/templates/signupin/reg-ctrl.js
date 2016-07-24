@@ -186,7 +186,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 .controller('RegTraCtrl', function($scope, $state, $ionicModal,
     RegSvc, RegDataSvc, GenericSvc, infoMsgs) {
-    // Load Add Licence Modal    
+    // Load Add Trade Modal    
     $ionicModal.fromTemplateUrl('templates/signupin/regaddtra-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -361,7 +361,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             GenericSvc.showLoader();
             $scope.regPosProps.hidesavebtn = $scope.regPosProps.regselectedpos == "0" ? true : false;
             $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : false;
-            RegSvc.getTradeDetail($scope.regPosProps.regselectedpos).then(function(response) {
+            RegSvc.getPositionDetail($scope.regPosProps.regselectedpos).then(function(response) {
                 if (response.data.IsSuccessful) {
                     var positionInfo = response.data.Result;
                     $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : positionInfo.IsQualifiedAllowed;

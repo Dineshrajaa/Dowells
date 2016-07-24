@@ -1,0 +1,16 @@
+<ion-view view-title="Application Status" hide-back-button="true" hide-nav-bar="true">
+    <ion-content>
+        <div class="logo-status">
+        </div>
+        <div class="list">
+            <center>
+                <label class="item pendingJobs-listTitle" ng-class="{'item-assertive':appStatus.appDeclined}">{{appStatus.applicationStatus}}</label>
+            </center>
+            <!-- <div class="card"> -->
+            <center>
+                <p>{{appStatus.applicationInfo}}</p>
+            </center>
+            <!-- </div> -->
+        </div>
+    </ion-content>
+</ion-view>

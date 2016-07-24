@@ -8,31 +8,31 @@
         <center>
             <h4>Current Status:{{statusData.curWorkStatus}}</h4>
         </center>
-        <div class="list">
+        <div class="list" ng-show="jobsData.showJobs">
             <center>
                 <label class="item pendingJobs-listTitle">Pending Jobs</label>
             </center>
             <div class="card">
                 <div class="item item-text-wrap">
                     <label class="thickText">Client:</label>
-                    <p>First Client</p>
+                    <p>{{jobsData.clientName}}</p>
                     <label class="thickText">Project:</label>
-                    <p>Dowells</p>
+                    <p>{{jobsData.projectName}}</p>
                     <label class="thickText">Project Address:</label>
-                    <p>Dowells,NewDelhi</p>
+                    <p>{{jobsData.projectAddress}}<button class="button button-calm button-clear icon ion-ios-location" ng-click="map.showDialog()"></button></p>
                     <label class="thickText">Start date & Time:</label>
-                    <p>01-07-2016 05:02:10</p>
+                    <p>{{jobsData.startDate}}</p>
                     <label class="thickText">Message:</label>
-                    <p>Port Dowells from JQM to Ionic</p>
+                    <p>{{jobsData.message}}</p>
                     <center>
                         <div class="row">
                             <div class="col col-50">
-                                <button class="button semiWidth-btn decline-btn">
+                                <button class="button semiWidth-btn decline-btn" ng-click="manageJob('Decline')">
                                     Decline
                                 </button>
                             </div>
                             <div class="col col-50">
-                                <button class="button semiWidth-btn accept-btn">
+                                <button class="button semiWidth-btn accept-btn" ng-click="manageJob('Accept')">
                                     Accept
                                 </button>
                             </div>

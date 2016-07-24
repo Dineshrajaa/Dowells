@@ -40,7 +40,7 @@
                             <div class="col">Certification Type</div>
                             <div class="col">{{trade.UserCertificationType}}</div>
                         </div>
-                        <div class="row" ng-show="{{trade.UserCertificationTypeId==1}}">
+                        <div class="row" ng-show="{{trade.UserCertificationTypeId==2}}">
                             <div class="col">Qualification No.</div>
                             <div class="col">{{trade.QualificationNumber}}</div>
                         </div>
@@ -49,7 +49,7 @@
                             <div class="col">{{trade.Experience}}</div>
                         </div>
                         <ion-option-button side="right" class="button-light icon ion-edit" ng-click="editTrade(trade)"></ion-option-button>
-                        <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="removeTrade(trade)"></ion-option-button>
+                        <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="deleteTrade(trade)"></ion-option-button>
                     </ion-item>
                 </ion-list>
             </ion-list>
@@ -75,7 +75,7 @@
                             <div class="col">{{position.Experience}}</div>
                         </div>
                         <ion-option-button side="right" class="button-light icon ion-edit" ng-click="editPosition(position)"></ion-option-button>
-                        <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="removePosition(position)"></ion-option-button>
+                        <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="deletePosition(position)"></ion-option-button>
                     </ion-item>
                 </ion-list>
             </ion-list>

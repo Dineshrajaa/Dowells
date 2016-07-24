@@ -54,6 +54,15 @@ angular.module('dowells.Services')
         else if (statusId == 3)
             return 'Not Available';
     };
+    this.getUserJob=function(userData){
+        // Method to get the user jobs
+        return $http.get(WSUrl + 'Account/GetUserPendingJob', { params: userData });
+    };
+
+    this.setJobPref=function(jobPref){
+        // Method to accept or decline job
+        return $http.get(WSUrl + 'Account/AcceptDeclineJobScheduling', { params: jobPref });
+    };
 })
 
 

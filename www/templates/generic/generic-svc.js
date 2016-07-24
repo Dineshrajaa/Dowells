@@ -47,6 +47,48 @@ angular.module('dowells.Services', [])
             });
         };
 
+        /*this.configureAddressSearch = function(comp, inputField) {
+            // Method to configure Address search
+            var options = {
+                types: ['geocode'],
+                componentRestrictions: { country: "au" }
+            };
+            var placeSearch, autocomplete;
+            this.componentForm = comp;
+            
+            var jsonObj = {};
+            var input = document.getElementById(inputField);
+            this.autocomplete = new google.maps.places.Autocomplete(input, options);
+            autocomplete.addListener('place_changed', this.fillInAddress);
+        };
+
+        this.fillInAddress = function() {
+            // Method to fill in Address in the text fields based on search
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+            for (var component in this.componentForm) {
+                if (component == "route") continue;
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    if (addressType == 'route') {
+                        var val = place.address_components[i][componentForm[addressType]];
+                        document.getElementById('street_number').value += " " + val;
+                        document.getElementById('street_number').value = document.getElementById('street_number').value.trim();
+                        continue;
+                    }
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        };*/
+
         this.fillProfilePic = function(profilePic, elementId) {
             // Method to fill profile picture
             if (!profilePic.match(/^data:.*?;base64,/i))
@@ -88,23 +130,23 @@ angular.module('dowells.Services', [])
             }
             return options;
         };
-        
-        this.tellTitleId=function(titleName){
+
+        this.tellTitleId = function(titleName) {
             // Method to return Title Id
             var titleId;
-            switch(titleName){
+            switch (titleName) {
                 case 'Mr':
-                titleId=1;
-                break;
+                    titleId = 1;
+                    break;
                 case 'Mrs':
-                titleId=2;
-                break;
+                    titleId = 2;
+                    break;
                 case 'Miss':
-                titleId=3;
-                break;
+                    titleId = 3;
+                    break;
                 case 'Ms':
-                titleId=4;
-                break;
+                    titleId = 4;
+                    break;
             }
             return titleId;
         };

@@ -25,22 +25,22 @@
                     <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'2'" class="radio-positive" value="2" name="exporqualified">Experienced</ion-radio>
                     <ion-radio ng-model="proAddLicProps.prolicexporqua" ng-value="'1'" class="radio-positive" value="1" name="exporqualified">Qualified</ion-radio>
                 </div>
-                <!-- <label class="item" ng-show="proAddLicProps.onlyforexp">
+                <!-- <label class="item" ng-show="proAddLicProps.onlyforexplic">
                     Licence Type:{{proAddLicProps.licType}}
                 </label> -->
-                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexp" ng-class="{ 'has-errors' : proaddlicform.proaddlicno.$invalid && !proaddlicform.proaddlicno.$pristine, 'no-errors' : proaddlicform.proaddlicno.$valid}">
+                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexplic" ng-class="{ 'has-errors' : proaddlicform.proaddlicno.$invalid && !proaddlicform.proaddlicno.$pristine, 'no-errors' : proaddlicform.proaddlicno.$valid}">
                     <span class="input-label">Licence No.</span>
-                    <input type="text" placeholder="Licence Number" name="proaddlicno" ng-model="proAddLicProps.proaddlicno" ng-required="proAddLicProps.onlyforexp">
+                    <input type="text" placeholder="Licence Number" name="proaddlicno" ng-model="proAddLicProps.proaddlicno" ng-required="proAddLicProps.onlyforexplic">
                 </label>
-                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexp" ng-show="proAddLicProps.onlyforexp" ng-class="{ 'has-errors' : proaddlicform.proaddlicexpiry.$invalid && !proaddlicform.proaddlicexpiry.$pristine, 'no-errors' : proaddlicform.proaddlicexpiry.$valid}">
+                <label class="item item-input item-stacked-label" ng-show="proAddLicProps.onlyforexplic" ng-show="proAddLicProps.onlyforexplic" ng-class="{ 'has-errors' : proaddlicform.proaddlicexpiry.$invalid && !proaddlicform.proaddlicexpiry.$pristine, 'no-errors' : proaddlicform.proaddlicexpiry.$valid}">
                     <span class="input-label">Licence Expiry</span>
-                    <input type="date" placeholder="Licence Expiry" name="proaddlicexpiry" ng-model="proAddLicProps.proaddlicexpiry" ng-required="proAddLicProps.onlyforexp">
+                    <input type="date" placeholder="Licence Expiry" name="proaddlicexpiry" ng-model="proAddLicProps.proaddlicexpiry" ng-required="proAddLicProps.onlyforexplic">
                 </label>
                 <label class="item item-input item-stacked-label" ng-show="proAddLicProps.showorhideexp" ng-class="{ 'has-errors' : proaddlicform.proaddexp.$invalid && !proaddlicform.proaddexp.$pristine, 'no-errors' : proaddlicform.proaddexp.$valid}">
                     <span class="input-label">How much experience do you have?</span>
                     <input type="text" placeholder="Experience" name="proaddexp" ng-model="proAddLicProps.proaddexp" required>
                 </label>
-                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="proAddLicProps.onlyforexp">Add Picture</ion-toggle>
+                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="proAddLicProps.onlyforexplic">Add Picture</ion-toggle>
                 <center>
                     <div ng-show="addlicencepic">
                         <div class="licenceImage no-picture calm"></div>

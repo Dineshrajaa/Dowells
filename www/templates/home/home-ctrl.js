@@ -1,16 +1,11 @@
 angular.module('dowells.Controllers')
-    .controller('HomeCtrl', function($scope, $state,GenericSvc) {
+    .controller('HomeCtrl', function($scope, $state, GenericSvc) {
         $scope.currentUser = {};
         $scope.fillUserInfo = function() {
             var userData = angular.fromJson(localStorage.userData);
             $scope.currentUser.disName = userData.DisplayName; // Show Display name of the current user
             var profilePic = userData.ProfilePicture;
-            /*if (!profilePic.match(/^data:.*?;base64,/i))
-                profilePic = 'data:image/jpg;base64,' + profilePic;
-            var profilePicHolder = document.querySelector('#userProfilePic');
-            angular.element(profilePicHolder).css('background-image', 'url(' + profilePic + ')')
-                .removeClass('no-picture');*/
-                GenericSvc.fillProfilePic(profilePic,'userProfilePic');
+            GenericSvc.fillProfilePic(profilePic, 'userProfilePic');
         };
 
         $scope.logout = function() {
@@ -56,7 +51,9 @@ angular.module('dowells.Controllers')
 .controller('StatusCtrl', function($scope, StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
-        $scope.statusData = {};
+        $scope.map = plugin.google.maps.Map.getMap();
+        $scope.statusData = $scope.jobsData = {};
+        $scope.jobsData.showJobs = false;
         var currentUserData = angular.fromJson(localStorage.userData);
 
         if (GenericSvc.checkInternet()) {
@@ -67,16 +64,70 @@ angular.module('dowells.Controllers')
                 var res = response.data;
                 $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
                 GenericSvc.hideLoader();
+                $scope.fetchUserJobs();
             }, function(err) {
                 GenericSvc.hideLoader();
             });
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
+    $scope.configureMapWithMarker = function() {
+        // Method to configure Map and add Marker on the given Lat and Lng
+        $scope.map.addEventListener(plugin.google.maps.event.MAP_READY, function() {
+            $scope.markerLoc = new plugin.google.maps.LatLng($scope.jobsData.lat,$scope.jobsData.lng);
+            $scope.map.addMarker({
+                'position': $scope.markerLoc,
+                'title': $scope.jobsData.projectAddress
+            }, function(marker) {
+
+                marker.showInfoWindow();
+
+            });
+
+        });
+    };
     $scope.fetchUserStatus();
+    $scope.fetchUserJobs = function() {
+        // Method to fetch logged in user jobs
+        var currentUserData = angular.fromJson(localStorage.userData);
+        if (GenericSvc.checkInternet()) {
+            var userDataParam = {};
+            userDataParam.userId = currentUserData.ID;
+            GenericSvc.showLoader(infoMsgs.gettingUserJob);
+            StatusSvc.getUserJob(userDataParam).then(function(response) {
+                var res = response.data.Result;
+                console.warn('User Jobs:' + angular.toJson(res));
+                if (res.ID>0) {                    
+                    $scope.jobsData.showJobs = true;
+                    $scope.jobsData.clientName = res.ClientName;
+                    $scope.jobsData.projectName = res.ProjectName;
+                    $scope.jobsData.projectAddress = res.ProjectAddress;
+                    $scope.jobsData.startDate = res.StartDate;
+                    $scope.jobsData.message = res.Message;
+                    $scope.jobsData.lat = res.Latitude;
+                    $scope.jobsData.lng = res.Longitude;
+                    $scope.jobsData.jobId = res.UserSchedulingID;
+                }
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else GenericSvc.toast(errorMsgs.noInternet);
+    };
+    $scope.manageJob = function(jobAccOrDec) {
+        // Method to Manage Jobs(Accept or Reject)
+        var currentUserData = angular.fromJson(localStorage.userData);
+        if (GenericSvc.checkInternet()) {
+            var jobPre = {};
+            var jobAccOrDec = jobAccOrDec == 'Accept' ? true : false;
+            jobPre.userJobHistoryId = $scope.jobsData.jobId;
+            jobPre.isAccepted = jobAccOrDec;
+            StatusSvc.setJobPref(jobPre).then(function(response) {}, function(err) {});
+        } else GenericSvc.toast(errorMsgs.noInternet);
+    };
 })
 
-.controller('MessageCtrl',function($scope,MessageSvc,GenericSvc,errorMsgs,infoMsgs){
-     $scope.fetchUserMessage = function() {
+.controller('MessageCtrl', function($scope, MessageSvc, GenericSvc, errorMsgs, infoMsgs) {
+    $scope.fetchUserMessage = function() {
         // Method to fetch logged in user work status
         $scope.userMessages = [];
         var currentUserData = angular.fromJson(localStorage.userData);
@@ -87,8 +138,8 @@ angular.module('dowells.Controllers')
             GenericSvc.showLoader(infoMsgs.messageFetch);
             MessageSvc.getUserMessages(userDataParam).then(function(response) {
                 var res = response.data;
-                if(res.IsSuccessful)
-                    $scope.userMessages=res.Result;
+                if (res.IsSuccessful)
+                    $scope.userMessages = res.Result;
                 GenericSvc.hideLoader();
             }, function(err) {
                 GenericSvc.hideLoader();

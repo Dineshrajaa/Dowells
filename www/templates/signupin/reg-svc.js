@@ -18,9 +18,14 @@ angular.module('dowells.Services')
             // Method to list the active trade
             return $http.get(WSUrl + 'Account/GetActiveTradeExperiences');
         };
-        this.getTradeDetail = function(licId) {
+        this.getTradeDetail = function(traId) {
             // Method to get the detail of selected trade
-            return $http.get(WSUrl + 'Account/GetTradeExperienceById', { params: { id: licId } });
+            return $http.get(WSUrl + 'Account/GetTradeExperienceById', { params: { id: traId } });
+        };
+        this.getPositionDetail = function(posId) {
+            // Method to get the detail of selected trade
+            console.warn('posId:'+posId);
+            return $http.get(WSUrl + 'Account/GetPositionHeldById', { params: { id: posId } });
         };
         this.getActivePosition=function(){
             // Method to list the active position

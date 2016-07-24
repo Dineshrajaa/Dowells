@@ -20,8 +20,11 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         loginWin: 'Login Successful',
         emailDuplication: 'Email already used',
         licenceDuplication: 'You have already added this Licence/Ticket',
-        ticketAdded: 'Licence/Ticket added successfully',        
+        ticketAdded: 'Licence/Ticket added Successfully',
+        tradeAdded:'Trade added Successfully',
+        positionAdded:'Position added Successfully',        
         statusCheck:'Checking your Work availability',
+        gettingUserJob:'Fetching your Jobs',
         localNotiText:'Please check that your work availability status is correct',
         settingsSaved:'Settings Saved successfully',
         gettingUserInfo:'Fetching your info',
@@ -33,8 +36,14 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         updatingProSuc:'Profile Update Sucessfully',
         gettingDocInfo:'Fetching your documents',
         gettingTicInfo:'Fetching Ticket info',
+        gettingTraInfo:'Fetching Trade info',
+        gettingPosInfo:'Fetching Position info',
         savingLic:'Saving your Licence',
-        delLicSuc:'Deleted your Licence/Ticket Successfully'
+        savingTra:'Saving your Trade',
+        savingPos:'Saving your Trade',
+        delLicSuc:'Deleted your Licence/Ticket Successfully',
+        delTraSuc:'Deleted your Trade experience Successfully',
+        delPosSuc:'Deleted your Position Successfully'
     })
     .run(function($ionicPlatform, GenericSvc) {
         WSUrl = 'http://202.60.69.12/emsapi/api/'; // webservice url
@@ -61,6 +70,7 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
     $stateProvider
         .state('home', {
             url: '/home',
+            cache:false,
             abstract: true,
             templateUrl: 'templates/menu.html',
             controller:'HomeCtrl'
@@ -76,6 +86,15 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
                 'masterPage': {
                     templateUrl: 'templates/signupin/login.html',
                     controller: 'LoginCtrl'
+                }
+            }
+        })
+        .state('master.appstatus', {
+            url: '/appstatus',
+            views: {
+                'masterPage': {
+                    templateUrl: 'templates/signupin/appstatus.html',
+                    controller: 'AppStatusCtrl'
                 }
             }
         })
@@ -128,7 +147,7 @@ angular.module('dowells', ['ionic', 'ion-profile-picture', 'dowells.Services', '
         }
     })
     .state('master.regsuc',{
-        url:'regsuc',
+        url:'/regsuc',
         views:{
             'masterPage':{
                 templateUrl:'templates/signupin/regsuc.html'

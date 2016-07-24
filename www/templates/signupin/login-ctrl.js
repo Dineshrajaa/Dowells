@@ -1,5 +1,6 @@
 angular.module('dowells.Controllers')
-    .controller('LoginCtrl', function($scope, $state, LoginSvc, GenericSvc, errorMsgs, infoMsgs) {
+    .controller('LoginCtrl', function($scope, $state,
+     LoginSvc, GenericSvc, errorMsgs, infoMsgs) {
         // Login module controler
         $scope.loginData = {};
         console.log('LoginCtrl');
@@ -19,8 +20,15 @@ angular.module('dowells.Controllers')
                         localStorage.userData = angular.toJson(res.Result);
                         GenericSvc.toast(infoMsgs.loginWin);
                         $state.go('home.status');
-                    }else // Login failed
-                        GenericSvc.toast(LoginSvc.loginErrorFinder(res.MessageType));                    
+                    }else{
+                        // Login failed
+                        if(res.MessageType==5 ||res.MessageType==10){
+                            var appStatus=LoginSvc.loginErrorFinder(res.MessageType);
+                            localStorage.appStatus=angular.toJson(appStatus);
+                            $state.go('master.appstatus');
+                        }else
+                        GenericSvc.toast(LoginSvc.loginErrorFinder(res.MessageType).status); 
+                    }                    
                     GenericSvc.hideLoader();
                 }, function(err) {
                     GenericSvc.hideLoader();
@@ -28,4 +36,11 @@ angular.module('dowells.Controllers')
             } else GenericSvc.toast(errorMsgs.noInternet);
 
         };
+    })
+    .controller('AppStatusCtrl',function($scope,$state){
+        $scope.appStatus={};
+        var appData=angular.fromJson(localStorage.appStatus);
+        $scope.appStatus.applicationStatus=appData.status;
+        $scope.appStatus.appDeclined=appData.status=='Application declined'?true:false;
+        $scope.appStatus.applicationInfo=appData.msg;
     })

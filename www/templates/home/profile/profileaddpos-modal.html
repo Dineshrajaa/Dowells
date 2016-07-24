@@ -4,7 +4,7 @@
         <button class="button button-clear button-primary" ng-click="closeAddPosModal()">Cancel</button>
     </ion-header-bar>
     <ion-content>
-        <form name="regaddposform" novalidate>
+        <form name="proaddposform" novalidate>
             <center>
                 <p id="addPositionPara">Add any positions you have held in past.</p>
             </center>
@@ -13,33 +13,33 @@
                     <div class="input-label">
                         Select Position held
                     </div>
-                    <select ng-model="regPosProps.regselectedpos" ng-change="fetchSelectedPositionDetail()">
-                        <option value="0">Please Select</option>
-                        <option ng-repeat="position in activePositions" value="{{position.ID}}">{{position.Name}}</option>
+                    <select ng-model="proPosProps.proselectedpos" ng-options="position.ID as position.Name for position in activePositions">
+                        <!-- <option value="0">Please Select</option>
+                        <option ng-repeat="position in activePositions" value="{{position.ID}}">{{position.Name}}</option> -->
                     </select>
                 </label>
-                <div class="card" ng-show="!regPosProps.qualifiedAllowedOrNot">
+                <div class="card" ng-show="!proPosProps.qualifiedAllowedOrNot">
                     <label class="item item-divider">
                         Certification Type
                     </label>
-                    <ion-radio ng-model="regPosProps.regposexporqua" ng-value="'2'" class="radio-positive" value="2" name="exporqualified">Experienced</ion-radio>
-                    <ion-radio ng-model="regPosProps.regposexporqua" ng-value="'1'" class="radio-positive" value="1" name="exporqualified">Qualified</ion-radio>
+                    <ion-radio ng-model="proPosProps.proposexporqua" ng-value="'2'" class="radio-positive" value="2" name="exporqualified">Experienced</ion-radio>
+                    <ion-radio ng-model="proPosProps.proposexporqua" ng-value="'1'" class="radio-positive" value="1" name="exporqualified">Qualified</ion-radio>
                 </div>
-                <!-- <label class="item" ng-show="regPosProps.onlyforexp">
-                    Certification Type:{{regPosProps.traType}}
+                <!-- <label class="item" ng-show="proPosProps.onlyforexppos">
+                    Certification Type:{{proPosProps.traType}}
                 </label> -->
-                <label class="item item-input item-stacked-label" ng-show="regPosProps.onlyforexp" ng-class="{ 'has-errors' : regaddposform.regaddposno.$invalid && !regaddposform.regaddposno.$pristine, 'no-errors' : regaddposform.regaddposno.$valid}">
+                <label class="item item-input item-stacked-label" ng-show="proPosProps.onlyforexppos" ng-class="{ 'has-errors' : proaddposform.proaddposno.$invalid && !proaddposform.proaddposno.$pristine, 'no-errors' : proaddposform.proaddposno.$valid}">
                     <span class="input-label">Qualification Number</span>
-                    <input type="text" placeholder="Qualification Number" name="regaddposno" ng-model="regPosProps.regaddposno" ng-required="regPosProps.onlyforexp">
+                    <input type="text" placeholder="Qualification Number" name="proaddposno" ng-model="proPosProps.proaddposno" ng-required="proPosProps.onlyforexppos">
                 </label>
-                <label class="item item-input item-stacked-label" ng-show="regPosProps.showorhideexp" ng-class="{ 'has-errors' : regaddposform.regaddposexperience.$invalid && !regaddposform.regaddposexperience.$pristine, 'no-errors' : regaddposform.regaddposexperience.$valid}">
+                <label class="item item-input item-stacked-label" ng-show="proPosProps.showorhideexp" ng-class="{ 'has-errors' : proaddposform.proaddposexperience.$invalid && !proaddposform.proaddposexperience.$pristine, 'no-errors' : proaddposform.proaddposexperience.$valid}">
                     <span class="input-label">How much experience do you have in this trade? (example:1y 6m)</span>
-                    <input type="text" placeholder="Experience" name="regaddposexperience" ng-model="regPosProps.regaddposexperience" required>
+                    <input type="text" placeholder="Experience" name="proaddposexperience" ng-model="proPosProps.proaddposexperience" required>
                 </label>
             </div>
         </form>
         <center>
-            <button class="button semiWidth-btn button-positive" ng-hide="regPosProps.hidesavebtn" ng-disabled="regaddposform.$invalid" ng-click="savePosition()">{{regPosProps.regPosAddBtnTxt}}</button>
+            <button class="button semiWidth-btn button-positive" ng-hide="proPosProps.hidesavebtn" ng-disabled="proaddposform.$invalid" ng-click="savePosition()">{{proPosProps.proPosAddBtnTxt}}</button>
         </center>
     </ion-content>
 </ion-modal-view>

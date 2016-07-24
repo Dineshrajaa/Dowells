@@ -20,7 +20,7 @@ angular.module('dowells.Services')
             return $http.get(WSUrl + 'Account/GetEmployeeDetails', { params: userInfo });
         };
         this.getSelectedTicketInfo = function(ticketId) {
-            // Method to get document details
+            // Method to get selected Ticket info
             return $http.get(WSUrl + 'Account/GetUserLicenceTicketType/'+ticketId);
         };
         this.saveTicket=function(ticketObj){
@@ -30,7 +30,30 @@ angular.module('dowells.Services')
         this.deleteTicket=function(ticketId){
             return $http.post(WSUrl + 'Account/DeleteUserLicenceTicketType/'+ticketId);
         };
-
+        this.getSelectedTradeInfo = function(tradeId) {
+            // Method to get Selected Trade Info
+            return $http.get(WSUrl + 'Account/GetUserTradeExp/'+tradeId);
+        };
+        this.saveTrade=function(tradeObj){
+            // Method to save the trade
+            return $http.post(WSUrl+'Account/AddUserTradeExp',tradeObj);
+        };
+        this.deleteTrade=function(tradeId){
+            // Method to delete Trade
+            return $http.post(WSUrl + 'Account/DeleteUserTradeExp/'+tradeId);
+        };
+        this.getSelectedPositionInfo = function(positionId) {
+            // Method to get Selected Trade Info
+            return $http.get(WSUrl + 'Account/GetUserPositionHeld/'+positionId);
+        };
+        this.savePosition=function(positionObj){
+            // Method to save the position
+            return $http.post(WSUrl+'Account/AddUserPositionHeld',positionObj);
+        };
+        this.deletePosition=function(positionId){
+            // Method to delete position
+            return $http.post(WSUrl + 'Account/DeleteUserPositionHeld/'+positionId);
+        };
         this.tellGenderName = function(genderId) {
             // Method to tell gender name from gender id
             var genderName = "";
