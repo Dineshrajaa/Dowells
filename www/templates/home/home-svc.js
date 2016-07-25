@@ -63,6 +63,10 @@ angular.module('dowells.Services')
         // Method to accept or decline job
         return $http.get(WSUrl + 'Account/AcceptDeclineJobScheduling', { params: jobPref });
     };
+    this.setWorkStatus=function(workStatus){
+        // Method to set work status
+        return $http.get(WSUrl + 'Account/UpdateUserJobStatus', { params: workStatus });
+    }
 })
 
 

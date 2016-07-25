@@ -18,19 +18,24 @@
         background-color: #8AD3F4;
         font-weight: bold;
     }
-
-    .available-listTitle{
+    
+    .available-listTitle {
         background-color: #FFFFBB;
         font-weight: bold;
     }
-
-    .notAvailable-listTitle{
+    
+    .notAvailable-listTitle {
         background-color: #FF7B7C;
         font-weight: bold;
     }
     
     .semiWidth-btn {
         width: 80%;
+    }
+    
+    .projectLocation-btn {
+        float: right;
+        top: -15px;
     }
     
     .decline-btn {
@@ -72,10 +77,10 @@
         line-height: 9.5rem;
         text-align: center;
     }
-
-    .regSuc-para{
+    
+    .regSuc-para {
         font-size: 14px;
-        margin:50% 2% 0 2%;
+        margin: 50% 2% 0 2%;
     }
     
     .mandatory:after {

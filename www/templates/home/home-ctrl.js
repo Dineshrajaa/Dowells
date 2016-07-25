@@ -48,19 +48,44 @@ angular.module('dowells.Controllers')
     })
 })
 
-.controller('StatusCtrl', function($scope,$ionicModal,
+.controller('StatusCtrl', function($scope, $ionicModal,
     StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
+
     $ionicModal.fromTemplateUrl('templates/home/dashboard/declinejob-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function(modal) {
         $scope.jobDecModal = modal;
     });
-    // $scope.jobDecModal.show();
+
+    $ionicModal.fromTemplateUrl('templates/home/dashboard/availabilitychanger-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.availChaModal = modal;
+    });
+    $scope.changeUserWorkStatus = function() {
+        // Method to change the work status to available or not available
+
+        if (GenericSvc.checkInternet()) {
+            var currentUserData = angular.fromJson(localStorage.userData);
+            var statusObj = {};
+            statusObj.userId = currentUserData.ID;
+            statusObj.statusId = $scope.statusData.choosenWorkStatusId;
+            StatusSvc.setWorkStatus(statusObj).then(function(response){
+                var res=response.data;
+                if(res.IsSuccessful){
+                    $scope.availChaModal.hide();
+                    $scope.fetchUserStatus();
+                }
+            },function(err){});
+        } else GenericSvc.toast(errorMsgs.noInternet);
+    };
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
         $scope.map = plugin.google.maps.Map.getMap();
         $scope.statusData = $scope.jobsData = {};
+        $scope.jobsData.declineReason = '';
         $scope.jobsData.showJobs = $scope.statusData.showStatusChange = false;
         var currentUserData = angular.fromJson(localStorage.userData);
 
@@ -72,6 +97,7 @@ angular.module('dowells.Controllers')
                 var res = response.data;
                 $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
                 $scope.statusData.statusChangeText = $scope.statusData.curWorkStatus == 'Available' ? infoMsgs.availableChangeText : infoMsgs.unAvailableChangeText;
+                $scope.statusData.avaiOrNot = $scope.statusData.curWorkStatus == 'Available' ? true : false;
                 GenericSvc.hideLoader();
                 $scope.fetchUserJobs();
             }, function(err) {
@@ -81,13 +107,16 @@ angular.module('dowells.Controllers')
     };
     $scope.configureMapWithMarker = function() {
         // Method to configure Map and add Marker on the given Lat and Lng
+        console.log('$scope.map:' + $scope.map);
+        $scope.map.showDialog();
         $scope.map.addEventListener(plugin.google.maps.event.MAP_READY, function() {
+            console.warn('Map ready');
             $scope.markerLoc = new plugin.google.maps.LatLng($scope.jobsData.lat, $scope.jobsData.lng);
             $scope.map.addMarker({
                 'position': $scope.markerLoc,
                 'title': $scope.jobsData.projectAddress
             }, function(marker) {
-
+                console.warn('Added Marker');
                 marker.showInfoWindow();
 
             });
@@ -128,15 +157,27 @@ angular.module('dowells.Controllers')
     };
     $scope.manageJob = function(jobAccOrDec) {
         // Method to Manage Jobs(Accept or Reject)
-        var currentUserData = angular.fromJson(localStorage.userData);
+
         if (GenericSvc.checkInternet()) {
             var jobPre = {};
             var jobAccOrDec = jobAccOrDec == 'Accept' ? true : false;
             jobPre.userJobHistoryId = $scope.jobsData.jobId;
             jobPre.isAccepted = jobAccOrDec;
-            StatusSvc.setJobPref(jobPre).then(function(response) {}, function(err) {});
+            jobPre.declinedReason = $scope.jobsData.declineReason;
+            StatusSvc.setJobPref(jobPre).then(function(response) {
+                console.warn('Accept/Decline:' + angular.toJson(response));
+            }, function(err) {});
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
+    $scope.$watch('statusData.avaiOrNot', function() {
+        if ($scope.statusData.avaiOrNot) {
+            $scope.statusData.choosenWorkStatus = 'Available';
+            $scope.statusData.choosenWorkStatusId = 2;
+        } else if (!$scope.statusData.avaiOrNot) {
+            $scope.statusData.choosenWorkStatus = 'Not Available';
+            $scope.statusData.choosenWorkStatusId = 3;
+        }
+    })
 })
 
 .controller('MessageCtrl', function($scope, MessageSvc, GenericSvc, errorMsgs, infoMsgs) {
