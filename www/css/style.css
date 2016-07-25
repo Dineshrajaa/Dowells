@@ -18,6 +18,16 @@
         background-color: #8AD3F4;
         font-weight: bold;
     }
+
+    .available-listTitle{
+        background-color: #FFFFBB;
+        font-weight: bold;
+    }
+
+    .notAvailable-listTitle{
+        background-color: #FF7B7C;
+        font-weight: bold;
+    }
     
     .semiWidth-btn {
         width: 80%;

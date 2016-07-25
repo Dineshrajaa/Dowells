@@ -40,16 +40,16 @@
                     <span class="input-label">How much experience do you have?</span>
                     <input type="text" placeholder="Experience" name="regaddexp" ng-model="regAddProps.regaddexp" required>
                 </label>
-                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="regAddProps.onlyforexp">Add Picture</ion-toggle>
+                <ion-toggle toggle-class="toggle-calm" ng-show="false">Add Picture</ion-toggle>
                 <center>
-                    <div ng-show="addlicencepic">
+                    <div ng-show="false">
                         <div class="licenceImage no-picture calm"></div>
                         <div class="licenceImage no-picture calm"></div>
                     </div>
                 </center>
             </div>
         </form>
-        <center>
+        <center class="padding">
         <button class="button semiWidth-btn button-positive" ng-hide="regAddProps.hidesavebtn" ng-disabled="regaddlicform.$invalid" ng-click="saveLicence()">{{regAddProps.regLicAddBtnTxt}}</button></center>
     </ion-content>
 </ion-modal-view>

@@ -242,8 +242,8 @@ angular.module('dowells.Controllers')
                 if (response.data.IsSuccessful) {
                     var licenceInfo = response.data.Result;
                     $scope.proAddLicProps.qualifiedAllowedOrNot = $scope.proAddLicProps.proselectedlic == "0" ? true : licenceInfo.IsQualifiedAllowed;
-                    $scope.proAddLicProps.onlyforexplic = licenceInfo.IsQualifiedAllowed;
-                    $scope.proAddLicProps.showorhideexp = licenceInfo.IsQualifiedAllowed;
+                    // $scope.proAddLicProps.onlyforexplic = licenceInfo.IsQualifiedAllowed;
+                    // $scope.proAddLicProps.showorhideexp = licenceInfo.IsQualifiedAllowed;
                     $scope.proAddLicProps.licType = licenceInfo.LicenceAbbr;
                     $scope.proAddLicProps.licName = licenceInfo.Name;
                 }
@@ -283,8 +283,8 @@ angular.module('dowells.Controllers')
                     $scope.proAddLicProps.proaddlicno = res.LicenceNumber;
                     $scope.proAddLicProps.proaddlicexpiry = new Date(res.LicenceExpiry);
                     $scope.proAddLicProps.hidesavebtn = false;
-
-                    $scope.proAddLicProps.onlyforexplic = res.UserCertificationTypeId == 2 ? true : false;
+                    $scope.proAddLicProps.showorhideexp=true;
+                    $scope.proAddLicProps.onlyforexplic = res.UserCertificationTypeId == 1 ? true : false;
                     console.warn(angular.toJson($scope.proAddLicProps));
                     $scope.proAddLicProps.qualifiedAllowedOrNot = $scope.proAddLicProps.onlyforexplic;
                     $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
@@ -360,8 +360,8 @@ angular.module('dowells.Controllers')
 
     $scope.toggleLicExpFields = function() {
         // Method to show or hide Experienced fields
-        console.warn('toggleExpFields invoked');
-        $scope.proAddLicProps.onlyforexplic = $scope.proAddLicProps.prolicexporqua == "2" ? true : false;
+        console.warn('toggleLicExpFields invoked');
+        $scope.proAddLicProps.onlyforexplic = $scope.proAddLicProps.prolicexporqua == "1" ? true : false;
         $scope.proAddLicProps.showorhideexp = $scope.proAddLicProps.prolicexporqua != "0" ? true : false;
     };
 
@@ -427,8 +427,8 @@ angular.module('dowells.Controllers')
                 if (response.data.IsSuccessful) {
                     var tradeInfo = response.data.Result;
                     $scope.proTraProps.qualifiedAllowedOrNot = $scope.proTraProps.proselectedtra == "0" ? true : tradeInfo.IsQualifiedAllowed;
-                    $scope.proTraProps.onlyforexptra = tradeInfo.IsQualifiedAllowed;
-                    $scope.proTraProps.showorhideexp = tradeInfo.IsQualifiedAllowed;
+                    // $scope.proTraProps.onlyforexptra = tradeInfo.IsQualifiedAllowed;
+                    // $scope.proTraProps.showorhideexp = tradeInfo.IsQualifiedAllowed;
                     // $scope.proTraProps.traType = tradeInfo.LicenceAbbr;
                     $scope.proTraProps.traName = tradeInfo.Name;
                 }
@@ -594,9 +594,8 @@ angular.module('dowells.Controllers')
                 if (response.data.IsSuccessful) {
                     var positionInfo = response.data.Result;
                     $scope.proPosProps.qualifiedAllowedOrNot = $scope.proPosProps.proselectedpos == "0" ? true : positionInfo.IsQualifiedAllowed;
-                    $scope.proPosProps.onlyforexppos = positionInfo.IsQualifiedAllowed;
-                    $scope.proPosProps.showorhideexp = positionInfo.IsQualifiedAllowed;
-                    // $scope.proPosProps.traType = tradeInfo.LicenceAbbr;
+                    // $scope.proPosProps.onlyforexppos = positionInfo.IsQualifiedAllowed;
+                    // $scope.proPosProps.showorhideexp = positionInfo.IsQualifiedAllowed;
                     $scope.proPosProps.posName = positionInfo.Name;
                 }
                 GenericSvc.hideLoader();

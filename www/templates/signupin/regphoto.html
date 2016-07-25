@@ -3,7 +3,7 @@
         <center><p class="thickText">Add a photo of yourself</p></center>
         <div class="ion-profile-picture no-picture" ng-click="showPicOptions()" id="regpropic"></div>
         <center>
-            <button class="button button-calm semiWidth-btn" ng-hide='regPhotoProps.hideregbtn' ng-click="configureForReg()">Register</button>
+            <button class="button button-calm semiWidth-btn" ng-disabled="regPhotoProps.hideregbtn" ng-click="configureForReg()">Register</button>
         </center>
     </ion-content>
 </ion-view>

@@ -3,8 +3,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs) {
         console.log("RegCtrl");
 
-        $scope.regForm = {};
-        $scope.regForm.disableNextBtn=false;
+        $scope.formHandler = {};
+        $scope.formHandler.disableNextBtn = false;
         $scope.nu = RegDataSvc.regFormData;
         $scope.checkEmail = function(regForm) {
             // Method to check the mail existance
@@ -16,11 +16,12 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                     RegSvc.checkMailExistance(userEmail.$modelValue).then(function(response) {
                         var res = response.data;
                         if (res.IsSuccessful) {
-                            if (res.Result)
+                            if (res.Result) {
                                 GenericSvc.toast(infoMsgs.emailDuplication);
-                            else {
+                                $scope.nu.email = ''; // clear the email to prevent duplication
+                            } else {
                                 // Todo: Move to ticket list page
-                                GenericSvc.toast('Email Available');
+                                GenericSvc.toast('Email Available for registration');
                             }
                         }
                         GenericSvc.hideLoader();
@@ -42,10 +43,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         };
         $scope.nu.title = '1';
         $scope.nu.gender = '2'
-        console.log("regForm.$invalid:" + $scope.regForm.$invalid);
-        $scope.$watch('regForm', function() {
-            console.warn($scope.regForm.disableNextBtn)
-        })
+
     })
 
 .controller('RegLicCtrl', function($scope, $state, $ionicModal, $ionicActionSheet,
@@ -450,7 +448,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 })
 
-.controller('RegPhotoCtrl', function($scope, $state, $ionicActionSheet,
+.controller('RegPhotoCtrl', function($scope,$cordovaCamera, $state, $ionicActionSheet,
     GenericSvc, RegSvc, RegDataSvc, errorMsgs, infoMsgs) {
     $scope.showPicOptions = function() {
         // Method to open show picture options
@@ -468,17 +466,25 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             buttonClicked: function(index) {
                 if (index == 0) {
                     $scope.openCameraOrGallery('Camera.PictureSourceType.CAMERA');
-                    $scope.regPhotoProps.hideregbtn = false;
+                    // $scope.regPhotoProps.hideregbtn = false;
                 } else if (index == 1) {
                     $scope.openCameraOrGallery('Camera.PictureSourceType.PHOTOLIBRARY');
-                    $scope.regPhotoProps.hideregbtn = false;
+                    // $scope.regPhotoProps.hideregbtn = false;
                 } else
                     return true;
                 $scope.actionSheet();
+            },
+            destructiveButtonClicked: function() {
+                //Do Stuff
+                return true; //Close the model?
             }
         });
     };
-
+    $scope.showRegisterBtn = function() {
+        // Method to show register button
+        $scope.regPhotoProps.hideregbtn = false;
+        console.log("Showing Register button");
+    };
     $scope.openCameraOrGallery = function(sourceType) {
         // Method to open device camera
         if (sourceType == "Camera.PictureSourceType.CAMERA")
@@ -487,11 +493,12 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
         var cameraOptions = GenericSvc.setCameraOptions(sourceType);
         //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
-        navigator.camera.getPicture(function(dataUrl) {
+        $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
+            $scope.showRegisterBtn();
             RegDataSvc.regProfilePic = dataUrl;
             GenericSvc.fillProfilePic(dataUrl, 'regpropic');
-
-        }, function() {}, cameraOptions);
+            
+        }, function() {});
     };
     $scope.configureForReg = function() {
         // Method to configure the object for registration

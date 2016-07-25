@@ -40,16 +40,16 @@
                     <span class="input-label">How much experience do you have?</span>
                     <input type="text" placeholder="Experience" name="proaddexp" ng-model="proAddLicProps.proaddexp" required>
                 </label>
-                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="proAddLicProps.onlyforexplic">Add Picture</ion-toggle>
+                <ion-toggle ng-model="addlicencepic" toggle-class="toggle-calm" ng-show="false">Add Picture</ion-toggle>
                 <center>
-                    <div ng-show="addlicencepic">
+                    <div ng-show="false">
                         <div class="licenceImage no-picture calm"></div>
                         <div class="licenceImage no-picture calm"></div>
                     </div>
                 </center>
             </div>
         </form>
-        <center>
+        <center class="padding">
             <button class="button semiWidth-btn button-positive" ng-hide="proAddLicProps.hidesavebtn" ng-disabled="proaddlicform.$invalid" ng-click="saveLicence()">{{proAddLicProps.regLicAddBtnTxt}}</button>
         </center>
     </ion-content>

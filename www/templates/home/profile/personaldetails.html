@@ -4,8 +4,8 @@
         <button class="button button-icon button-clear ion-edit calm" ng-click="changeToEditProPage()">
         </button>
     </ion-nav-buttons>
-    <ion-content>
-        <div class="list list-inset">
+    <ion-content class="padding">
+        <div class="list list-inset padding">
             <div class="item">
                 <div class="ion-profile-picture" id="userProfilePicture" ng-click="showPicOptions()"></div>
             </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="item item-text-wrap">
                 <label class="thickText">DOB</label>
-                <p>{{fetchedUserInfo.DateOfBirth}}</p>
+                <p>{{fetchedUserInfo.DateOfBirth | date: 'dd/MM/yyyy'}}</p>
             </div>
             <div class="item item-text-wrap">
                 <label class="thickText">Gender</label>
@@ -36,7 +36,7 @@
             </div>
             <div class="item item-text-wrap">
                 <label class="thickText">Address</label>
-                <p>{{fetchedUserInfo.StreetAddress}},{{fetchedUserInfo.City}},{{fetchedUserInfo.State}}</p>
+                <p>{{fetchedUserInfo.StreetAddress}}<br>{{fetchedUserInfo.City}}<br>{{fetchedUserInfo.State}}</p>
             </div>
             <div class="item item-text-wrap">
                 <label class="thickText">Email Address</label>

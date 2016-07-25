@@ -64,7 +64,7 @@
                     <span class="input-label">Secondary Contact No</span>
                     <input type="tel" name="SecondaryContact" placeholder="Secondary Contact No" ng-model="uu.SecondaryContact">
                 </label>
-                <ion-checkbox class="item-text-wrap" ng-model="uu.IsPaySlipSent">WOULD YOU LIKE PAYSLIPS SENT TO YOUR EMAIL?</ion-checkbox>
+                <ion-checkbox class="item-text-wrap" ng-hide="true" ng-model="uu.IsPaySlipSent">WOULD YOU LIKE PAYSLIPS SENT TO YOUR EMAIL?</ion-checkbox>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.Password.$invalid && !updateForm.Password.$pristine, 'no-errors' : updateForm.Password.$valid}">
                     <span class="input-label mandatory">Pin No</span>
                     <input type="tel" name="Password" placeholder="Pin No" ng-model="uu.Password" required class="password-field" maxlength="4">

@@ -6,20 +6,31 @@
         <div class="logo-status">
         </div>
         <center>
-            <h4>Current Status:{{statusData.curWorkStatus}}</h4>
+            <h4>Current Status:</h4>
         </center>
-        <div class="list" ng-show="jobsData.showJobs">
+        <div class="list">
             <center>
-                <label class="item pendingJobs-listTitle">Pending Jobs</label>
+                <label class="item pendingJobs-listTitle" ng-class="{'available-listTitle':statusData.curWorkStatus=='AVAILABLE',
+                'notAvailable-listTitle':statusData.curWorkStatus=='Not Available',
+                'accept-btn':statusData.curWorkStatus=='Working'}">{{statusData.curWorkStatus}}</label>
             </center>
-            <div class="card">
+            <div class="card padding" ng-show="statusData.showStatusChange">
+                <center>
+                    <p class="padding thickText" ng-show="{{statusData.curWorkStatus=='AVAILABLE'}}">You Have No Current Jobs</p>
+                    <p class="padding">{{statusData.statusChangeText}}</p>
+                    <button class="button button-calm semiWidth-btn" ng-click="jobDecModal.show()">Change Status</button>
+                </center>
+            </div>
+            <div class="card" ng-show="jobsData.showJobs">
                 <div class="item item-text-wrap">
                     <label class="thickText">Client:</label>
                     <p>{{jobsData.clientName}}</p>
                     <label class="thickText">Project:</label>
                     <p>{{jobsData.projectName}}</p>
                     <label class="thickText">Project Address:</label>
-                    <p>{{jobsData.projectAddress}}<button class="button button-calm button-clear icon ion-ios-location" ng-click="map.showDialog()"></button></p>
+                    <p>{{jobsData.projectAddress}}
+                        <button class="button button-calm button-clear icon ion-ios-location" ng-click="map.showDialog()"></button>
+                    </p>
                     <label class="thickText">Start date & Time:</label>
                     <p>{{jobsData.startDate}}</p>
                     <label class="thickText">Message:</label>

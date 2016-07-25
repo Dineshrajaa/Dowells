@@ -48,12 +48,20 @@ angular.module('dowells.Controllers')
     })
 })
 
-.controller('StatusCtrl', function($scope, StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
+.controller('StatusCtrl', function($scope,$ionicModal,
+    StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
+    $ionicModal.fromTemplateUrl('templates/home/dashboard/declinejob-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.jobDecModal = modal;
+    });
+    // $scope.jobDecModal.show();
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
         $scope.map = plugin.google.maps.Map.getMap();
         $scope.statusData = $scope.jobsData = {};
-        $scope.jobsData.showJobs = false;
+        $scope.jobsData.showJobs = $scope.statusData.showStatusChange = false;
         var currentUserData = angular.fromJson(localStorage.userData);
 
         if (GenericSvc.checkInternet()) {
@@ -63,6 +71,7 @@ angular.module('dowells.Controllers')
             StatusSvc.getUserStatus(userDataParam).then(function(response) {
                 var res = response.data;
                 $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
+                $scope.statusData.statusChangeText = $scope.statusData.curWorkStatus == 'Available' ? infoMsgs.availableChangeText : infoMsgs.unAvailableChangeText;
                 GenericSvc.hideLoader();
                 $scope.fetchUserJobs();
             }, function(err) {
@@ -73,7 +82,7 @@ angular.module('dowells.Controllers')
     $scope.configureMapWithMarker = function() {
         // Method to configure Map and add Marker on the given Lat and Lng
         $scope.map.addEventListener(plugin.google.maps.event.MAP_READY, function() {
-            $scope.markerLoc = new plugin.google.maps.LatLng($scope.jobsData.lat,$scope.jobsData.lng);
+            $scope.markerLoc = new plugin.google.maps.LatLng($scope.jobsData.lat, $scope.jobsData.lng);
             $scope.map.addMarker({
                 'position': $scope.markerLoc,
                 'title': $scope.jobsData.projectAddress
@@ -96,7 +105,8 @@ angular.module('dowells.Controllers')
             StatusSvc.getUserJob(userDataParam).then(function(response) {
                 var res = response.data.Result;
                 console.warn('User Jobs:' + angular.toJson(res));
-                if (res.ID>0) {                    
+                if (res.ID > 0) {
+                    $scope.statusData.curWorkStatus = 'Pending Jobs';
                     $scope.jobsData.showJobs = true;
                     $scope.jobsData.clientName = res.ClientName;
                     $scope.jobsData.projectName = res.ProjectName;
@@ -106,6 +116,9 @@ angular.module('dowells.Controllers')
                     $scope.jobsData.lat = res.Latitude;
                     $scope.jobsData.lng = res.Longitude;
                     $scope.jobsData.jobId = res.UserSchedulingID;
+                } else {
+                    // No Pending Jobs
+                    $scope.statusData.showStatusChange = true; // Show the status change option
                 }
                 GenericSvc.hideLoader();
             }, function(err) {
