@@ -1,0 +1,31 @@
+<ion-view view-title="Add/Edit Leave">
+    <ion-content>
+        <div class="logo-status">
+        </div>
+        <center>
+            <p>Notify admin staff of upcoming leave. Your status will change to "Not Available" during this period</p>
+            <form novalidate name="leaveForm" ng-model="leaveForm">
+            	<label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : leaveForm.leaveTitle.$invalid && !leaveForm.leaveTitle.$pristine, 'no-errors' : leaveForm.leaveTitle.$valid}">
+                    <span class="input-label mandatory">Leave Title</span>
+                    <input type="text" placeholder="Leave Title" name="leaveTitle" ng-model="leaveData.leaveTitle" required>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : leaveForm.leaveFromDate.$invalid && !leaveForm.leaveFromDate.$pristine, 'no-errors' : leaveForm.leaveFromDate.$valid}">
+                    <span class="input-label mandatory">From Date</span>
+                    <input type="date" placeholder="From Date" name="leaveFromDate" ng-model="leaveData.leaveFromDate" required>
+                </label>
+                <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : leaveForm.leaveToDate.$invalid && !leaveForm.leaveToDate.$pristine, 'no-errors' : leaveForm.leaveToDate.$valid}">
+                    <span class="input-label mandatory">To Date</span>
+                    <input type="date" placeholder="To Date" name="leaveToDate" ng-model="leaveData.leaveToDate" required>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label mandatory">
+                        Frequency
+                    </span>
+                    <select ng-model="leaveData.frequency" ng-options="frequency.Id as frequency.Name for frequency in frequencies">
+                        
+                    </select>
+                </label>
+            </form>
+        </center>
+    </ion-content>
+</ion-view>

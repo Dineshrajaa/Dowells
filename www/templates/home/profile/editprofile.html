@@ -38,23 +38,23 @@
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Search Address</span>
-                    <input type="text" placeholder="Search Address">
+                    <input type="text" placeholder="Search Address" id="keyword">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.StreetAddress.$invalid && !updateForm.StreetAddress.$pristine, 'no-errors' : updateForm.StreetAddress.$valid}">
                     <span class="input-label mandatory">Street Address</span>
-                    <input type="text" name="StreetAddress" placeholder="Street Address" ng-model="uu.StreetAddress" required>
+                    <input type="text" name="StreetAddress" placeholder="Street Address" ng-model="uu.StreetAddress" required id="street_number">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.City.$invalid && !updateForm.City.$pristine, 'no-errors' : updateForm.City.$valid}">
                     <span class="input-label mandatory">City/Suburb/Town</span>
-                    <input type="text" name="City" placeholder="City/Suburb/Town" ng-model="uu.City" required>
+                    <input type="text" name="City" placeholder="City/Suburb/Town" ng-model="uu.City" required id="locality">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.State.$invalid && !updateForm.State.$pristine, 'no-errors' : updateForm.State.$valid}">
                     <span class="input-label mandatory">State</span>
-                    <input type="text" name="State" placeholder="State" ng-model="uu.State" required>
+                    <input type="text" name="State" placeholder="State" ng-model="uu.State" required id="administrative_area_level_1">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.Postcode.$invalid && !updateForm.Postcode.$pristine, 'no-errors' : updateForm.Postcode.$valid}">
                     <span class="input-label mandatory">Postcode</span>
-                    <input type="text" name="Postcode" placeholder="Postcode" ng-model="uu.Postcode" required>
+                    <input type="text" name="Postcode" placeholder="Postcode" ng-model="uu.Postcode" required id="postal_code">
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{'has-errors' : updateForm.ContactNumber.$invalid && !updateForm.ContactNumber.$pristine, 'no-errors' : updateForm.ContactNumber.$valid}">
                     <span class="input-label mandatory">Primary Contact No</span>

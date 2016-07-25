@@ -2,6 +2,9 @@ angular.module('dowells.Controllers', ['dowells.Services'])
     .controller('RegCtrl', function($scope, $state,
         RegSvc, RegDataSvc, GenericSvc, errorMsgs, infoMsgs) {
         console.log("RegCtrl");
+
+        $scope.regForm = {};
+        $scope.regForm.disableNextBtn=false;
         $scope.nu = RegDataSvc.regFormData;
         $scope.checkEmail = function(regForm) {
             // Method to check the mail existance
@@ -37,9 +40,12 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             $state.go('master.regliclist');
             RegDataSvc.storeRegFormData($scope.nu);
         };
-        $scope.nu.title='1';
-        $scope.nu.gender='2'
-
+        $scope.nu.title = '1';
+        $scope.nu.gender = '2'
+        console.log("regForm.$invalid:" + $scope.regForm.$invalid);
+        $scope.$watch('regForm', function() {
+            console.warn($scope.regForm.disableNextBtn)
+        })
     })
 
 .controller('RegLicCtrl', function($scope, $state, $ionicModal, $ionicActionSheet,
@@ -186,7 +192,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 .controller('RegTraCtrl', function($scope, $state, $ionicModal,
     RegSvc, RegDataSvc, GenericSvc, infoMsgs) {
-    // Load Add Licence Modal    
+    // Load Add Trade Modal    
     $ionicModal.fromTemplateUrl('templates/signupin/regaddtra-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -361,7 +367,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             GenericSvc.showLoader();
             $scope.regPosProps.hidesavebtn = $scope.regPosProps.regselectedpos == "0" ? true : false;
             $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : false;
-            RegSvc.getTradeDetail($scope.regPosProps.regselectedpos).then(function(response) {
+            RegSvc.getPositionDetail($scope.regPosProps.regselectedpos).then(function(response) {
                 if (response.data.IsSuccessful) {
                     var positionInfo = response.data.Result;
                     $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : positionInfo.IsQualifiedAllowed;
@@ -444,8 +450,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 })
 
-.controller('RegPhotoCtrl', function($scope,$state,$ionicActionSheet,
-    GenericSvc, RegSvc,RegDataSvc,errorMsgs,infoMsgs) {
+.controller('RegPhotoCtrl', function($scope, $state, $ionicActionSheet,
+    GenericSvc, RegSvc, RegDataSvc, errorMsgs, infoMsgs) {
     $scope.showPicOptions = function() {
         // Method to open show picture options
         $scope.actionSheet = $ionicActionSheet.show({
@@ -482,7 +488,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         var cameraOptions = GenericSvc.setCameraOptions(sourceType);
         //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
         navigator.camera.getPicture(function(dataUrl) {
-            RegDataSvc.regProfilePic=dataUrl;
+            RegDataSvc.regProfilePic = dataUrl;
             GenericSvc.fillProfilePic(dataUrl, 'regpropic');
 
         }, function() {}, cameraOptions);
@@ -492,7 +498,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         var tempFormObj = RegDataSvc.regFormData;
         var regObj = {};
         regObj.titleId = tempFormObj.title;
-        regObj.Title=RegSvc.tellTitleName(tempFormObj.title)
+        regObj.Title = RegSvc.tellTitleName(tempFormObj.title)
         regObj.FirstName = tempFormObj.fname;
         regObj.MiddleName = tempFormObj.mname;
         regObj.LastName = tempFormObj.lname;
@@ -505,7 +511,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         regObj.ContactNumber = tempFormObj.primarycontact;
         regObj.SecondaryContact = tempFormObj.secondarycontact;
         regObj.IsPaySlipSent = tempFormObj.isemailsent;
-        regObj.Password=tempFormObj.pinno;
+        regObj.Password = tempFormObj.pinno;
         regObj.GenderId = tempFormObj.gender;
         regObj.UserLicenceTicketTypes = RegDataSvc.licenceList;
         regObj.UserTradeExperiences = RegDataSvc.tradeList;
@@ -518,7 +524,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         if (GenericSvc.checkInternet()) {
             GenericSvc.showLoader();
             RegSvc.submitUserForm(regObj).then(function(response) {
-                if(response.data.IsSuccessful){
+                if (response.data.IsSuccessful) {
                     GenericSvc.toast(infoMsgs.regSuc);
                     $state.go('master.regsuc');
                 }
