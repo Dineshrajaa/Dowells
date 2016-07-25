@@ -62,6 +62,11 @@
         line-height: 9.5rem;
         text-align: center;
     }
+
+    .regSuc-para{
+        font-size: 14px;
+        margin:50% 2% 0 2%;
+    }
     
     .mandatory:after {
         content: '*';

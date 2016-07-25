@@ -26,7 +26,7 @@ angular.module('dowells.Services', [])
             if (localStorage.userData != undefined)
                 $state.go('home.status');
             else
-                $state.go('master.login');
+                $state.go('master.regsuc');
         };
 
         this.getDeviceIdForPush = function() {
