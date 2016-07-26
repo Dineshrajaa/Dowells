@@ -91,6 +91,11 @@
     .thickText {
         font-weight: bold;
     }
+
+    .addModal-btn{
+        float:right;
+        
+    }
     /*Styling for radio buttons*/
     
     body {
