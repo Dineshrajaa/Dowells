@@ -90,7 +90,8 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
             views: {
                 'masterPage': {
                     templateUrl: 'templates/signupin/login.html',
-                    controller: 'LoginCtrl'
+                    controller: 'LoginCtrl',
+                    cache:false
                 }
             }
         })

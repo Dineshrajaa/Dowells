@@ -2,13 +2,16 @@
     <ion-nav-buttons side="right">
         <button class="button pull-right button-icon button-clear ion-arrow-right-c" ng-click="changeToPosPage()"></button>
     </ion-nav-buttons>
-    <ion-content has-bouncing="false">
-        <button class="button button-light button-icon header-item addModal-btn" ng-click="regAddTraModal.show()">
+    <div class="bar bar-subheader">
+        <h2 class="title">Add trade experience.</h2>
+        <button class="button button-calm button-icon header-item pull-right" ng-click="regAddTraModal.show()">
             <i class="icon ion-plus calm"></i>
         </button>
-        <center ng-if="tradeList.length==0">
+    </div>
+    <ion-content has-bouncing="false" class="has-subheader">
+        <!-- <center ng-if="tradeList.length==0">
             <p class="thickText">Add any trade experience you have.</p>
-        </center>
+        </center> -->
         <ion-list show-delete="false" can-swipe="true">
             <ion-item class="item-text-wrap" ng-repeat="trade in tradeList">
                 <div class="row">
