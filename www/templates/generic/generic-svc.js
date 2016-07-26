@@ -1,5 +1,5 @@
 angular.module('dowells.Services', [])
-    .service('GenericSvc', function($ionicLoading, $state, $ionicActionSheet) {
+    .service('GenericSvc', function($ionicLoading, $state, $ionicActionSheet, $ionicHistory) {
         this.toast = function(msg) {
             window.plugins.toast.showShortBottom(msg, function(a) { console.log('toast success: ' + a) },
                 function(b) { alert('toast error: ' + b) });
@@ -88,24 +88,38 @@ angular.module('dowells.Services', [])
             }
             return options;
         };
-        
-        this.tellTitleId=function(titleName){
+
+        this.tellTitleId = function(titleName) {
             // Method to return Title Id
             var titleId;
-            switch(titleName){
+            switch (titleName) {
                 case 'Mr':
-                titleId=1;
-                break;
+                    titleId = 1;
+                    break;
                 case 'Mrs':
-                titleId=2;
-                break;
+                    titleId = 2;
+                    break;
                 case 'Miss':
-                titleId=3;
-                break;
+                    titleId = 3;
+                    break;
                 case 'Ms':
-                titleId=4;
-                break;
+                    titleId = 4;
+                    break;
             }
             return titleId;
+        };
+
+        this.handleBackButton = function() {
+            // Method to handle back button
+            var currentStateName = $ionicHistory.currentStateName();
+            switch (currentStateName) {
+                case 'master.regsuc':
+                    $state.go('master.login');
+                    break;
+                default:
+                    break;
+
+            }
+
         };
     })

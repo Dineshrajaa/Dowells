@@ -63,6 +63,9 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            $ionicPlatform.onHardwareBackButton(function() {
+                GenericSvc.handleBackButton(); // Manage the back button
+            });
             GenericSvc.getDeviceIdForPush(); // Register pushnotification device id
             GenericSvc.checkLoginStatus(); // Check whether user has already logged in
         });
