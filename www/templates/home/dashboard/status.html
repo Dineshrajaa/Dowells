@@ -18,7 +18,7 @@
                 <center>
                     <p class="padding thickText" ng-show="{{statusData.curWorkStatus=='AVAILABLE'}}">You Have No Current Jobs</p>
                     <p class="padding">{{statusData.statusChangeText}}</p>
-                    <button class="button button-calm semiWidth-btn" ng-click="jobDecModal.show()">Change Status</button>
+                    <button class="button button-calm semiWidth-btn" ng-click="availChaModal.show()">Change Status</button>
                 </center>
             </div>
             <div class="card" ng-show="jobsData.showJobs">
@@ -29,16 +29,16 @@
                     <p>{{jobsData.projectName}}</p>
                     <label class="thickText">Project Address:</label>
                     <p>{{jobsData.projectAddress}}
-                        <button class="button button-calm button-clear icon ion-ios-location" ng-click="map.showDialog()"></button>
+                        <button class="button button-calm button-clear icon ion-ios-location projectLocation-btn" ng-click="configureMapWithMarker()"></button>
                     </p>
                     <label class="thickText">Start date & Time:</label>
-                    <p>{{jobsData.startDate}}</p>
+                    <p>{{jobsData.startDate |date:'dd/MM/yyyy HH:mma'}}</p>
                     <label class="thickText">Message:</label>
                     <p>{{jobsData.message}}</p>
                     <center>
                         <div class="row">
                             <div class="col col-50">
-                                <button class="button semiWidth-btn decline-btn" ng-click="manageJob('Decline')">
+                                <button class="button semiWidth-btn decline-btn" ng-click="jobDecModal.show()">
                                     Decline
                                 </button>
                             </div>

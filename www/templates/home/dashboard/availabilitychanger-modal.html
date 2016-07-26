@@ -1,0 +1,27 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-calm">
+        <h1 class="title">Update Availability Status</h1>
+        <button class="button button-clear button-primary" ng-click="availChaModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <form name="statusUpdateForm" novalidate style="margin-top:50%">
+            <center>
+                <p>Updating your status will notify office staff of your availablity to work.</p>
+                <div class="item item-toggle assertive" ng-class="{'balanced':statusData.avaiOrNot}">                    
+                    <label class="toggle toggle-calm">
+                        <input type="checkbox" ng-model="statusData.avaiOrNot">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                    {{statusData.choosenWorkStatus}}
+                </div>
+            </center>
+            <center class="padding">
+                <button class="button button-calm semiWidth-btn" ng-click="changeUserWorkStatus()">
+                    Submit
+                </button>
+            </center>
+        </form>
+    </ion-content>
+</ion-modal-view>
