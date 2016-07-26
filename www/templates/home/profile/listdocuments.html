@@ -7,15 +7,15 @@
                     <div class="row">
                         <div class="col">{{ticket.Name}}</div>
                     </div>
-                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==2}}">
+                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==1}}">
                         <div class="col">Licence Type</div>
                         <div class="col">{{ticket.LicenceType}}</div>
                     </div>
-                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==2}}">
+                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==1}}">
                         <div class="col">Licence No.</div>
                         <div class="col">{{ticket.LicenceNumber}}</div>
                     </div>
-                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==2}}">
+                    <div class="row" ng-show="{{ticket.UserCertificationTypeId==1}}">
                         <div class="col">Expiry</div>
                         <div class="col">{{ticket.LicenceExpiry|date:'dd/MM/yyyy'}}</div>
                     </div>
@@ -27,8 +27,8 @@
                     <ion-option-button side="left" class="button-assertive icon ion-trash-a" ng-click="deleteLicence(ticket)"></ion-option-button>
                 </ion-item>
             </ion-list>
-            <center>
-                <button class="button button-calm semiWidth-btn" ng-click="proAddLicModal.show()">Add New</button>
+            <center class="padding">
+                <button class="button button-calm semiWidth-btn" ng-click="openAddLicModal()">Add New</button>
             </center>
         </div>
         <div class="card">
@@ -43,7 +43,7 @@
                             <div class="col">Certification Type</div>
                             <div class="col">{{trade.UserCertificationType}}</div>
                         </div>
-                        <div class="row" ng-show="{{trade.UserCertificationTypeId==2}}">
+                        <div class="row" ng-show="{{trade.UserCertificationTypeId==1}}">
                             <div class="col">Qualification No.</div>
                             <div class="col">{{trade.QualificationNumber}}</div>
                         </div>
@@ -56,8 +56,8 @@
                     </ion-item>
                 </ion-list>
             </ion-list>
-            <center>
-                <button class="button button-calm semiWidth-btn" ng-click="proAddTraModal.show()">Add New</button>
+            <center class="padding">
+                <button class="button button-calm semiWidth-btn" ng-click="openAddTraModal()">Add New</button>
             </center>
         </div>
         <div class="card">
@@ -72,7 +72,7 @@
                             <div class="col">Certification Type</div>
                             <div class="col">{{position.UserCertificationTypeName}}</div>
                         </div>
-                        <div class="row" ng-show="position.isQualified">
+                        <div class="row" ng-show="{{position.UserCertificationType='Experienced'}}">
                             <div class="col">Qualification No.</div>
                             <div class="col">{{position.QualificationNumber}}</div>
                         </div>
@@ -85,8 +85,8 @@
                     </ion-item>
                 </ion-list>
             </ion-list>
-            <center>
-                <button class="button button-calm semiWidth-btn" ng-click="proAddPosModal.show()">Add New</button>
+            <center class="padding">
+                <button class="button button-calm semiWidth-btn" ng-click="openAddPosModal()">Add New</button>
             </center>
         </div>
     </ion-content>

@@ -66,7 +66,11 @@ angular.module('dowells.Services')
     this.setWorkStatus=function(workStatus){
         // Method to set work status
         return $http.get(WSUrl + 'Account/UpdateUserJobStatus', { params: workStatus });
-    }
+    };
+    this.completeJob=function(jobData){
+        // Method to finish a job
+        return $http.get(WSUrl + 'Account/MarkFinishJob', { params: jobData });
+    };
 })
 
 

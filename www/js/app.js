@@ -100,7 +100,8 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
             views: {
                 'masterPage': {
                     templateUrl: 'templates/signupin/appstatus.html',
-                    controller: 'AppStatusCtrl'
+                    controller: 'AppStatusCtrl',
+                    cache:false
                 }
             }
         })

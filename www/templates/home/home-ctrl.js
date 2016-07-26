@@ -50,7 +50,11 @@ angular.module('dowells.Controllers')
 
 .controller('StatusCtrl', function($scope, $ionicModal,
     StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
-
+    $scope.map = plugin.google.maps.Map.getMap();
+    $scope.statusData = $scope.jobsData = {};
+    $scope.jobsData.declineReason = '';
+    $scope.jobsData.showJobs = $scope.statusData.showStatusChange = false;
+    $scope.jobsData.showFinishButton = false;
     $ionicModal.fromTemplateUrl('templates/home/dashboard/declinejob-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -72,21 +76,18 @@ angular.module('dowells.Controllers')
             var statusObj = {};
             statusObj.userId = currentUserData.ID;
             statusObj.statusId = $scope.statusData.choosenWorkStatusId;
-            StatusSvc.setWorkStatus(statusObj).then(function(response){
-                var res=response.data;
-                if(res.IsSuccessful){
+            StatusSvc.setWorkStatus(statusObj).then(function(response) {
+                var res = response.data;
+                if (res.IsSuccessful) {
                     $scope.availChaModal.hide();
                     $scope.fetchUserStatus();
                 }
-            },function(err){});
+            }, function(err) {});
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
-        $scope.map = plugin.google.maps.Map.getMap();
-        $scope.statusData = $scope.jobsData = {};
-        $scope.jobsData.declineReason = '';
-        $scope.jobsData.showJobs = $scope.statusData.showStatusChange = false;
+
         var currentUserData = angular.fromJson(localStorage.userData);
 
         if (GenericSvc.checkInternet()) {
@@ -123,7 +124,11 @@ angular.module('dowells.Controllers')
 
         });
     };
-    $scope.fetchUserStatus();
+
+    $scope.$on("$ionicView.enter", function(event, data) {
+        // handle event
+        $scope.fetchUserStatus();
+    });
     $scope.fetchUserJobs = function() {
         // Method to fetch logged in user jobs
         var currentUserData = angular.fromJson(localStorage.userData);
@@ -132,22 +137,31 @@ angular.module('dowells.Controllers')
             userDataParam.userId = currentUserData.ID;
             GenericSvc.showLoader(infoMsgs.gettingUserJob);
             StatusSvc.getUserJob(userDataParam).then(function(response) {
-                var res = response.data.Result;
-                console.warn('User Jobs:' + angular.toJson(res));
-                if (res.ID > 0) {
-                    $scope.statusData.curWorkStatus = 'Pending Jobs';
-                    $scope.jobsData.showJobs = true;
-                    $scope.jobsData.clientName = res.ClientName;
-                    $scope.jobsData.projectName = res.ProjectName;
-                    $scope.jobsData.projectAddress = res.ProjectAddress;
-                    $scope.jobsData.startDate = res.StartDate;
-                    $scope.jobsData.message = res.Message;
-                    $scope.jobsData.lat = res.Latitude;
-                    $scope.jobsData.lng = res.Longitude;
-                    $scope.jobsData.jobId = res.UserSchedulingID;
-                } else {
-                    // No Pending Jobs
-                    $scope.statusData.showStatusChange = true; // Show the status change option
+
+                var res = response.data;
+                if (res.IsSuccessful) {
+                    var res = res.Result;
+                    if (res.ID > 0) {
+                        if (res.IsAccepted) {
+                            $scope.jobsData.showFinishButton = true;
+                            $scope.statusData.curWorkStatus = 'Working';
+                        } else if (!res.IsAccepted)
+                            $scope.statusData.curWorkStatus = 'Pending Jobs';
+                        $scope.statusData.showStatusChange = false;
+                        $scope.jobsData.showJobs = true;
+                        $scope.jobsData.clientName = res.ClientName;
+                        $scope.jobsData.projectName = res.ProjectName;
+                        $scope.jobsData.projectAddress = res.ProjectAddress;
+                        $scope.jobsData.startDate = res.StartDate;
+                        $scope.jobsData.message = res.Message;
+                        $scope.jobsData.lat = res.Latitude;
+                        $scope.jobsData.lng = res.Longitude;
+                        $scope.jobsData.jobId = res.UserSchedulingID;
+                    } else {
+                        // No Pending Jobs
+                        $scope.statusData.showStatusChange = true; // Show the status change option
+                        $scope.jobsData.showJobs = false; // Hide the Jobs section
+                    }
                 }
                 GenericSvc.hideLoader();
             }, function(err) {
@@ -160,13 +174,47 @@ angular.module('dowells.Controllers')
 
         if (GenericSvc.checkInternet()) {
             var jobPre = {};
+            if(jobAccOrDec=='Decline'&&$scope.jobsData.declineReason==''){
+                GenericSvc.toast('Please enter decline reason');
+                return;
+            }
+            GenericSvc.showLoader(jobAccOrDec + 'ing the Job');
             var jobAccOrDec = jobAccOrDec == 'Accept' ? true : false;
             jobPre.userJobHistoryId = $scope.jobsData.jobId;
             jobPre.isAccepted = jobAccOrDec;
             jobPre.declinedReason = $scope.jobsData.declineReason;
             StatusSvc.setJobPref(jobPre).then(function(response) {
                 console.warn('Accept/Decline:' + angular.toJson(response));
-            }, function(err) {});
+                var res=response.data;
+                if(res.IsSuccessful){
+                    if(jobAccOrDec=='Decline')
+                        $scope.jobDecModal.hide();
+                    GenericSvc.toast(jobAccOrDec+'ed the Job');
+                    $scope.fetchUserStatus();
+                }
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
+        } else GenericSvc.toast(errorMsgs.noInternet);
+    };
+    $scope.finishJob = function() {
+        // Method to finish job
+        if (GenericSvc.checkInternet()) {
+            GenericSvc.showLoader('Completing the Job');
+            var jobPre = {};
+            jobPre.userJobHistoryId = $scope.jobsData.jobId;
+            StatusSvc.completeJob(jobPre).then(function(response) {
+                console.warn('finish job:' + angular.toJson(response));
+                var res = response.data;
+                if (res.IsSuccessful) {
+                    GenericSvc.toast('Completed the Job Successfully');
+                    $scope.fetchUserStatus();
+                }
+                GenericSvc.hideLoader();
+            }, function(err) {
+                GenericSvc.hideLoader();
+            });
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
     $scope.$watch('statusData.avaiOrNot', function() {
@@ -200,5 +248,8 @@ angular.module('dowells.Controllers')
             });
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
-    $scope.fetchUserMessage();
+    $scope.$on("$ionicView.enter", function(event, data) {
+        // handle event
+        $scope.fetchUserMessage();
+    });
 })

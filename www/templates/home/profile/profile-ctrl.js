@@ -193,6 +193,10 @@ angular.module('dowells.Controllers')
         $scope.resetAddLicForm();
 
     };
+    $scope.openAddLicModal=function(){
+        $scope.proAddLicModal.show();
+        $scope.resetAddLicForm();
+    };
     $scope.fetchDocumentDetails = function() {
         // Method to fetch the document details
         if (GenericSvc.checkInternet()) {
@@ -264,6 +268,7 @@ angular.module('dowells.Controllers')
         $scope.proAddLicProps.prolicexporqua = "0";
         $scope.proAddLicProps.licType = "";
         $scope.proAddLicProps.licName = "";
+        $scope.proAddLicProps.proaddexp="";
         $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
     };
     $scope.editLicence = function(licenceToEdit) {
@@ -401,6 +406,11 @@ angular.module('dowells.Controllers')
     $scope.closeAddTraModal = function() {
         // Method to close Add Trade Modal and reset the form
         $scope.proAddTraModal.hide();
+        $scope.resetAddTraForm();
+    };
+    $scope.openAddTraModal = function() {
+        // Method to close Add Trade Modal and reset the form
+        $scope.proAddTraModal.show();
         $scope.resetAddTraForm();
     };
     $scope.fetchActiveTrades = function() {
@@ -568,6 +578,11 @@ angular.module('dowells.Controllers')
     $scope.closeAddPosModal = function() {
         // Method to close Add Trade Modal and reset the form
         $scope.proAddPosModal.hide();
+        $scope.resetAddPosForm();
+    };
+    $scope.openAddPosModal = function() {
+        // Method to close Add Trade Modal and reset the form
+        $scope.proAddPosModal.show();
         $scope.resetAddPosForm();
     };
     $scope.fetchActivePositions = function() {
