@@ -1,6 +1,6 @@
 <ion-view view-title="Create your Profile" name="registration-view">
     <ion-nav-buttons side="right">
-        <button class="button pull-right button-icon button-clear ion-arrow-right-c" style="color:#ffffff" ng-disabled="!formHandler.disableNextBtn" ng-click="changeToLicpage()">
+        <button class="button pull-right button-icon button-clear ion-arrow-right-c" style="color:#ffffff" ng-disabled="formHandler.disableNextBtn" ng-click="changeToLicpage()">
         </button>
     </ion-nav-buttons>
     <ion-content has-bouncing="false">
@@ -49,7 +49,7 @@
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Search Address</span>
-                    <input type="text" placeholder="Search Address">
+                    <input type="text" placeholder="Search Address" id='keyword' ng-model='searchaddress'>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.streetaddress.$invalid && !regForm.streetaddress.$pristine, 'no-errors' : regForm.streetaddress.$valid}">
                     <span class="input-label mandatory">Street Address</span>

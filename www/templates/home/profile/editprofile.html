@@ -38,7 +38,7 @@
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Search Address</span>
-                    <input type="text" placeholder="Search Address" id="keyword">
+                    <input type="text" placeholder="Search Address" id="keywordpro" ng-model='searchaddress'>
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : updateForm.StreetAddress.$invalid && !updateForm.StreetAddress.$pristine, 'no-errors' : updateForm.StreetAddress.$valid}">
                     <span class="input-label mandatory">Street Address</span>

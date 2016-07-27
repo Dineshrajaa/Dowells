@@ -76,20 +76,22 @@ angular.module('dowells.Controllers')
     });
     $scope.changeUserWorkStatus = function() {
         // Method to change the work status to available or not available
-
-        if (GenericSvc.checkInternet()) {
-            var currentUserData = angular.fromJson(localStorage.userData);
-            var statusObj = {};
-            statusObj.userId = currentUserData.ID;
-            statusObj.statusId = $scope.statusData.choosenWorkStatusId;
-            StatusSvc.setWorkStatus(statusObj).then(function(response) {
-                var res = response.data;
-                if (res.IsSuccessful) {
-                    $scope.availChaModal.hide();
-                    $scope.fetchUserStatus();
-                }
-            }, function(err) {});
-        } else GenericSvc.toast(errorMsgs.noInternet);
+        if ($scope.callFinishService) $scope.finishJob();
+        else {
+            if (GenericSvc.checkInternet()) {
+                var currentUserData = angular.fromJson(localStorage.userData);
+                var statusObj = {};
+                statusObj.userId = currentUserData.ID;
+                statusObj.statusId = $scope.statusData.choosenWorkStatusId;
+                StatusSvc.setWorkStatus(statusObj).then(function(response) {
+                    var res = response.data;
+                    if (res.IsSuccessful) {
+                        $scope.availChaModal.hide();
+                        $scope.fetchUserStatus();
+                    }
+                }, function(err) {});
+            } else GenericSvc.toast(errorMsgs.noInternet);
+        }
     };
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
@@ -195,7 +197,7 @@ angular.module('dowells.Controllers')
                 if (res.IsSuccessful) {
                     if (jobAccOrDec == 'Decline')
                         $scope.jobDecModal.hide();
-                    GenericSvc.toast(jobAccOrDec + 'ed the Job');
+                    GenericSvc.toast( 'Request completed');
                     $scope.fetchUserStatus();
                 }
                 GenericSvc.hideLoader();
@@ -204,24 +206,37 @@ angular.module('dowells.Controllers')
             });
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
+    $scope.showStatusPopup = function() {
+        $scope.callFinishService = true;
+        $scope.availChaModal.show();
+
+    };
     $scope.finishJob = function() {
         // Method to finish job
         if (GenericSvc.checkInternet()) {
             GenericSvc.showLoader('Completing the Job');
             var jobPre = {};
             jobPre.userJobHistoryId = $scope.jobsData.jobId;
+            jobPre.isInducted = $scope.statusData.inducedOrNot;
+            jobPre.markAvailable = $scope.statusData.avaiOrNot;
             StatusSvc.completeJob(jobPre).then(function(response) {
                 console.warn('finish job:' + angular.toJson(response));
                 var res = response.data;
                 if (res.IsSuccessful) {
                     GenericSvc.toast('Completed the Job Successfully');
+                    hideAvailableChanger();
                     $scope.fetchUserStatus();
                 }
+
                 GenericSvc.hideLoader();
             }, function(err) {
                 GenericSvc.hideLoader();
             });
         } else GenericSvc.toast(errorMsgs.noInternet);
+    };
+    $scope.hideAvailableChanger=function(){
+        $scope.callFinishService=false;
+        availChaModal.hide();
     };
     $scope.$watch('statusData.avaiOrNot', function() {
         if ($scope.statusData.avaiOrNot) {

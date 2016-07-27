@@ -6,6 +6,59 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $scope.formHandler = {};
         $scope.formHandler.disableNextBtn = false;
         $scope.nu = RegDataSvc.regFormData;
+                   var options = {
+        types: ['geocode'],
+        componentRestrictions: { country: "au" }
+    };
+    var placeSearch, autocomplete;
+    var componentForm = {
+        street_number: 'long_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        //country: 'long_name',
+        postal_code: 'long_name'
+    };
+     var input = document.getElementById("keyword");
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+     autocomplete.addListener('place_changed', fillInAddress);
+
+    function fillInAddress() {  
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+        $scope.nu.streetaddress = '';
+        $scope.nu.city = '';
+        $scope.nu.state = '';
+        $scope.nu.postcode = ''
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+            switch(addressType)
+            {
+                case 'route':
+                    var val = place.address_components[i][componentForm[addressType]];
+                    $scope.nu.streetaddress += " " + val;
+                    $scope.nu.streetaddress = $scope.nu.streetaddress.trim();
+                    break;
+                case 'locality':
+                    $scope.nu.city = place.address_components[i][componentForm[addressType]];
+                    break;
+                case 'administrative_area_level_1':
+                    $scope.nu.state = place.address_components[i][componentForm[addressType]];
+                    break;
+                case 'postal_code':
+                    $scope.nu.postcode = place.address_components[i][componentForm[addressType]];
+                    break;
+            }
+               
+                 
+            }
+             $scope.$apply()
+        }
+    }
         $scope.checkEmail = function(regForm) {
             // Method to check the mail existance
 
@@ -394,7 +447,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                     $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : positionInfo.IsQualifiedAllowed;
                     $scope.regPosProps.onlyforexp = positionInfo.IsQualifiedAllowed;
                     if (positionInfo.IsQualifiedAllowed)
-                        $scope.regTraProps.regposexporqua = '1';
+                        $scope.regPosProps.regposexporqua = '1';
                     $scope.regPosProps.showorhideexp = positionInfo.IsQualifiedAllowed;
                     // $scope.regTraProps.traType = tradeInfo.LicenceAbbr;
                     $scope.regPosProps.posName = positionInfo.Name;
@@ -535,7 +588,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         regObj.FirstName = tempFormObj.fname;
         regObj.MiddleName = tempFormObj.mname;
         regObj.LastName = tempFormObj.lname;
-        regObj.DOB = GenericSvc.convertUIDateToDb(tempFormObj.dob);
+        regObj.DateOfBirth = GenericSvc.convertUIDateToDb(new Date(tempFormObj.dob));
         regObj.Email = tempFormObj.email;
         regObj.StreetAddress = tempFormObj.streetaddress;
         regObj.City = tempFormObj.city;
