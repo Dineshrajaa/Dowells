@@ -1,5 +1,5 @@
 angular.module('dowells.Controllers')
-    .controller('ProfileCtrl', function($scope, $ionicActionSheet, $state, $filter,
+    .controller('ProfileCtrl', function($scope, $ionicActionSheet, $state, $filter,$cordovaCamera,
         GenericSvc, ProfileSvc, RegDataSvc, errorMsgs, infoMsgs) {
         // Profile page controller
         $scope.fetchedUserInfo = {};
