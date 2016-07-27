@@ -174,7 +174,7 @@ angular.module('dowells.Controllers')
 
         if (GenericSvc.checkInternet()) {
             var jobPre = {};
-            if(jobAccOrDec=='Decline'&&$scope.jobsData.declineReason==''){
+            if (jobAccOrDec == 'Decline' && $scope.jobsData.declineReason == '') {
                 GenericSvc.toast('Please enter decline reason');
                 return;
             }
@@ -185,11 +185,11 @@ angular.module('dowells.Controllers')
             jobPre.declinedReason = $scope.jobsData.declineReason;
             StatusSvc.setJobPref(jobPre).then(function(response) {
                 console.warn('Accept/Decline:' + angular.toJson(response));
-                var res=response.data;
-                if(res.IsSuccessful){
-                    if(jobAccOrDec=='Decline')
+                var res = response.data;
+                if (res.IsSuccessful) {
+                    if (jobAccOrDec == 'Decline')
                         $scope.jobDecModal.hide();
-                    GenericSvc.toast(jobAccOrDec+'ed the Job');
+                    GenericSvc.toast(jobAccOrDec + 'ed the Job');
                     $scope.fetchUserStatus();
                 }
                 GenericSvc.hideLoader();
@@ -240,8 +240,11 @@ angular.module('dowells.Controllers')
             GenericSvc.showLoader(infoMsgs.messageFetch);
             MessageSvc.getUserMessages(userDataParam).then(function(response) {
                 var res = response.data;
-                if (res.IsSuccessful)
-                    $scope.userMessages = res.Result;
+                if (res.IsSuccessful) {
+                    if (res.Result.length > 0)
+                        $scope.userMessages = res.Result;
+                    else GenericSvc.toast('No Message Found!');
+                }
                 GenericSvc.hideLoader();
             }, function(err) {
                 GenericSvc.hideLoader();

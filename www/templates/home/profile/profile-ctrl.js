@@ -15,6 +15,7 @@ angular.module('dowells.Controllers')
                     $scope.fetchedUserInfo = res.Result;
                     $scope.fetchedUserInfo.GenderName = ProfileSvc.tellGenderName($scope.fetchedUserInfo.GenderId);
                     $scope.fetchedUserInfo.paySlipSent = $scope.fetchedUserInfo.IsPaySlipSent ? 'Yes' : 'No';
+                    $scope.fetchedUserInfo.DOB=$scope.fetchedUserInfo.DateOfBirth;
                     GenericSvc.fillProfilePic($scope.fetchedUserInfo.ProfilePicture, 'userProfilePicture');
                     GenericSvc.hideLoader();
                 }, function(err) {
@@ -83,6 +84,7 @@ angular.module('dowells.Controllers')
                             // alert($filter('limitTo')(dataUrl, 15));
                             GenericSvc.fillProfilePic(dataUrl, 'userProfilePic');
                             GenericSvc.fillProfilePic(dataUrl, 'userProfilePicture');
+                            // $scope.fetchedUserInfo.profilePic=GenericSvc.tellImageID(dataUrl);
                             GenericSvc.toast(infoMsgs.updatePicSuc);
                         }
                         GenericSvc.hideLoader();
@@ -157,7 +159,7 @@ angular.module('dowells.Controllers')
     $scope.uu = {};
     $scope.uu = RegDataSvc.regFormData;
     $scope.uu.titleId = GenericSvc.tellTitleId($scope.uu.Title);
-    $scope.uu.DateOfBirth = new Date($scope.uu.DateOfBirth);
+    $scope.uu.DOB = new Date($scope.uu.DOB);
     $scope.changeSelectedItem = function() {
         console.log('wow' + $scope.uu.titleId);
     };
@@ -166,9 +168,12 @@ angular.module('dowells.Controllers')
         // Method to save the updated profile
         if (GenericSvc.checkInternet()) {
             GenericSvc.showLoader(infoMsgs.updatingPro);
+            var tempDate=$scope.uu.DateOfBirth;
+            $scope.uu.DateOfBirth=GenericSvc.convertUIDateToDb($scope.uu.DOB);
             ProfileSvc.setUserProfile($scope.uu).then(function(response) {
                 var currentUserObj = angular.fromJson(localStorage.userData);
                 $scope.uu.JobStatusType = currentUserObj.JobStatusType;
+                $scope.uu.DateOfBirth=tempDate;
                 localStorage.userData = angular.toJson($scope.uu);
                 RegDataSvc.regFormData = {}; // clear the regForm data
                 GenericSvc.toast(infoMsgs.updatingProSuc);
@@ -275,8 +280,8 @@ angular.module('dowells.Controllers')
         $scope.proAddLicProps.licName = "";
         $scope.proAddLicProps.proaddexp = "";
         $scope.proAddLicProps.proaddlicno = "";
-        $scope.regAddProps.regaddlicexpiry = "";
-        $scope.regAddProps.regaddexp = "";
+        $scope.proAddLicProps.regaddlicexpiry = "";
+        $scope.proAddLicProps.regaddexp = "";
         $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
     };
     $scope.editLicence = function(licenceToEdit) {

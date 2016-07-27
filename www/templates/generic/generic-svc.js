@@ -57,7 +57,14 @@ angular.module('dowells.Services', [])
 
             angular.element(profilePicHolder).css('background-image', bgImg)
                 .removeClass('no-picture');
-            alert('bgImg:' + bgImg + 'profilePicHolder:' + profilePicHolder);
+        };
+
+        this.tellImageID=function(profilePic){
+            // Method to find the dataurl
+            var profilePic = profilePic;
+            if (!profilePic.match(/^data:.*?;base64,/i))
+                profilePic = 'data:image/jpg;base64,' + profilePic;
+            return profilePic;
         };
 
         this.openActionSheet = function() {
