@@ -1,5 +1,5 @@
 angular.module('dowells.Controllers')
-    .controller('ProfileCtrl', function($scope, $ionicActionSheet, $state,
+    .controller('ProfileCtrl', function($scope, $ionicActionSheet, $state, $filter,
         GenericSvc, ProfileSvc, RegDataSvc, errorMsgs, infoMsgs) {
         // Profile page controller
         $scope.fetchedUserInfo = {};
@@ -31,14 +31,14 @@ angular.module('dowells.Controllers')
                 ],
                 destructiveText: '<b><i class="icon ion-android-cancel assertive"></i>Cancel</b>',
                 titleText: 'Choose option',
-                cancelText: 'Cancel',
+                // cancelText: 'Cancel',
                 destructiveButtonClicked: function() {
                     //Do Stuff
                     return true; //Close the model?
                 },
-                cancel: function() {
+                /*cancel: function() {
                     $scope.actionSheet();
-                },
+                },*/
                 buttonClicked: function(index) {
                     if (index == 0) {
                         $scope.openCameraOrGallery('Camera.PictureSourceType.CAMERA');
@@ -58,10 +58,14 @@ angular.module('dowells.Controllers')
                 sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
             var cameraOptions = GenericSvc.setCameraOptions(sourceType);
             //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
-            navigator.camera.getPicture(function(dataUrl) {
+            /*navigator.camera.getPicture(function(dataUrl) {
                 $scope.updateProfilePic(dataUrl);
 
-            }, function() {}, cameraOptions);
+            }, function() {}, cameraOptions);*/
+            $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
+                $scope.updateProfilePic(dataUrl);
+
+            }, function() {});
         };
         $scope.updateProfilePic = function(dataUrl) {
             // Method to upload profile picture
@@ -76,6 +80,7 @@ angular.module('dowells.Controllers')
                         if (res.IsSuccessful) {
                             currentUserData.ProfilePicture = dataUrl;
                             localStorage.userData = angular.toJson(currentUserData);
+                            // alert($filter('limitTo')(dataUrl, 15));
                             GenericSvc.fillProfilePic(dataUrl, 'userProfilePic');
                             GenericSvc.fillProfilePic(dataUrl, 'userProfilePicture');
                             GenericSvc.toast(infoMsgs.updatePicSuc);
@@ -193,7 +198,7 @@ angular.module('dowells.Controllers')
         $scope.resetAddLicForm();
 
     };
-    $scope.openAddLicModal=function(){
+    $scope.openAddLicModal = function() {
         $scope.proAddLicModal.show();
         $scope.resetAddLicForm();
     };
@@ -213,7 +218,7 @@ angular.module('dowells.Controllers')
                     console.warn("Trade list:" + $scope.tradeList);
                 }
                 GenericSvc.hideLoader();
-                
+
             }, function(err) {
                 GenericSvc.hideLoader();
             });
@@ -268,7 +273,10 @@ angular.module('dowells.Controllers')
         $scope.proAddLicProps.prolicexporqua = "0";
         $scope.proAddLicProps.licType = "";
         $scope.proAddLicProps.licName = "";
-        $scope.proAddLicProps.proaddexp="";
+        $scope.proAddLicProps.proaddexp = "";
+        $scope.proAddLicProps.proaddlicno = "";
+        $scope.regAddProps.regaddlicexpiry = "";
+        $scope.regAddProps.regaddexp = "";
         $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
     };
     $scope.editLicence = function(licenceToEdit) {
@@ -288,7 +296,7 @@ angular.module('dowells.Controllers')
                     $scope.proAddLicProps.proaddlicno = res.LicenceNumber;
                     $scope.proAddLicProps.proaddlicexpiry = new Date(res.LicenceExpiry);
                     $scope.proAddLicProps.hidesavebtn = false;
-                    $scope.proAddLicProps.showorhideexp=true;
+                    $scope.proAddLicProps.showorhideexp = true;
                     $scope.proAddLicProps.onlyforexplic = res.UserCertificationTypeId == 1 ? true : false;
                     console.warn(angular.toJson($scope.proAddLicProps));
                     $scope.proAddLicProps.qualifiedAllowedOrNot = $scope.proAddLicProps.onlyforexplic;
@@ -622,7 +630,7 @@ angular.module('dowells.Controllers')
     };
     $scope.togglePosExpFields = function() {
         // Method to show or hide Experienced fields
-        console.warn('$scope.proPosProps.proposexporqua:'+$scope.proPosProps.proposexporqua);
+        console.warn('$scope.proPosProps.proposexporqua:' + $scope.proPosProps.proposexporqua);
         $scope.proPosProps.onlyforexppos = $scope.proPosProps.proposexporqua == "1" ? true : false;
         $scope.proPosProps.showorhideexp = $scope.proPosProps.proposexporqua != "0" ? true : false;
     };

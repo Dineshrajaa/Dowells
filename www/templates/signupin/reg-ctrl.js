@@ -90,6 +90,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                     $scope.regAddProps.qualifiedAllowedOrNot = $scope.regAddProps.regselectedlic == "0" ? true : licenceInfo.IsQualifiedAllowed;
                     $scope.regAddProps.onlyforexp = licenceInfo.IsQualifiedAllowed;
                     $scope.regAddProps.showorhideexp = licenceInfo.IsQualifiedAllowed;
+                    if(licenceInfo.IsQualifiedAllowed)
+                        $scope.regAddProps.reglicexporqua='1';
                     $scope.regAddProps.licType = licenceInfo.LicenceAbbr;
                     $scope.regAddProps.licName = licenceInfo.Name;
                 }
@@ -113,7 +115,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         licObj.Name = $scope.regAddProps.licName;
         licObj.Experience = $scope.regAddProps.regaddexp;
         licObj.LicenceNumber = $scope.regAddProps.regaddlicno;
-        licObj.LicenceExpiry = $scope.regAddProps.regaddlicexpiry;
+        licObj.LicenceExpiryNonFormatted=$scope.regAddProps.regaddlicexpiry;
+        licObj.LicenceExpiry = GenericSvc.convertUIDateToDb($scope.regAddProps.regaddlicexpiry);
         licObj.LicenceType = $scope.regAddProps.licType;
         licObj.UserCertificationTypeId = $scope.regAddProps.reglicexporqua;
         licObj.UserCertificationTypeName = $scope.regAddProps.onlyforexp ? 'Qualified' : 'Experienced';
@@ -124,7 +127,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                 console.log(value.Name);
                 if (value.Id == licObj.Id) {
                     $scope.licenceTicketList.splice($scope.licenceTicketList.indexOf(key), 1);
-                    // GenericSvc.toast(infoMsgs.licenceDuplication);
+                    GenericSvc.toast(infoMsgs.licenceDuplication);
                 }
             });
             GenericSvc.toast(infoMsgs.ticketAdded);
@@ -146,6 +149,9 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $scope.regAddProps.reglicexporqua = "0";
         $scope.regAddProps.licType = "";
         $scope.regAddProps.licName = "";
+        $scope.regAddProps.regaddlicno="";
+        $scope.regAddProps.regaddlicexpiry="";
+        $scope.regAddProps.regaddexp="";
         $scope.regAddProps.regLicAddBtnTxt = 'Add';
     };
 
@@ -204,8 +210,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $scope.regTraProps.qualifiedAllowedOrNot = true;
         $scope.regTraProps.regtraexporqua = '0';
         $scope.regTraProps.onlyforexp = false;
-        $scope.regTraProps.regaddtrano = '';
-        $scope.regTraProps.regaddtraexperience = '';
+        $scope.regTraProps.regaddtrano = "";
+        $scope.regTraProps.regaddtraexperience = "";
         $scope.regTraProps.showorhideexp = false;
         $scope.regTraProps.hidesavebtn = true;
         $scope.regTraProps.regTraAddBtnTxt = 'Add';
@@ -239,6 +245,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                 if (response.data.IsSuccessful) {
                     var tradeInfo = response.data.Result;
                     $scope.regTraProps.qualifiedAllowedOrNot = $scope.regTraProps.regselectedtra == "0" ? true : tradeInfo.IsQualifiedAllowed;
+                    if(tradeInfo.IsQualifiedAllowed)
+                        $scope.regTraProps.regtraexporqua='1';
                     $scope.regTraProps.onlyforexp = tradeInfo.IsQualifiedAllowed;
                     $scope.regTraProps.showorhideexp = tradeInfo.IsQualifiedAllowed;
                     // $scope.regTraProps.traType = tradeInfo.LicenceAbbr;
@@ -264,6 +272,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         traObj.Name = $scope.regTraProps.traName;
         traObj.Experience = $scope.regTraProps.regaddtraexperience;
         traObj.QualificationNumber = $scope.regTraProps.regaddtrano;
+        console.warn('$scope.regTraProps.regtraexporqua:'+$scope.regTraProps.regtraexporqua);
         traObj.UserCertificationTypeId = $scope.regTraProps.regtraexporqua;
         traObj.UserCertificationTypeName = traObj.UserCertificationTypeId == '2' ? 'Experienced' : 'Qualified';
         traObj.isQualified = $scope.regTraProps.onlyforexp;
@@ -273,13 +282,13 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                 console.log(value.Name);
                 if (value.Id == traObj.Id) {
                     $scope.tradeList.splice($scope.tradeList.indexOf(key), 1);
-                    // GenericSvc.toast(infoMsgs.licenceDuplication);
+                    GenericSvc.toast(infoMsgs.tradeDuplication);
                 }
             });
-            GenericSvc.toast(infoMsgs.ticketAdded);
+            GenericSvc.toast(infoMsgs.tradeAdded);
             $scope.tradeList.push(traObj);
         } else {
-            GenericSvc.toast(infoMsgs.ticketAdded);
+            GenericSvc.toast(infoMsgs.tradeAdded);
             $scope.tradeList.push(traObj);
         }
         $scope.closeAddTraModal(); // close modal and reset form fields
@@ -370,6 +379,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                     var positionInfo = response.data.Result;
                     $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : positionInfo.IsQualifiedAllowed;
                     $scope.regPosProps.onlyforexp = positionInfo.IsQualifiedAllowed;
+                    if(positionInfo.IsQualifiedAllowed)
+                        $scope.regTraProps.regtraexporqua='1';
                     $scope.regPosProps.showorhideexp = positionInfo.IsQualifiedAllowed;
                     // $scope.regTraProps.traType = tradeInfo.LicenceAbbr;
                     $scope.regPosProps.posName = positionInfo.Name;
@@ -403,13 +414,13 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                 console.log(value.Name);
                 if (value.Id == posObj.Id) {
                     $scope.positionList.splice($scope.positionList.indexOf(key), 1);
-                    // GenericSvc.toast(infoMsgs.licenceDuplication);
+                    GenericSvc.toast(infoMsgs.positionDuplication);
                 }
             });
-            GenericSvc.toast(infoMsgs.ticketAdded);
+            GenericSvc.toast(infoMsgs.positionAdded);
             $scope.positionList.push(posObj);
         } else {
-            GenericSvc.toast(infoMsgs.ticketAdded);
+            GenericSvc.toast(infoMsgs.positionAdded);
             $scope.positionList.push(posObj);
         }
         $scope.closeAddPosModal(); // close modal and reset form fields
@@ -448,7 +459,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 })
 
-.controller('RegPhotoCtrl', function($scope,$cordovaCamera, $state, $ionicActionSheet,
+.controller('RegPhotoCtrl', function($scope,$cordovaCamera, $state, $ionicActionSheet,$filter,
     GenericSvc, RegSvc, RegDataSvc, errorMsgs, infoMsgs) {
     $scope.showPicOptions = function() {
         // Method to open show picture options
@@ -459,10 +470,10 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             ],
             destructiveText: '<b><i class="icon ion-android-cancel assertive"></i>Cancel</b>',
             titleText: 'Choose option',
-            cancelText: 'Cancel',
+            /*cancelText: 'Cancel',
             cancel: function() {
                 // add cancel code..
-            },
+            },*/
             buttonClicked: function(index) {
                 if (index == 0) {
                     $scope.openCameraOrGallery('Camera.PictureSourceType.CAMERA');
@@ -496,6 +507,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
             $scope.showRegisterBtn();
             RegDataSvc.regProfilePic = dataUrl;
+            // alert($filter('limitTo')(dataUrl, 15));
             GenericSvc.fillProfilePic(dataUrl, 'regpropic');
             
         }, function() {});
@@ -509,7 +521,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         regObj.FirstName = tempFormObj.fname;
         regObj.MiddleName = tempFormObj.mname;
         regObj.LastName = tempFormObj.lname;
-        regObj.DOB = tempFormObj.dob;
+        regObj.DOB = GenericSvc.convertUIDateToDb(tempFormObj.dob);
         regObj.Email = tempFormObj.email;
         regObj.StreetAddress = tempFormObj.streetaddress;
         regObj.City = tempFormObj.city;
@@ -534,7 +546,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                 if (response.data.IsSuccessful) {
                     GenericSvc.toast(infoMsgs.regSuc);
                     $state.go('master.regsuc');
-                }
+                }else
+                    GenericSvc.toast(infoMsgs.regFail);
                 GenericSvc.hideLoader();
             }, function() {
                 GenericSvc.hideLoader();

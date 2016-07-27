@@ -49,11 +49,15 @@ angular.module('dowells.Services', [])
 
         this.fillProfilePic = function(profilePic, elementId) {
             // Method to fill profile picture
+            var profilePic = profilePic;
             if (!profilePic.match(/^data:.*?;base64,/i))
                 profilePic = 'data:image/jpg;base64,' + profilePic;
             var profilePicHolder = document.querySelector('#' + elementId);
-            angular.element(profilePicHolder).css('background-image', 'url(' + profilePic + ')')
+            var bgImg = 'url(' + profilePic + ')';
+
+            angular.element(profilePicHolder).css('background-image', bgImg)
                 .removeClass('no-picture');
+            alert('bgImg:' + bgImg + 'profilePicHolder:' + profilePicHolder);
         };
 
         this.openActionSheet = function() {
@@ -121,5 +125,10 @@ angular.module('dowells.Services', [])
 
             }
 
+        };
+        this.convertUIDateToDb = function(inputDate) {
+            // Method to convert ui date to db format
+            var ret = Date.parse(inputDate);
+            return "\/Date(" + ret + ")\/";
         };
     })
