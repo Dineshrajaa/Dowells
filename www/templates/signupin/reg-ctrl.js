@@ -394,7 +394,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
                     $scope.regPosProps.qualifiedAllowedOrNot = $scope.regPosProps.regselectedpos == "0" ? true : positionInfo.IsQualifiedAllowed;
                     $scope.regPosProps.onlyforexp = positionInfo.IsQualifiedAllowed;
                     if (positionInfo.IsQualifiedAllowed)
-                        $scope.regTraProps.regtraexporqua = '1';
+                        $scope.regTraProps.regposexporqua = '1';
                     $scope.regPosProps.showorhideexp = positionInfo.IsQualifiedAllowed;
                     // $scope.regTraProps.traType = tradeInfo.LicenceAbbr;
                     $scope.regPosProps.posName = positionInfo.Name;

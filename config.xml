@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.emsapp.dowells" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Dowells1</name>
+<widget id="com.emsapp.dowells" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Dowells</name>
     <description>
         Dowells Employee Management System.
     </description>
@@ -90,4 +90,8 @@
         <param name="API_KEY_FOR_ANDROID" value="AIzaSyBLoRuZe7M9dQ1QuW1cMVh79l83to9OSsI" />
         <param name="API_KEY_FOR_IOS" value="AIzaSyAagUX891aub3gb5kH7Vqo2qB3SLNLTkX0" />
     </plugin>
+    <!-- <plugin name="plugin.google.maps" spec="https://github.com/phonegap-googlemaps-plugin/cordova-plugin-googlemaps">
+        <param name="API_KEY_FOR_ANDROID" value="AIzaSyBLoRuZe7M9dQ1QuW1cMVh79l83to9OSsI" />
+        <param name="API_KEY_FOR_IOS" value="AIzaSyAagUX891aub3gb5kH7Vqo2qB3SLNLTkX0" />
+    </plugin> -->
 </widget>

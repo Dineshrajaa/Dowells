@@ -68,6 +68,12 @@ angular.module('dowells.Controllers')
     }).then(function(modal) {
         $scope.availChaModal = modal;
     });
+    $ionicModal.fromTemplateUrl('templates/home/dashboard/induced-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.inducedModal = modal;
+    });
     $scope.changeUserWorkStatus = function() {
         // Method to change the work status to available or not available
 

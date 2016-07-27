@@ -152,7 +152,7 @@ angular.module('dowells.Controllers')
 
     })
 
-.controller('EditProfileCtrl', function($scope, $timeout, $filter,
+.controller('EditProfileCtrl', function($scope, $timeout, $filter,$state,
     GenericSvc, RegDataSvc, ProfileSvc, errorMsgs, infoMsgs) {
     $scope.titleList = [{ id: 1, text: 'Mr' }, { id: 2, text: 'Mrs' }, { id: 3, text: 'Miss' }, { id: 4, text: 'Ms' }];
     $scope.genderList = [{ id: 1, text: 'Please Select' }, { id: 2, text: 'Male' }, { id: 3, text: 'Female' }];
@@ -176,6 +176,7 @@ angular.module('dowells.Controllers')
                 $scope.uu.DateOfBirth=tempDate;
                 localStorage.userData = angular.toJson($scope.uu);
                 RegDataSvc.regFormData = {}; // clear the regForm data
+                $state.go('home.personaldetails');
                 GenericSvc.toast(infoMsgs.updatingProSuc);
                 GenericSvc.hideLoader();
             }, function(err) {

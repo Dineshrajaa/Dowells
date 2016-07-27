@@ -1,0 +1,27 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-calm">
+        <h1 class="title">Induction</h1>
+        <button class="button button-clear button-primary" ng-click="inducedModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <form name="statusUpdateForm" novalidate style="margin-top:50%">
+            <center>
+                <p>Were you inducted at this site.</p>
+                <div class="item item-toggle assertive" ng-class="{'balanced':statusData.inducedOrNot}">                    
+                    <label class="toggle toggle-calm">
+                        <input type="checkbox" ng-model="statusData.inducedOrNot">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                    {{statusData.inducedOrNot}}
+                </div>
+            </center>
+            <center class="padding">
+                <button class="button button-calm semiWidth-btn" ng-click="()">
+                    Submit
+                </button>
+            </center>
+        </form>
+    </ion-content>
+</ion-modal-view>
