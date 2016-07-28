@@ -52,11 +52,12 @@ angular.module('dowells.Services', [])
             var profilePic = profilePic;
             if (!profilePic.match(/^data:.*?;base64,/i))
                 profilePic = 'data:image/jpg;base64,' + profilePic;
-            var profilePicHolder = document.querySelector('#' + elementId);
+            // var profilePicHolder = document.querySelector('#' + elementId);
+            var profilePicHolder = document.getElementById(elementId);
             var bgImg = 'url(' + profilePic + ')';
 
-            angular.element(profilePicHolder).css('background-image', bgImg)
-                .removeClass('no-picture');
+            angular.element(profilePicHolder).css('background-image', bgImg);
+                // .removeClass('no-picture');
         };
 
         this.tellImageID=function(profilePic){
@@ -92,6 +93,7 @@ angular.module('dowells.Services', [])
                 // Some common settings are 20, 50, and 100
                 quality: 50,
                 destinationType: Camera.DestinationType.DATA_URL,
+                encodingType: Camera.EncodingType.JPEG,
                 // In this app, dynamically set the picture source, Camera or photo gallery
                 sourceType: sourceType,
                 allowEdit: true,

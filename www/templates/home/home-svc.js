@@ -26,7 +26,7 @@ angular.module('dowells.Services')
                 // title: infoMsgs.appName,
                 text: infoMsgs.localNotiText,
                 every: notificationOptions.frequency,
-                at: new Date(notificationOptions.alertTime)
+                at: new Date(notificationOptions.alertTime).getTime()
 
             }).then(function() {
                 GenericSvc.toast(infoMsgs.settingsSaved);

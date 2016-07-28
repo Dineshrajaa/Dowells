@@ -66,6 +66,7 @@ angular.module('dowells.Controllers')
             $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
                 $scope.updateProfilePic(dataUrl);
                 localStorage.updateProPicUrl=dataUrl;
+                $scope.fetchedUserInfo.updatedProfilePic=dataUrl;
 
             }, function() {});
         };
@@ -83,8 +84,9 @@ angular.module('dowells.Controllers')
                             currentUserData.ProfilePicture = dataUrl;
                             localStorage.userData = angular.toJson(currentUserData);
                             // alert($filter('limitTo')(dataUrl, 15));
-                            GenericSvc.fillProfilePic(localStorage.updateProPicUrl, 'userProfilePic');
-                            GenericSvc.fillProfilePic(localStorage.updateProPicUrl, 'userProfilePicture');
+                            $scope.fetchProfileInfo();
+                            GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePic');
+                            GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePicture');
                             // $scope.fetchedUserInfo.profilePic=GenericSvc.tellImageID(dataUrl);
                             GenericSvc.toast(infoMsgs.updatePicSuc);
                         }
@@ -208,10 +210,10 @@ angular.module('dowells.Controllers')
     function fillInAddress() {  
         // Get the place details from the autocomplete object.
         var place = autocomplete.getPlace();
-        $scope.nu.streetaddress = '';
-        $scope.nu.city = '';
-        $scope.nu.state = '';
-        $scope.nu.postcode = ''
+        $scope.uu.StreetAddress = '';
+        $scope.uu.City = '';
+        $scope.uu.State = '';
+        $scope.uu.Postcode = ''
 
         // Get each component of the address from the place details
         // and fill the corresponding field on the form.
@@ -222,17 +224,17 @@ angular.module('dowells.Controllers')
             {
                 case 'route':
                     var val = place.address_components[i][componentForm[addressType]];
-                    $scope.nu.streetaddress += " " + val;
-                    $scope.nu.streetaddress = $scope.nu.streetaddress.trim();
+                    $scope.uu.StreetAddress += " " + val;
+                    $scope.uu.StreetAddress = $scope.uu.StreetAddress.trim();
                     break;
                 case 'locality':
-                    $scope.nu.city = place.address_components[i][componentForm[addressType]];
+                    $scope.uu.City = place.address_components[i][componentForm[addressType]];
                     break;
                 case 'administrative_area_level_1':
-                    $scope.nu.state = place.address_components[i][componentForm[addressType]];
+                    $scope.uu.State = place.address_components[i][componentForm[addressType]];
                     break;
                 case 'postal_code':
-                    $scope.nu.postcode = place.address_components[i][componentForm[addressType]];
+                    $scope.uu.Postcode = place.address_components[i][componentForm[addressType]];
                     break;
             }
                

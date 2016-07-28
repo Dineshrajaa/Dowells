@@ -528,6 +528,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
 
 .controller('RegPhotoCtrl', function($scope, $cordovaCamera, $state, $ionicActionSheet, $filter,
     GenericSvc, RegSvc, RegDataSvc, errorMsgs, infoMsgs) {
+    $scope.userPicData={};
+    $scope.userPicData.userPicUrl;
     $scope.showPicOptions = function() {
         // Method to open show picture options
         $scope.actionSheet = $ionicActionSheet.show({
@@ -573,10 +575,12 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
         $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
             $scope.showRegisterBtn();
+            $scope.userPicData.userPicUrl= dataUrl;
+            $scope.userPicData.style={}
             RegDataSvc.regProfilePic = dataUrl;
             localStorage.regProfilePic=dataUrl;
             // alert($filter('limitTo')(dataUrl, 15));
-            GenericSvc.fillProfilePic(localStorage.regProfilePic, 'regpropic');
+            GenericSvc.fillProfilePic($scope.userPicData.userPicUrl, 'regpropic');
 
         }, function() {});
     };
