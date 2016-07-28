@@ -31,7 +31,7 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
         settingsSaved: 'Settings Saved successfully',
         gettingUserInfo: 'Fetching your info',
         regSuc: 'Registration Successful',
-        regFail:'Registration Failed',
+        regFail: 'Registration Failed',
         messageFetch: 'Fetching your messages',
         updatingPic: 'Updating Profile Picture',
         updatePicSuc: 'Profile Picture updated Successfully',
@@ -66,6 +66,9 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
             if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            if (device.platform === "iOS") {
+                window.plugin.notification.local.promptForPermission();
+            }
             $ionicPlatform.onHardwareBackButton(function() {
                 GenericSvc.handleBackButton(); // Manage the back button
             });
@@ -94,7 +97,7 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
                 'masterPage': {
                     templateUrl: 'templates/signupin/login.html',
                     controller: 'LoginCtrl',
-                    cache:false
+                    cache: false
                 }
             }
         })
@@ -104,7 +107,7 @@ angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells
                 'masterPage': {
                     templateUrl: 'templates/signupin/appstatus.html',
                     controller: 'AppStatusCtrl',
-                    cache:false
+                    cache: false
                 }
             }
         })

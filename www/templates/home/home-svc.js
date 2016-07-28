@@ -1,5 +1,5 @@
 angular.module('dowells.Services')
-    .service('SettingSvc', function(GenericSvc, infoMsgs) {
+    .service('SettingSvc', function(GenericSvc, infoMsgs, $cordovaLocalNotification) {
         this.formatTime = function(choosedTime) {
             // Method to format time for saving local notification preference
             var now = new Date();
@@ -13,7 +13,7 @@ angular.module('dowells.Services')
 
         this.setLNPref = function(notificationOptions) {
             // Method to configure Local Notification
-            cordova.plugins.notification.local.schedule({
+            /*cordova.plugins.notification.local.schedule({
                 // title: infoMsgs.appName,
                 text: infoMsgs.localNotiText,
                 every: notificationOptions.frequency,
@@ -21,7 +21,16 @@ angular.module('dowells.Services')
 
             }, function() {
                 GenericSvc.toast(infoMsgs.settingsSaved);
-            });
+            });*/
+            $cordovaLocalNotification.schedule({
+                // title: infoMsgs.appName,
+                text: infoMsgs.localNotiText,
+                every: notificationOptions.frequency,
+                at: new Date(notificationOptions.alertTime)
+
+            }).then(function() {
+                GenericSvc.toast(infoMsgs.settingsSaved);
+            })
         };
 
         this.getLNPref = function() {
@@ -54,28 +63,28 @@ angular.module('dowells.Services')
         else if (statusId == 3)
             return 'Not Available';
     };
-    this.getUserJob=function(userData){
+    this.getUserJob = function(userData) {
         // Method to get the user jobs
         return $http.get(WSUrl + 'Account/GetUserPendingJob', { params: userData });
     };
 
-    this.setJobPref=function(jobPref){
+    this.setJobPref = function(jobPref) {
         // Method to accept or decline job
         return $http.get(WSUrl + 'Account/AcceptDeclineJobScheduling', { params: jobPref });
     };
-    this.setWorkStatus=function(workStatus){
+    this.setWorkStatus = function(workStatus) {
         // Method to set work status
         return $http.get(WSUrl + 'Account/UpdateUserJobStatus', { params: workStatus });
     };
-    this.completeJob=function(jobData){
+    this.completeJob = function(jobData) {
         // Method to finish a job
         return $http.get(WSUrl + 'Account/MarkFinishJob', { params: jobData });
     };
 })
 
 
-.service('MessageSvc',function($http){
-    this.getUserMessages=function(userData){
+.service('MessageSvc', function($http) {
+    this.getUserMessages = function(userData) {
         // Method to get messages
         return $http.get(WSUrl + 'Account/GetUserMessages', { params: userData });
     };

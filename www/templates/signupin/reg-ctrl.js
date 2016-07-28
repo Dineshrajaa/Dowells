@@ -574,8 +574,9 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
             $scope.showRegisterBtn();
             RegDataSvc.regProfilePic = dataUrl;
+            localStorage.regProfilePic=dataUrl;
             // alert($filter('limitTo')(dataUrl, 15));
-            GenericSvc.fillProfilePic(dataUrl, 'regpropic');
+            GenericSvc.fillProfilePic(localStorage.regProfilePic, 'regpropic');
 
         }, function() {});
     };
