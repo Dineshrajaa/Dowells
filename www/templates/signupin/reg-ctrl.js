@@ -574,17 +574,16 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         var cameraOptions = GenericSvc.setCameraOptions(sourceType);
         //console.warn("sourceType:" + sourceType + "cameraOptions:" + JSON.stringify(cameraOptions));
         $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
-            $scope.showRegisterBtn();
             $scope.userPicData.userPicUrl= dataUrl;
-            $scope.userPicData.style={}
+            $scope.userPicData.style={};
             RegDataSvc.regProfilePic = dataUrl;
             localStorage.regProfilePic=dataUrl;
-            var profilePic=GenericSvc.tellImageID(dataUrl);
+            /*var profilePic=GenericSvc.tellImageID(dataUrl);
             $scope.pictureLoader={
                 'background-image':'url(' + profilePic + ')'
-            };
-            // GenericSvc.fillProfilePic($scope.userPicData.userPicUrl, 'regpropic');
-
+            };*/
+            GenericSvc.fillProfilePic($scope.userPicData.userPicUrl, 'regpropic');
+            $scope.showRegisterBtn();            
         }, function(err) {GenericSvc.toast(err)});
     };
     $scope.configureForReg = function() {
