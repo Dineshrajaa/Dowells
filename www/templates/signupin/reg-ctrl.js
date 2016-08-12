@@ -235,7 +235,7 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         $scope.regAddProps.licName = licenceToEdit.Name;
         $scope.regAddProps.regaddexp = licenceToEdit.Experience;
         $scope.regAddProps.regaddlicno = licenceToEdit.LicenceNumber;
-        $scope.regAddProps.regaddlicexpiry = licenceToEdit.LicenceExpiry;
+        $scope.regAddProps.regaddlicexpiry = licenceToEdit.LicenceExpiryNonFormatted;
         $scope.regAddProps.licType = licenceToEdit.LicenceType;
         $scope.regAddProps.reglicexporqua = licenceToEdit.UserCertificationTypeId;
         $scope.regAddProps.onlyforexp = licenceToEdit.isLicenced;
@@ -610,6 +610,8 @@ angular.module('dowells.Controllers', ['dowells.Services'])
         regObj.UserTradeExperiences = RegDataSvc.tradeList;
         regObj.UserPositionHelds = RegDataSvc.positionList;
         regObj.ProfileImage = RegDataSvc.regProfilePic;
+        regObj.DeviceId=localStorage.pushRegID || "";
+        regObj.DeviceTypeId=device.platform == "Android" ? 2 : 1;
         $scope.completerRegistration(regObj);
     };
     $scope.completerRegistration = function(regObj) {
