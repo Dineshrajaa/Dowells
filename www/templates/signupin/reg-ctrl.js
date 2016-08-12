@@ -579,10 +579,13 @@ angular.module('dowells.Controllers', ['dowells.Services'])
             $scope.userPicData.style={}
             RegDataSvc.regProfilePic = dataUrl;
             localStorage.regProfilePic=dataUrl;
-            // alert($filter('limitTo')(dataUrl, 15));
-            GenericSvc.fillProfilePic($scope.userPicData.userPicUrl, 'regpropic');
+            var profilePic=GenericSvc.tellImageID(dataUrl);
+            $scope.pictureLoader={
+                'background-image':'url(' + profilePic + ')'
+            };
+            // GenericSvc.fillProfilePic($scope.userPicData.userPicUrl, 'regpropic');
 
-        }, function() {});
+        }, function(err) {GenericSvc.toast(err)});
     };
     $scope.configureForReg = function() {
         // Method to configure the object for registration
