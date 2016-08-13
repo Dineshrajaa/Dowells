@@ -9,7 +9,7 @@
                 <label class="thickText assertive">Decline</label>
             </center> -->
             <label class="item item-input">
-                <textarea placeholder="Provide Reason" rows="10" required></textarea>
+                <textarea placeholder="Provide Reason" rows="10" required ng-model="jobsData.declineReason"></textarea>
             </label>
             <center class="padding">
                 <button class="button button-calm semiWidth-btn" ng-disabled="jobDeclineForm.$invalid" ng-click="manageJob('Decline')">

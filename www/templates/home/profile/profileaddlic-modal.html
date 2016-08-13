@@ -14,6 +14,7 @@
                         Licence/Ticket
                     </div>
                     <select ng-model="proAddLicProps.proselectedlic" ng-options="licence.ID as licence.Name for licence in activeLicences">
+                        <option value="">Please Select</option>
                         <!--<option value="0">Please Select</option>
                          <option ng-repeat="licence in activeLicences" value="{{licence.ID}}">{{licence.Name}}</option> -->
                     </select>

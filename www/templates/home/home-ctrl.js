@@ -104,6 +104,8 @@ angular.module('dowells.Controllers')
             GenericSvc.showLoader(infoMsgs.statusCheck);
             StatusSvc.getUserStatus(userDataParam).then(function(response) {
                 var res = response.data;
+                currentUserData.JobStatusType=res.Result;
+                localStorage.userData=angular.toJson(currentUserData);
                 $scope.statusData.curWorkStatus = StatusSvc.getStatusType(res.Result);
                 $scope.statusData.statusChangeText = $scope.statusData.curWorkStatus == 'Available' ? infoMsgs.availableChangeText : infoMsgs.unAvailableChangeText;
                 $scope.statusData.avaiOrNot = $scope.statusData.curWorkStatus == 'Available' ? true : false;
@@ -187,15 +189,17 @@ angular.module('dowells.Controllers')
                 return;
             }
             GenericSvc.showLoader(jobAccOrDec + 'ing the Job');
+            var currentUserData = angular.fromJson(localStorage.userData);
             var jobAccOrDec = jobAccOrDec == 'Accept' ? true : false;
             jobPre.userJobHistoryId = $scope.jobsData.jobId;
             jobPre.isAccepted = jobAccOrDec;
             jobPre.declinedReason = $scope.jobsData.declineReason;
+            jobPre.statusId=currentUserData.JobStatusType;
             StatusSvc.setJobPref(jobPre).then(function(response) {
                 console.warn('Accept/Decline:' + angular.toJson(response));
                 var res = response.data;
                 if (res.IsSuccessful) {
-                    if (jobAccOrDec == 'Decline')
+                    // if (jobAccOrDec == 'Decline')
                         $scope.jobDecModal.hide();
                     GenericSvc.toast( 'Request completed');
                     $scope.fetchUserStatus();
@@ -224,7 +228,7 @@ angular.module('dowells.Controllers')
                 var res = response.data;
                 if (res.IsSuccessful) {
                     GenericSvc.toast('Completed the Job Successfully');
-                    hideAvailableChanger();
+                    $scope.hideAvailableChanger();
                     $scope.fetchUserStatus();
                 }
 
@@ -236,7 +240,7 @@ angular.module('dowells.Controllers')
     };
     $scope.hideAvailableChanger=function(){
         $scope.callFinishService=false;
-        availChaModal.hide();
+        $scope.availChaModal.hide();
     };
     $scope.$watch('statusData.avaiOrNot', function() {
         if ($scope.statusData.avaiOrNot) {
