@@ -14,6 +14,7 @@
                         Trade Exp.
                     </div>
                     <select ng-model="proTraProps.proselectedtra" ng-options="trade.ID as trade.Name for trade in activeTrades">
+                        <option value="">Please Select</option>
                         <!-- <option value="0">Please Select</option>
                         <option ng-repeat="trade in activeTrades" value="{{trade.ID}}">{{trade.Name}}</option> -->
                     </select>

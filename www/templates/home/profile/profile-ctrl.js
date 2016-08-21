@@ -266,6 +266,7 @@ angular.module('dowells.Controllers')
     $scope.openAddLicModal = function() {
         $scope.proAddLicModal.show();
         $scope.resetAddLicForm();
+        $scope.proAddLicProps.regLicAddBtnTxt = 'Add';
     };
     $scope.fetchDocumentDetails = function() {
         // Method to fetch the document details
@@ -342,11 +343,11 @@ angular.module('dowells.Controllers')
         $scope.proAddLicProps.proaddlicno = "";
         $scope.proAddLicProps.regaddlicexpiry = "";
         $scope.proAddLicProps.regaddexp = "";
-        $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
+        // $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
     };
     $scope.editLicence = function(licenceToEdit) {
         // Method to edit licence from list
-
+        $scope.proAddLicProps.regLicAddBtnTxt = 'Update';
         if (GenericSvc.checkInternet()) {
             GenericSvc.showLoader(infoMsgs.gettingTicInfo);
             ProfileSvc.getSelectedTicketInfo(licenceToEdit.Id).then(function(response) {

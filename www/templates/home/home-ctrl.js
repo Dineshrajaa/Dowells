@@ -118,7 +118,7 @@ angular.module('dowells.Controllers')
     };
     $scope.configureMapWithMarker = function() {
         // Method to configure Map and add Marker on the given Lat and Lng
-        console.log('$scope.map:' + $scope.map);
+        /*console.log('$scope.map:' + $scope.map);
         $scope.map.showDialog();
         $scope.map.addEventListener(plugin.google.maps.event.MAP_READY, function() {
             console.warn('Map ready');
@@ -132,7 +132,8 @@ angular.module('dowells.Controllers')
 
             });
 
-        });
+        });*/
+        launchnavigator.navigate([$scope.jobsData.lat, $scope.jobsData.lng]);
     };
 
     $scope.$on("$ionicView.enter", function(event, data) {
@@ -193,7 +194,7 @@ angular.module('dowells.Controllers')
             var jobAccOrDec = jobAccOrDec == 'Accept' ? true : false;
             jobPre.userJobHistoryId = $scope.jobsData.jobId;
             jobPre.isAccepted = jobAccOrDec;
-            jobPre.declinedReason = $scope.jobsData.declineReason;
+            jobPre.declinedReason = $scope.jobsData.declineReason || "";
             jobPre.statusId=currentUserData.JobStatusType;
             StatusSvc.setJobPref(jobPre).then(function(response) {
                 console.warn('Accept/Decline:' + angular.toJson(response));
@@ -212,6 +213,7 @@ angular.module('dowells.Controllers')
     };
     $scope.showStatusPopup = function() {
         $scope.callFinishService = true;
+        $scope.inducedModal.hide();
         $scope.availChaModal.show();
 
     };
