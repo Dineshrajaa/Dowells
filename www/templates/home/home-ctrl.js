@@ -95,7 +95,6 @@ angular.module('dowells.Controllers')
     };
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
-        alert("fetchUserStatus in");
         var currentUserData = angular.fromJson(localStorage.userData);
 
         if (GenericSvc.checkInternet()) {
@@ -103,7 +102,6 @@ angular.module('dowells.Controllers')
             userDataParam.id = currentUserData.ID;
             GenericSvc.showLoader(infoMsgs.statusCheck);
             StatusSvc.getUserStatus(userDataParam).then(function(response) {
-                alert("fetchUserStatus service:"+JSON.stringify(response));
                 var res = response.data;
                 currentUserData.JobStatusType=res.Result;
                 localStorage.userData=angular.toJson(currentUserData);

@@ -1,5 +1,5 @@
 angular.module('dowells.Controllers')
-    .controller('ProfileCtrl', function($scope, $ionicActionSheet, $state, $filter,$cordovaCamera,
+    .controller('ProfileCtrl', function($scope, $ionicActionSheet, $state, $filter, $cordovaCamera,
         GenericSvc, ProfileSvc, RegDataSvc, errorMsgs, infoMsgs) {
         // Profile page controller
         $scope.fetchedUserInfo = {};
@@ -15,7 +15,7 @@ angular.module('dowells.Controllers')
                     $scope.fetchedUserInfo = res.Result;
                     $scope.fetchedUserInfo.GenderName = ProfileSvc.tellGenderName($scope.fetchedUserInfo.GenderId);
                     $scope.fetchedUserInfo.paySlipSent = $scope.fetchedUserInfo.IsPaySlipSent ? 'Yes' : 'No';
-                    $scope.fetchedUserInfo.DOB=$scope.fetchedUserInfo.DateOfBirth;
+                    $scope.fetchedUserInfo.DOB = $scope.fetchedUserInfo.DateOfBirth;
                     GenericSvc.fillProfilePic($scope.fetchedUserInfo.ProfilePicture, 'userProfilePicture');
                     GenericSvc.hideLoader();
                 }, function(err) {
@@ -64,11 +64,12 @@ angular.module('dowells.Controllers')
 
             }, function() {}, cameraOptions);*/
             $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
-                GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePic');
-                            GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePicture');
+                
                 $scope.updateProfilePic(dataUrl);
-                localStorage.updateProPicUrl=dataUrl;
-                $scope.fetchedUserInfo.updatedProfilePic=dataUrl;
+                localStorage.updateProPicUrl = dataUrl;
+                $scope.fetchedUserInfo.updatedProfilePic = dataUrl;
+                GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePic');
+                GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePicture');
 
             }, function() {});
         };
@@ -157,7 +158,7 @@ angular.module('dowells.Controllers')
 
     })
 
-.controller('EditProfileCtrl', function($scope, $timeout, $filter,$state,
+.controller('EditProfileCtrl', function($scope, $timeout, $filter, $state,
     GenericSvc, RegDataSvc, ProfileSvc, errorMsgs, infoMsgs) {
     $scope.titleList = [{ id: 1, text: 'Mr' }, { id: 2, text: 'Mrs' }, { id: 3, text: 'Miss' }, { id: 4, text: 'Ms' }];
     $scope.genderList = [{ id: 1, text: 'Please Select' }, { id: 2, text: 'Male' }, { id: 3, text: 'Female' }];
@@ -173,12 +174,12 @@ angular.module('dowells.Controllers')
         // Method to save the updated profile
         if (GenericSvc.checkInternet()) {
             GenericSvc.showLoader(infoMsgs.updatingPro);
-            var tempDate=$scope.uu.DateOfBirth;
-            $scope.uu.DateOfBirth=GenericSvc.convertUIDateToDb($scope.uu.DOB);
+            var tempDate = $scope.uu.DateOfBirth;
+            $scope.uu.DateOfBirth = GenericSvc.convertUIDateToDb($scope.uu.DOB);
             ProfileSvc.setUserProfile($scope.uu).then(function(response) {
                 var currentUserObj = angular.fromJson(localStorage.userData);
                 $scope.uu.JobStatusType = currentUserObj.JobStatusType;
-                $scope.uu.DateOfBirth=tempDate;
+                $scope.uu.DateOfBirth = tempDate;
                 localStorage.userData = angular.toJson($scope.uu);
                 RegDataSvc.regFormData = {}; // clear the regForm data
                 $state.go('home.personaldetails');
@@ -190,9 +191,9 @@ angular.module('dowells.Controllers')
         } else GenericSvc.toast(errorMsgs.noInternet);
     };
     $scope.formHandler = {};
-        $scope.formHandler.disableNextBtn = false;
-        $scope.nu = RegDataSvc.regFormData;
-                   var options = {
+    $scope.formHandler.disableNextBtn = false;
+    $scope.nu = RegDataSvc.regFormData;
+    var options = {
         types: ['geocode'],
         componentRestrictions: { country: "au" }
     };
@@ -205,11 +206,11 @@ angular.module('dowells.Controllers')
         //country: 'long_name',
         postal_code: 'long_name'
     };
-     var input = document.getElementById("keywordpro");
+    var input = document.getElementById("keywordpro");
     var autocomplete = new google.maps.places.Autocomplete(input, options);
-     autocomplete.addListener('place_changed', fillInAddress);
+    autocomplete.addListener('place_changed', fillInAddress);
 
-    function fillInAddress() {  
+    function fillInAddress() {
         // Get the place details from the autocomplete object.
         var place = autocomplete.getPlace();
         $scope.uu.StreetAddress = '';
@@ -222,27 +223,26 @@ angular.module('dowells.Controllers')
         for (var i = 0; i < place.address_components.length; i++) {
             var addressType = place.address_components[i].types[0];
             if (componentForm[addressType]) {
-            switch(addressType)
-            {
-                case 'route':
-                    var val = place.address_components[i][componentForm[addressType]];
-                    $scope.uu.StreetAddress += " " + val;
-                    $scope.uu.StreetAddress = $scope.uu.StreetAddress.trim();
-                    break;
-                case 'locality':
-                    $scope.uu.City = place.address_components[i][componentForm[addressType]];
-                    break;
-                case 'administrative_area_level_1':
-                    $scope.uu.State = place.address_components[i][componentForm[addressType]];
-                    break;
-                case 'postal_code':
-                    $scope.uu.Postcode = place.address_components[i][componentForm[addressType]];
-                    break;
+                switch (addressType) {
+                    case 'route':
+                        var val = place.address_components[i][componentForm[addressType]];
+                        $scope.uu.StreetAddress += " " + val;
+                        $scope.uu.StreetAddress = $scope.uu.StreetAddress.trim();
+                        break;
+                    case 'locality':
+                        $scope.uu.City = place.address_components[i][componentForm[addressType]];
+                        break;
+                    case 'administrative_area_level_1':
+                        $scope.uu.State = place.address_components[i][componentForm[addressType]];
+                        break;
+                    case 'postal_code':
+                        $scope.uu.Postcode = place.address_components[i][componentForm[addressType]];
+                        break;
+                }
+
+
             }
-               
-                 
-            }
-             $scope.$apply()
+            $scope.$apply()
         }
     }
 
