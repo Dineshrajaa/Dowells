@@ -2,12 +2,9 @@ angular.module('dowells.Controllers')
     .controller('HomeCtrl', function($scope, $state, GenericSvc) {
         $scope.currentUser = {};
         $scope.fillUserInfo = function() {
-            alert("fillUserInfo in:")
             var userData = angular.fromJson(localStorage.userData);
-            alert("userData:"+userData);
             $scope.currentUser.disName = userData.DisplayName; // Show Display name of the current user
             var profilePic = userData.ProfilePicture;
-            alert("profilePic:"+profilePic);
             GenericSvc.fillProfilePic(profilePic, 'userProfilePic');
         };
 
@@ -53,7 +50,7 @@ angular.module('dowells.Controllers')
 
 .controller('StatusCtrl', function($scope, $ionicModal,
     StatusSvc, GenericSvc, errorMsgs, infoMsgs) {
-    $scope.map = plugin.google.maps.Map.getMap();
+    // $scope.map = plugin.google.maps.Map.getMap();
     $scope.statusData = $scope.jobsData = {};
     $scope.jobsData.declineReason = '';
     $scope.jobsData.showJobs = $scope.statusData.showStatusChange = false;
@@ -137,7 +134,7 @@ angular.module('dowells.Controllers')
             });
 
         });*/
-        // launchnavigator.navigate([$scope.jobsData.lat, $scope.jobsData.lng]);
+        launchnavigator.navigate([$scope.jobsData.lat, $scope.jobsData.lng]);
     };
 
     $scope.$on("$ionicView.enter", function(event, data) {
