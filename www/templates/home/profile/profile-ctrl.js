@@ -64,6 +64,8 @@ angular.module('dowells.Controllers')
 
             }, function() {}, cameraOptions);*/
             $cordovaCamera.getPicture(cameraOptions).then(function(dataUrl) {
+                GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePic');
+                            GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePicture');
                 $scope.updateProfilePic(dataUrl);
                 localStorage.updateProPicUrl=dataUrl;
                 $scope.fetchedUserInfo.updatedProfilePic=dataUrl;
@@ -85,8 +87,8 @@ angular.module('dowells.Controllers')
                             localStorage.userData = angular.toJson(currentUserData);
                             // alert($filter('limitTo')(dataUrl, 15));
                             $scope.fetchProfileInfo();
-                            GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePic');
-                            GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePicture');
+                            // GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePic');
+                            // GenericSvc.fillProfilePic($scope.fetchedUserInfo.updatedProfilePic, 'userProfilePicture');
                             // $scope.fetchedUserInfo.profilePic=GenericSvc.tellImageID(dataUrl);
                             GenericSvc.toast(infoMsgs.updatePicSuc);
                         }
