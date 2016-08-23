@@ -2,6 +2,7 @@ angular.module('dowells.Controllers')
     .controller('HomeCtrl', function($scope, $state, GenericSvc) {
         $scope.currentUser = {};
         $scope.fillUserInfo = function() {
+            alert("fillUserInfo in:")
             var userData = angular.fromJson(localStorage.userData);
             $scope.currentUser.disName = userData.DisplayName; // Show Display name of the current user
             var profilePic = userData.ProfilePicture;
@@ -95,7 +96,7 @@ angular.module('dowells.Controllers')
     };
     $scope.fetchUserStatus = function() {
         // Method to fetch logged in user work status
-
+        alert("fetchUserStatus in");
         var currentUserData = angular.fromJson(localStorage.userData);
 
         if (GenericSvc.checkInternet()) {
@@ -103,6 +104,7 @@ angular.module('dowells.Controllers')
             userDataParam.id = currentUserData.ID;
             GenericSvc.showLoader(infoMsgs.statusCheck);
             StatusSvc.getUserStatus(userDataParam).then(function(response) {
+                alert("fetchUserStatus service:"+JSON.stringify(response));
                 var res = response.data;
                 currentUserData.JobStatusType=res.Result;
                 localStorage.userData=angular.toJson(currentUserData);
@@ -133,7 +135,7 @@ angular.module('dowells.Controllers')
             });
 
         });*/
-        launchnavigator.navigate([$scope.jobsData.lat, $scope.jobsData.lng]);
+        // launchnavigator.navigate([$scope.jobsData.lat, $scope.jobsData.lng]);
     };
 
     $scope.$on("$ionicView.enter", function(event, data) {
