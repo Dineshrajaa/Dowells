@@ -4,8 +4,10 @@ angular.module('dowells.Controllers')
         $scope.fillUserInfo = function() {
             alert("fillUserInfo in:")
             var userData = angular.fromJson(localStorage.userData);
+            alert("userData:"+userData);
             $scope.currentUser.disName = userData.DisplayName; // Show Display name of the current user
             var profilePic = userData.ProfilePicture;
+            alert("profilePic:"+profilePic);
             GenericSvc.fillProfilePic(profilePic, 'userProfilePic');
         };
 
