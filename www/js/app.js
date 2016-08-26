@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var WSUrl;
-angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture', 'dowells.Services', 'dowells.Controllers'])
+angular.module('dowells', ['ionic', 'ngCordova', 'ion-profile-picture','ion-google-place', 'dowells.Services', 'dowells.Controllers'])
     .constant('errorMsgs', {
         noInternet: 'Please Check your Internet Connection',
         10: '(Applicant login pending)',

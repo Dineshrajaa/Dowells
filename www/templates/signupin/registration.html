@@ -49,7 +49,8 @@
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Search Address</span>
-                    <input type="text" placeholder="Search Address" id='keyword' ng-model='searchaddress'>
+                    <!-- <input type="text" placeholder="Search Address" id='keyword' ng-model='searchaddress'> -->
+                    <ion-google-place placeholder="Enter an address, Apt# and ZIP" ng-model="location" current-location="true" />
                 </label>
                 <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : regForm.streetaddress.$invalid && !regForm.streetaddress.$pristine, 'no-errors' : regForm.streetaddress.$valid}">
                     <span class="input-label mandatory">Street Address</span>
